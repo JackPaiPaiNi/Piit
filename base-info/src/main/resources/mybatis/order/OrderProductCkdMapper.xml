@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.order.repository.OrderProductCkdDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.order.vo.OrderProductCkdVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="wlbm" property="wlbm" jdbcType="VARCHAR" />
+		<result column="ms" property="ms" jdbcType="VARCHAR" />
+		<result column="djyl" property="djyl" jdbcType="DECIMAL" />
+		<result column="sdjysl" property="sdjysl" jdbcType="DECIMAL" />
+		<result column="dhsl" property="dhsl" jdbcType="DECIMAL" />
+		<result column="mfbssl" property="mfbssl" jdbcType="DECIMAL" />
+		<result column="ffbssl" property="ffbssl" jdbcType="DECIMAL" />
+		<result column="moqsl" property="moqsl" jdbcType="DECIMAL" />
+		<result column="xdsl" property="xdsl" jdbcType="DECIMAL" />
+		<result column="sapdhddsl" property="sapdhddsl" jdbcType="DECIMAL" />
+		<result column="bdjysl" property="bdjysl" jdbcType="DECIMAL" />
+		<result column="ne" property="ne" jdbcType="VARCHAR" />
+		<result column="po" property="po" jdbcType="VARCHAR" />
+		<result column="ncmcode" property="ncmcode" jdbcType="VARCHAR" />
+		<result column="ncm" property="ncm" jdbcType="VARCHAR" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="jz" property="jz" jdbcType="DECIMAL" />
+		<result column="mz" property="mz" jdbcType="DECIMAL" />
+		<result column="gysbm" property="gysbm" jdbcType="VARCHAR" />
+		<result column="gysmc" property="gysmc" jdbcType="VARCHAR" />
+		<result column="gysdz" property="gysdz" jdbcType="VARCHAR" />
+		<result column="ycd" property="ycd" jdbcType="VARCHAR" />
+		<result column="sf_yc" property="sfYc" jdbcType="DECIMAL" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+		<result column="sf_yj" property="sfYj" jdbcType="DECIMAL" />
+	</resultMap>
+    
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_ORDER_PRODUCT.P_SAVE_CKD_ITEM(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.wlbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.ms,jdbcType=VARCHAR,mode=IN},
+			#{vo.djyl,jdbcType=DECIMAL,mode=IN},
+			#{vo.sdjysl,jdbcType=DECIMAL,mode=IN},
+			#{vo.dhsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.mfbssl,jdbcType=DECIMAL,mode=IN},
+			#{vo.ffbssl,jdbcType=DECIMAL,mode=IN},
+			#{vo.moqsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.xdsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.sapdhddsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.bdjysl,jdbcType=DECIMAL,mode=IN},
+			#{vo.ne,jdbcType=VARCHAR,mode=IN},
+			#{vo.po,jdbcType=VARCHAR,mode=IN},
+			#{vo.ncmcode,jdbcType=VARCHAR,mode=IN},
+			#{vo.ncm,jdbcType=VARCHAR,mode=IN},
+			#{vo.dw,jdbcType=VARCHAR,mode=IN},
+			#{vo.jz,jdbcType=DECIMAL,mode=IN},
+			#{vo.mz,jdbcType=DECIMAL,mode=IN},
+			#{vo.gysbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.gysmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.gysdz,jdbcType=VARCHAR,mode=IN},
+			#{vo.ycd,jdbcType=VARCHAR,mode=IN},
+			#{vo.sfYc,jdbcType=INTEGER,mode=IN},
+			#{vo.dj,jdbcType=DECIMAL,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{vo.flag,jdbcType=VARCHAR,mode=IN},
+			#{vo.sfYj,jdbcType=DECIMAL,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ORDER_PRODUCT.P_QRY_CKD_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{ckdList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.order.repository.OrderProductCkdDao.baseResultMap}
+		)}
+	</select>
+	<select id="callSelectByPage" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ORDER_PRODUCT.P_QRY_CKD_BY_PAGE(
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.wlbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.ms,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.sfYc,jdbcType=INTEGER,mode=IN}, -->
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{ckdwycList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.order.repository.OrderProductCkdDao.baseResultMap}
+			
+		)}
+	</select>
+	<select id="callAddOrRemove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ORDER_PRODUCT.P_OPERATE_CKD_ITEM(
+		    #{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sfYc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<select id="callCompute" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ORDER_PRODUCT.P_CREATE_CKD_ITEM(
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{vo.ckddh,jdbcType=VARCHAR,mode=IN},
+			#{vo.sl,jdbcType=DECIMAL,mode=IN},
+			#{vo.mfbs,jdbcType=VARCHAR,mode=IN},
+			#{vo.mfbsbl,jdbcType=DECIMAL,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ORDER_PRODUCT.P_DELETE_CKD_ITEM(
+		    #{vo.ddid,jdbcType=VARCHAR,mode=IN},
+		    #{vo.bbh,jdbcType=DECIMAL,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

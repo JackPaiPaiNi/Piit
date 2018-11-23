@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.MaterialDescriptionDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.MaterialDescriptionVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="yy" property="yy" jdbcType="VARCHAR" />
+		<result column="ms" property="ms" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.wlbh AS "wlbh",
+		a.yy AS "yy",
+		a.ms AS "ms"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_material_description a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_material_description a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="wlbh != null and wlbh != ''">
+				AND a.wlbh LIKE '%'||#{wlbh}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_material_description(
+			id,
+			wlbh,
+			yy,
+			ms
+		) VALUES (
+			#{id},
+			#{wlbh},
+			#{yy},
+			#{ms}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_material_description
+		<set>
+            <if test="wlbh != null" >
+				wlbh = #{wlbh},
+			</if>
+            <if test="yy != null" >
+				yy = #{yy},
+			</if>
+            <if test="ms != null" >
+				ms = #{ms},
+			</if>
+        </set>
+           WHERE id = #{id}  
+	</update>
+	
+	<update id="updateByWlbhYy">
+		UPDATE t_material_description
+		<set>
+            <if test="ms != null" >
+				ms = #{ms},
+			</if>
+        </set>
+           WHERE wlbh = #{wlbh} and yy = #{yy}  
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_material_description
+		WHERE id = #{id}
+	</delete>
+	
+	
+	
+	<select id="count" resultType="int">
+	    select  count(*)  from  t_material_description  where wlbh=#{wlbh} and  yy=#{yy}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

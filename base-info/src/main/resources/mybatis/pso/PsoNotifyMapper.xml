@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.pso.repository.PsoNotifyDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.pso.vo.PsoNotifyVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="xh" property="xh" jdbcType="DECIMAL" />
+		<result column="tzrmc" property="tzrmc" jdbcType="VARCHAR" />
+		<result column="tzrdz" property="tzrdz" jdbcType="VARCHAR" />
+		<result column="tzrlxr" property="tzrlxr" jdbcType="VARCHAR" />
+		<result column="tzrdh" property="tzrdh" jdbcType="VARCHAR" />
+		<result column="tzrcz" property="tzrcz" jdbcType="VARCHAR" />
+		<result column="tzryb" property="tzryb" jdbcType="VARCHAR" />
+		<result column="tzryx" property="tzryx" jdbcType="VARCHAR" />
+		<result column="tzfdm" property="tzfdm" jdbcType="VARCHAR" />
+		<result column="tzfdh" property="tzfdh" jdbcType="VARCHAR" />
+	</resultMap>
+	 <insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_SAVE_NOTIFY(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+		    #{vo.xh,jdbcType=DECIMAL,mode=IN},
+			#{vo.tzrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzrdz,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzrlxr,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzrdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzrcz,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzryb,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzryx,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzfdm,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzfdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

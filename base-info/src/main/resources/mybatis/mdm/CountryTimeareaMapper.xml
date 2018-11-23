@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CountryTimeareaDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CountryTimeareaVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="gjdm" property="gjdm" jdbcType="VARCHAR" />
+		<result column="sqmc" property="sqmc" jdbcType="VARCHAR" />
+		<result column="sdsq" property="sdsq" jdbcType="DECIMAL" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.gjdm AS "gjdm",
+		a.sqmc AS "sqmc",
+		a.sdsq AS "sdsq"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_country_timearea a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_country_timearea a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="gjdm != null and gjdm != ''">
+				AND a.gjdm LIKE '%'||#{gjdm}||'%'
+			</if>
+			<if test="sdsq != null ">
+				AND a.sdsq = #{sdsq}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_country_timearea(
+			id,
+			gjdm,
+			sqmc,
+			sdsq
+		) VALUES (
+			#{id},
+			#{gjdm},
+			#{sqmc},
+			#{sdsq}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_country_timearea
+		<set>
+            <if test="gjdm != null" >
+				gjdm = #{gjdm},
+			</if>
+            <if test="sqmc != null" >
+				sqmc = #{sqmc},
+			</if>
+            <if test="sdsq != null" >
+				sdsq = #{sdsq},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_country_timearea
+		WHERE id = #{id}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

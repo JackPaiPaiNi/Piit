@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.fcst.repository.FcstWeekDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.fcst.vo.FcstWeekVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="nf" property="nf" jdbcType="VARCHAR" />
+		<result column="yf" property="yf" jdbcType="VARCHAR" />
+		<result column="zc" property="zc" jdbcType="VARCHAR" />
+		<result column="rq" property="rq" jdbcType="VARCHAR" />
+		<result column="ksrq" property="ksrq" jdbcType="TIMESTAMP" />
+		<result column="jsrq" property="jsrq" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="xh" property="xh" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.nf AS "nf",
+		a.yf AS "yf",
+		a.zc AS "zc",
+		a.zc||'('||to_char(a.ksrq,'mmdd')||'-'||to_char(a.jsrq,'mmdd')||')' AS "rq",
+		a.ksrq AS "ksrq",
+		a.jsrq AS "jsrq",
+		a.zt AS "zt",
+		a.xh AS "xh"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+   
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_fcst_week a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_fcst_week a
+		<include refid="columnJoins"/>
+		<where>
+		    <if test="ksrq != null and ksrq != ''">
+				AND  a.ksrq >= #{ksrq}   
+			</if>
+			<if test="jsrq != null and jsrq != ''">
+				AND #{jsrq} >= a.jsrq   
+			</if>
+			<if test="zt != null and zt != ''">
+				AND a.zt = #{zt}
+			</if>
+		</where>
+		ORDER BY a.xh
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_fcst_week(
+			id,
+			nf,
+			yf,
+			zc,
+			ksrq,
+			jsrq,
+			zt,
+			xh
+		) VALUES (
+			#{id},
+			#{nf},
+			#{yf},
+			#{zc},
+			#{ksrq},
+			#{jsrq},
+			#{zt},
+			#{xh}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_fcst_week
+		<set>
+            <if test="nf != null" >
+				nf = #{nf},
+			</if>
+            <if test="yf != null" >
+				yf = #{yf},
+			</if>
+            <if test="zc != null" >
+				zc = #{zc},
+			</if>
+            <if test="ksrq != null" >
+				ksrq = #{ksrq},
+			</if>
+            <if test="jsrq != null" >
+				jsrq = #{jsrq},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+            <if test="xh != null" >
+				xh = #{xh},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_fcst_week
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

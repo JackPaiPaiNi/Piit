@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basedemo.repository.DemoDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basedemo.vo.DemoVo" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="age" property="age" jdbcType="BIGINT" />
+        <result column="salary" property="salary" jdbcType="DECIMAL" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="CHAR" />
+        <result column="status" property="status" jdbcType="CHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="sdate" property="sdate" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        id, name, age, salary, phone, email, sex, status, description, sdate
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from t_demo
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basedemo.entity.Demo" >
+        insert into t_demo (id, name, age, 
+            salary, phone, email, 
+            sex, status, description, 
+            sdate)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=BIGINT}, 
+            #{salary,jdbcType=DECIMAL}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+            #{sex,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{description,jdbcType=VARCHAR}, 
+            #{sdate,jdbcType=DATE})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basedemo.entity.Demo" >
+        update t_demo
+        <set >
+            <if test="name != null and name != ''" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                age = #{age,jdbcType=BIGINT},
+            </if>
+            <if test="salary != null" >
+                salary = #{salary,jdbcType=DECIMAL},
+            </if>
+            <if test="phone != null and phone != ''" >
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''" >
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null and sex != ''" >
+                sex = #{sex,jdbcType=CHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="sdate != null" >
+                sdate = #{sdate,jdbcType=DATE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basedemo.entity.Demo" >
+        update t_demo
+        set name = #{name,jdbcType=VARCHAR},
+            age = #{age,jdbcType=BIGINT},
+            salary = #{salary,jdbcType=DECIMAL},
+            phone = #{phone,jdbcType=VARCHAR},
+            email = #{email,jdbcType=VARCHAR},
+            sex = #{sex,jdbcType=CHAR},
+            status = #{status,jdbcType=CHAR},
+            description = #{description,jdbcType=VARCHAR},
+            sdate = #{sdate,jdbcType=DATE}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from t_demo
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from t_demo
+        <where >
+            <if test="name != null and name != ''" >
+                and name = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="age != null and age != ''" >
+                and age = #{age,jdbcType=BIGINT}
+            </if>
+            <if test="salary != null and salary != ''" >
+                and salary = #{salary,jdbcType=DECIMAL}
+            </if>
+            <if test="phone != null and phone != ''" >
+                and phone = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null and email != ''" >
+                and email = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="sex != null and sex != ''" >
+                and sex = #{sex,jdbcType=CHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and status = #{status,jdbcType=CHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and description = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="sdate != null and sdate != ''" >
+                and sdate = #{sdate,jdbcType=DATE}
+            </if>
+        </where>
+    </select>
+
+</mapper>

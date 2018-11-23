@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.log.repository.SapInterfaceLogDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.interfaces.log.vo.SapInterfaceLogVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="mk" property="mk" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="sj" property="sj" jdbcType="TIMESTAMP" />
+		<result column="fhzt" property="fhzt" jdbcType="DECIMAL" />
+		<result column="fhxx" property="fhxx" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<select id="callSelectLog" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_LOG(
+			#{id,jdbcType=VARCHAR,mode=IN},
+		    #{fplx,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.log.repository.SapInterfaceLogDao.baseResultMap})
+		}
+	</select>
+	
+	
+	<insert id="callSaveLog" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_SAP_INTERFACES.P_SAVE_LOG(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.mk,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.fhzt,jdbcType=DECIMAL,mode=IN},
+			#{vo.fhxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.bw,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

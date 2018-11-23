@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.track.repository.TrackDelayDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.track.vo.TrackDelayVo" >
+	    <result column="id"   property="id" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="ywjd" property="ywjd" jdbcType="VARCHAR" />
+		<result column="ywjdmc" property="ywjdmc" jdbcType="VARCHAR" />
+		<result column="ywyy" property="ywyy" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="dd_id" property="ddId" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.ddid AS "ddid",
+		a.khbm AS "khbm",
+		a.khmc AS "khmc",
+		a.ywjd AS "ywjd",
+		a.ywjdmc AS "ywjdmc",
+		a.ywyy AS "ywyy",
+		a.zdrid AS "zdrid",
+		a.zdrmc AS "zdrmc",
+		a.zdsj AS "zdsj",
+		a.dd_id AS "ddId"
+	</sql>
+	<insert id="insert">
+		INSERT INTO t_track_delay(
+			id,
+			ddid,
+			khbm,
+			khmc,
+			ywjd,
+			ywjdmc,
+			ywyy,
+			zdrid,
+			zdrmc,
+			zdsj
+		) VALUES (
+			#{id},	
+		    #{ddid},
+			#{khbm},
+			#{khmc},
+			#{ywjd},
+			#{ywjdmc},
+			#{ywyy},
+		    #{zdrid},
+		    #{zdrmc},
+			#{zdsj}
+		)
+	</insert>
+	
+	
+	<update id="update">
+		UPDATE t_track_delay
+		<set>
+            <if test="zdrid != null" >
+				zdrid = #{zdrid},
+			</if>
+            <if test="zdrmc != null" >
+				zdrmc = #{zdrmc},
+			</if>
+            <if test="zdsj != null" >
+				zdsj = #{zdsj},
+			</if>
+			<if test="ywyy != null" >
+				ywyy = #{ywyy},
+			</if>
+        </set>
+		WHERE  ddid= #{ddid} and ywjd=#{ywjd}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	<select id="selectByDdid" parameterType="Map" statementType="CALLABLE">
+		{call PKG_TRACK.P_QRY_YWJD_BY_DDID(
+			#{ddid,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.track.repository.TrackDelayDao.baseResultMap})
+		}
+	</select>
+	<select id="count" parameterType="java.lang.String"  resultType="int">
+	   select count(*) from t_track_delay  where ddid=#{ddid} and ywjd=#{ywjd}
+	</select>
+</mapper>

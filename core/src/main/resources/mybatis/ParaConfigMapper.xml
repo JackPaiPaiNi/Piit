@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.para.repository.ParaConfigDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basesys.para.vo.ParaConfigVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="KEY" property="key" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="VALUE" property="value" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="START_DATE" property="startDate" jdbcType="VARCHAR" />
+        <result column="END_DATE" property="endDate" jdbcType="VARCHAR" />
+        <result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+        <result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, KEY, TYPE, VALUE, DESCRIPTION, STATUS, START_DATE, END_DATE, EXT1, EXT2
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_PARA_CONFIG
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basesys.para.entity.ParaConfig" >
+        insert into T_PARA_CONFIG (ID, KEY, TYPE, 
+            VALUE, DESCRIPTION, STATUS, 
+            START_DATE, END_DATE, EXT1, 
+            EXT2)
+        values (#{id,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+            #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+            #{startDate,jdbcType=VARCHAR}, #{endDate,jdbcType=VARCHAR}, #{ext1,jdbcType=VARCHAR}, 
+            #{ext2,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basesys.para.entity.ParaConfig" >
+        update T_PARA_CONFIG
+        <set >
+            <if test="key != null and key != ''" >
+                KEY = #{key,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null and value != ''" >
+                VALUE = #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null and startDate != ''" >
+                START_DATE = #{startDate,jdbcType=VARCHAR},
+            </if>
+            <if test="endDate != null and endDate != ''" >
+                END_DATE = #{endDate,jdbcType=VARCHAR},
+            </if>
+            <if test="ext1 != null and ext1 != ''" >
+                EXT1 = #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null and ext2 != ''" >
+                EXT2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basesys.para.entity.ParaConfig" >
+        update T_PARA_CONFIG
+        set KEY = #{key,jdbcType=VARCHAR},
+            TYPE = #{type,jdbcType=VARCHAR},
+            VALUE = #{value,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            START_DATE = #{startDate,jdbcType=VARCHAR},
+            END_DATE = #{endDate,jdbcType=VARCHAR},
+            EXT1 = #{ext1,jdbcType=VARCHAR},
+            EXT2 = #{ext2,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_PARA_CONFIG
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_PARA_CONFIG
+        <where >
+            <if test="key != null and key != ''" >
+                and KEY = #{key,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null and type != ''" >
+                and TYPE = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="value != null and value != ''" >
+                and VALUE = #{value,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="startDate != null and startDate != ''" >
+                and START_DATE = #{startDate,jdbcType=VARCHAR}
+            </if>
+            <if test="endDate != null and endDate != ''" >
+                and END_DATE = #{endDate,jdbcType=VARCHAR}
+            </if>
+            <if test="ext1 != null and ext1 != ''" >
+                and EXT1 = #{ext1,jdbcType=VARCHAR}
+            </if>
+            <if test="ext2 != null and ext2 != ''" >
+                and EXT2 = #{ext2,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>

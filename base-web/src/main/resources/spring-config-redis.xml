@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="jedisTemplate" class="com.ey.piit.core.redis.factory.JedisShardedFactory">
+		<property name="address">
+			<set>
+				<value>${redis.address1}</value>
+				<value>${redis.address2}</value>
+				<value>${redis.address3}</value>
+			</set>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.fcst.repository.FcstSampleDataDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.fcst.vo.FcstSampleDataVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="ywz" property="ywz" jdbcType="VARCHAR" />
+		<result column="ywzmc" property="ywzmc" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="xszzmc" property="xszzmc" jdbcType="VARCHAR" />
+		<result column="nf" property="nf" jdbcType="VARCHAR" />
+		<result column="yf" property="yf" jdbcType="VARCHAR" />
+		<result column="zc" property="zc" jdbcType="VARCHAR" />
+		<result column="zcrq" property="zcrq" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="ptbh" property="ptbh" jdbcType="VARCHAR" />
+		<result column="wgys" property="wgys" jdbcType="VARCHAR" />
+		<result column="logo" property="logo" jdbcType="VARCHAR" />
+		<result column="yjyt" property="yjyt" jdbcType="VARCHAR" />
+		<result column="chsj" property="chsj" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="psrid" property="psrid" jdbcType="VARCHAR" />
+		<result column="psrmc" property="psrmc" jdbcType="VARCHAR" />
+		<result column="pssj" property="pssj" jdbcType="TIMESTAMP" />
+		<result column="psyj" property="psyj" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_FCST_SAMPLE.P_QRY(
+			#{sfxsy,jdbcType=INTEGER,mode=IN},
+			#{vo.zc,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+		    #{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=VARCHAR,mode=IN},
+		    #{vo.psyj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.fcst.repository.FcstSampleDataDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectWeek" parameterType="Map" statementType="CALLABLE">
+		{call PKG_FCST_SAMPLE.P_QRY_ZC(
+			#{zc,jdbcType=VARCHAR,mode=OUT},
+			#{zcrq,jdbcType=VARCHAR,mode=OUT})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_FCST_SAMPLE.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.ywz,jdbcType=VARCHAR,mode=IN},
+			#{vo.ywzmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszzmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.nf,jdbcType=VARCHAR,mode=IN},
+			#{vo.yf,jdbcType=VARCHAR,mode=IN},
+			#{vo.zc,jdbcType=VARCHAR,mode=IN},
+			#{vo.sl,jdbcType=DECIMAL,mode=IN},
+			#{vo.xwgj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xwgjmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.ptbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.wgys,jdbcType=VARCHAR,mode=IN},
+			#{vo.logo,jdbcType=VARCHAR,mode=IN},
+			#{vo.yjyt,jdbcType=VARCHAR,mode=IN},
+			#{vo.chsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdsj,jdbcType=DATE,mode=IN},
+			#{vo.psrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.psrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.pssj,jdbcType=DATE,mode=IN},
+			#{vo.psyj,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+    
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

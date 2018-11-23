@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.payment.dao.IPayReceiveDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.interfaces.payment.dto.PayReceiveBodyDto" >
+		<result column="skdh" property="skdh" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="skyhzh" property="skyhzh" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="skrq" property="skrq" jdbcType="VARCHAR" />
+		<result column="skdjrq" property="skdjrq" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+	</resultMap>
+    
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_PAY_RECEIVE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{flag,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.payment.dao.IPayReceiveDao.baseResultMap})
+		}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

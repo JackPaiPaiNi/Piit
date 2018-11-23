@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.baseinfo.area.repository.AreaDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.baseinfo.area.vo.AreaVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="EXT_CODE" property="extCode" jdbcType="VARCHAR" />
+        <result column="CN_NAME" property="cnName" jdbcType="VARCHAR" />
+        <result column="EN_NAME" property="enName" jdbcType="VARCHAR" />
+        <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+        <result column="FULL_PATH_CODE" property="fullPathCode" jdbcType="VARCHAR" />
+        <result column="CHILD_COUNT" property="childCount" jdbcType="DECIMAL" />
+        <result column="LEVELS" property="levels" jdbcType="DECIMAL" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="CN_FULL_NAME" property="cnFullName" jdbcType="VARCHAR" />
+        <result column="EN_FULL_NAME" property="enFullName" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="SDSQ" property="sdsq" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="treeResultMap" type="com.ey.piit.core.entity.TreeNode" >
+    	<result property="checked" column="CHECKED" javaType="Boolean" jdbcType="CHAR"/>
+    	<result property="isParent" column="IS_PARENT" javaType="Boolean" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, CODE, EXT_CODE, CN_NAME, EN_NAME, PARENT_CODE, FULL_PATH_CODE, CHILD_COUNT, LEVELS, 
+        SORT, CN_FULL_NAME, EN_FULL_NAME, STATUS, CREATOR, CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME,SDSQ
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_AREA
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.baseinfo.area.entity.Area" >
+        insert into T_AREA (ID, CODE, EXT_CODE, 
+            CN_NAME, EN_NAME, PARENT_CODE, 
+            FULL_PATH_CODE, CHILD_COUNT, LEVELS, 
+            SORT, CN_FULL_NAME, EN_FULL_NAME, 
+            STATUS, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME,SDSQ)
+        values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{extCode,jdbcType=VARCHAR}, 
+            #{cnName,jdbcType=VARCHAR}, #{enName,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, 
+            #{fullPathCode,jdbcType=VARCHAR}, #{childCount,jdbcType=DECIMAL}, #{levels,jdbcType=DECIMAL}, 
+            #{sort,jdbcType=DECIMAL}, #{cnFullName,jdbcType=VARCHAR}, #{enFullName,jdbcType=VARCHAR}, 
+            #{status,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP},#{sdsq,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.baseinfo.area.entity.Area" >
+        update T_AREA
+        <set >
+            <if test="code != null and code != ''" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="extCode != null and extCode != ''" >
+                EXT_CODE = #{extCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cnName != null and cnName != ''" >
+                CN_NAME = #{cnName,jdbcType=VARCHAR},
+            </if>
+            <if test="enName != null and enName != ''" >
+                EN_NAME = #{enName,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null and parentCode != ''" >
+                PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="fullPathCode != null and fullPathCode != ''" >
+                FULL_PATH_CODE = #{fullPathCode,jdbcType=VARCHAR},
+            </if>
+            <if test="childCount != null" >
+                CHILD_COUNT = #{childCount,jdbcType=DECIMAL},
+            </if>
+            <if test="levels != null" >
+                LEVELS = #{levels,jdbcType=DECIMAL},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=DECIMAL},
+            </if>
+            <if test="cnFullName != null and cnFullName != ''" >
+                CN_FULL_NAME = #{cnFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="enFullName != null and enFullName != ''" >
+                EN_FULL_NAME = #{enFullName,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+             <if test="sdsq != null" >
+                SDSQ = #{sdsq,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.baseinfo.area.entity.Area" >
+        update T_AREA
+        set CODE = #{code,jdbcType=VARCHAR},
+            EXT_CODE = #{extCode,jdbcType=VARCHAR},
+            CN_NAME = #{cnName,jdbcType=VARCHAR},
+            EN_NAME = #{enName,jdbcType=VARCHAR},
+            PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+            FULL_PATH_CODE = #{fullPathCode,jdbcType=VARCHAR},
+            CHILD_COUNT = #{childCount,jdbcType=DECIMAL},
+            LEVELS = #{levels,jdbcType=DECIMAL},
+            SORT = #{sort,jdbcType=DECIMAL},
+            CN_FULL_NAME = #{cnFullName,jdbcType=VARCHAR},
+            EN_FULL_NAME = #{enFullName,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            SDSQ = #{sdsq,jdbcType=VARCHAR} 
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />,
+        (select CN_NAME from T_AREA where CODE = t.PARENT_CODE) "PARENT_NAME"
+        from T_AREA t
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_AREA
+        <where >
+            <if test="code != null and code != ''" >
+                and CODE = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="extCode != null and extCode != ''" >
+                and EXT_CODE = #{extCode,jdbcType=VARCHAR}
+            </if>
+            <if test="cnName != null and cnName != ''" >
+                and CN_NAME like '%'||#{cnName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="enName != null and enName != ''" >
+                and EN_NAME = #{enName,jdbcType=VARCHAR}
+            </if>
+            <if test="parentCode != null and parentCode != ''" >
+                and PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+            </if>
+            <if test="fullPathCode != null and fullPathCode != ''" >
+                and FULL_PATH_CODE = #{fullPathCode,jdbcType=VARCHAR}
+            </if>
+            <if test="childCount != null and childCount != ''" >
+                and CHILD_COUNT = #{childCount,jdbcType=DECIMAL}
+            </if>
+            <if test="levels != null and levels != ''" >
+                and LEVELS = #{levels,jdbcType=DECIMAL}
+            </if>
+            <if test="sort != null and sort != ''" >
+                and SORT = #{sort,jdbcType=DECIMAL}
+            </if>
+            <if test="cnFullName != null and cnFullName != ''" >
+                and CN_FULL_NAME = #{cnFullName,jdbcType=VARCHAR}
+            </if>
+            <if test="enFullName != null and enFullName != ''" >
+                and EN_FULL_NAME = #{enFullName,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+             <if test="sdsq != null and sdsq != ''" >
+                and SDSQ = #{sdsq,jdbcType=VARCAHR}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectTreeByParentCode" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select ID "EXT", CODE "ID", <![CDATA[decode(STATUS,'1',CODE||'-'||CN_NAME,'<del>'||CODE||'-'||CN_NAME||'</del>')]]> "NAME", <![CDATA[decode(STATUS,'1',CN_NAME,CN_NAME||'（已禁用）')]]> "EXT2", PARENT_CODE "PID", FULL_PATH_CODE "PATH", decode(CHILD_COUNT,0,'N','Y') "IS_PARENT", STATUS
+    	from T_AREA
+    	<where >
+    		<if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+    		<choose>
+            	<when test="parentCode != null and parentCode != ''">
+	    			and PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+	    		</when>
+	    		<otherwise>
+	    			and PARENT_CODE is null
+	    		</otherwise>
+	    	</choose>
+    	</where>
+    	order by SORT
+    </select>
+    
+    <update id="updateChildCountByCode" parameterType="java.util.Map" >
+    	update T_AREA
+        set
+            <if test="childCountAdd != null" >
+                CHILD_COUNT = CHILD_COUNT+1
+            </if>
+            <if test="childCountDel != null" >
+                CHILD_COUNT = CHILD_COUNT-1
+            </if>
+        where CODE = #{code,jdbcType=VARCHAR}
+    </update>
+    
+    <select id="selectByCode" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select 
+		<include refid="baseColumnList" />
+    	from T_AREA
+    	where CODE = #{code,jdbcType=VARCHAR}
+    </select>
+    
+    <select id="selectChildByCode" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select
+    	<include refid="baseColumnList" />
+    	from T_AREA
+    	where FULL_PATH_CODE like (
+	    	select max(FULL_PATH_CODE)
+	    	from T_AREA
+	    	where CODE = #{code,jdbcType=VARCHAR}
+	    	) || '/%'
+    </select>
+    
+    <select id="selectTreeInCode" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select ID "EXT", CODE "ID", <![CDATA[decode(STATUS,'1',CODE||'-'||CN_NAME,'<del>'||CODE||'-'||CN_NAME||'</del>')]]> "NAME", PARENT_CODE "PID", FULL_PATH_CODE "PATH", decode(CHILD_COUNT,0,'N','Y') "IS_PARENT", STATUS
+    	from T_AREA
+    	where CODE in (${codes})
+    	order by SORT
+    </select>
+    
+    <update id="updateChildStatusByPath" parameterType="java.util.Map">
+    	update T_AREA
+        set STATUS = #{status,jdbcType=VARCHAR}
+        where FULL_PATH_CODE like '${path}%'
+    </update>
+    
+</mapper>

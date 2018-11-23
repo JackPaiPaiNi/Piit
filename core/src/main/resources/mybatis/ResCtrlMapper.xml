@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.resource.repository.ResCtrlDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basesys.resource.vo.ResCtrlVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="MODULE" property="module" jdbcType="VARCHAR" />
+        <result column="CTRL_CODE" property="ctrlCode" jdbcType="VARCHAR" />
+        <result column="RES_ID" property="resId" jdbcType="VARCHAR" />
+        <result column="IS_REQUIRED" property="isRequired" jdbcType="CHAR" />
+        <result column="IS_HIDE" property="isHide" jdbcType="CHAR" />
+        <result column="IS_READONLY" property="isReadonly" jdbcType="CHAR" />
+        <result column="IS_ENABLE" property="isEnable" jdbcType="CHAR" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="CONDITION" property="condition" jdbcType="VARCHAR" />
+        <result column="VALUE" property="value" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="RES_TYPE" property="resType" jdbcType="VARCHAR" />
+        <result column="ROLE_CODE" property="roleCode" jdbcType="VARCHAR" />
+        <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, MODULE, CTRL_CODE, RES_ID, IS_REQUIRED, IS_HIDE, IS_READONLY, IS_ENABLE, SORT, 
+        CONDITION, VALUE, STATUS, DESCRIPTION, CREATOR, CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_RES_CTRL
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basesys.resource.entity.ResCtrl" >
+        insert into T_RES_CTRL (ID, MODULE, CTRL_CODE, 
+            RES_ID, IS_REQUIRED, IS_HIDE, 
+            IS_READONLY, IS_ENABLE, SORT, 
+            CONDITION, VALUE, STATUS, 
+            DESCRIPTION, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME)
+        values (#{id,jdbcType=VARCHAR}, #{module,jdbcType=VARCHAR}, #{ctrlCode,jdbcType=VARCHAR}, 
+            #{resId,jdbcType=VARCHAR}, #{isRequired,jdbcType=CHAR}, #{isHide,jdbcType=CHAR}, 
+            #{isReadonly,jdbcType=CHAR}, #{isEnable,jdbcType=CHAR}, #{sort,jdbcType=DECIMAL}, 
+            #{condition,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+            #{description,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basesys.resource.entity.ResCtrl" >
+        update T_RES_CTRL
+        <set >
+            <if test="module != null and module != ''" >
+                MODULE = #{module,jdbcType=VARCHAR},
+            </if>
+            <if test="ctrlCode != null and ctrlCode != ''" >
+                CTRL_CODE = #{ctrlCode,jdbcType=VARCHAR},
+            </if>
+            <if test="resId != null and resId != ''" >
+                RES_ID = #{resId,jdbcType=VARCHAR},
+            </if>
+            <if test="isRequired != null and isRequired != ''" >
+                IS_REQUIRED = #{isRequired,jdbcType=CHAR},
+            </if>
+            <if test="isHide != null and isHide != ''" >
+                IS_HIDE = #{isHide,jdbcType=CHAR},
+            </if>
+            <if test="isReadonly != null and isReadonly != ''" >
+                IS_READONLY = #{isReadonly,jdbcType=CHAR},
+            </if>
+            <if test="isEnable != null and isEnable != ''" >
+                IS_ENABLE = #{isEnable,jdbcType=CHAR},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=DECIMAL},
+            </if>
+            <if test="condition != null and condition != ''" >
+                CONDITION = #{condition,jdbcType=VARCHAR},
+            </if>
+            <if test="value != null and value != ''" >
+                VALUE = #{value,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basesys.resource.entity.ResCtrl" >
+        update T_RES_CTRL
+        set MODULE = #{module,jdbcType=VARCHAR},
+            CTRL_CODE = #{ctrlCode,jdbcType=VARCHAR},
+            RES_ID = #{resId,jdbcType=VARCHAR},
+            IS_REQUIRED = #{isRequired,jdbcType=CHAR},
+            IS_HIDE = #{isHide,jdbcType=CHAR},
+            IS_READONLY = #{isReadonly,jdbcType=CHAR},
+            IS_ENABLE = #{isEnable,jdbcType=CHAR},
+            SORT = #{sort,jdbcType=DECIMAL},
+            CONDITION = #{condition,jdbcType=VARCHAR},
+            VALUE = #{value,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_RES_CTRL
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_RES_CTRL
+        <where >
+            <if test="module != null and module != ''" >
+                and MODULE = #{module,jdbcType=VARCHAR}
+            </if>
+            <if test="ctrlCode != null and ctrlCode != ''" >
+                and CTRL_CODE = #{ctrlCode,jdbcType=VARCHAR}
+            </if>
+            <if test="resId != null and resId != ''" >
+                and RES_ID = #{resId,jdbcType=VARCHAR}
+            </if>
+            <if test="isRequired != null and isRequired != ''" >
+                and IS_REQUIRED = #{isRequired,jdbcType=CHAR}
+            </if>
+            <if test="isHide != null and isHide != ''" >
+                and IS_HIDE = #{isHide,jdbcType=CHAR}
+            </if>
+            <if test="isReadonly != null and isReadonly != ''" >
+                and IS_READONLY = #{isReadonly,jdbcType=CHAR}
+            </if>
+            <if test="isEnable != null and isEnable != ''" >
+                and IS_ENABLE = #{isEnable,jdbcType=CHAR}
+            </if>
+            <if test="sort != null and sort != ''" >
+                and SORT = #{sort,jdbcType=DECIMAL}
+            </if>
+            <if test="condition != null and condition != ''" >
+                and CONDITION = #{condition,jdbcType=VARCHAR}
+            </if>
+            <if test="value != null and value != ''" >
+                and VALUE = #{value,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectVResCtrl" resultMap="baseResultMap" parameterType="java.util.Map" >
+    	select 
+        <include refid="baseColumnList" />,RES_TYPE,PARENT_ID
+        from V_RES_CTRL
+        <where >
+            <if test="module != null and module != ''" >
+                and MODULE = #{module,jdbcType=VARCHAR}
+            </if>
+            <if test="roleCode != null and roleCode != ''" >
+                and ROLE_CODE = #{roleCode,jdbcType=VARCHAR}
+            </if>
+            <if test="nodeName != null and nodeName != ''" >
+                and NODE_NAME = #{nodeName,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.MaterialInfoDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.MaterialInfoVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="wllx" property="wllx" jdbcType="VARCHAR" />
+		<result column="wlz" property="wlz" jdbcType="VARCHAR" />
+		<result column="mpq" property="mpq" jdbcType="DECIMAL" />
+		<result column="wldmszw" property="wldmszw" jdbcType="VARCHAR" />
+		<result column="wldmsyw" property="wldmsyw" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="ggcc" property="ggcc" jdbcType="VARCHAR" />
+		<result column="cpdl" property="cpdl" jdbcType="VARCHAR" />
+		<result column="cpzl" property="cpzl" jdbcType="VARCHAR" />
+		<result column="cpxl" property="cpxl" jdbcType="VARCHAR" />
+		<result column="wldw" property="wldw" jdbcType="VARCHAR" />
+		<result column="wlzt" property="wlzt" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="VARCHAR" />
+		<result column="model" property="model" jdbcType="VARCHAR" />
+		<result column="khxh" property="khxh" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.wlbh AS "wlbh",
+		a.wllx AS "wllx",
+		a.wlz AS "wlz",
+		a.mpq AS "mpq",
+		a.wldmszw AS "wldmszw",
+		a.wldmsyw AS "wldmsyw",
+		a.wlms AS "wlms",
+		a.ggcc AS "ggcc",
+		a.cpdl AS "cpdl",
+		a.cpzl AS "cpzl",
+		a.cpxl AS "cpxl",
+		a.wldw AS "wldw",
+		a.wlzt AS "wlzt",
+		a.sjc AS "sjc",
+		a.model AS "model"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_material_info a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_material_info a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="wlbh != null and wlbh != ''">
+				AND a.wlbh LIKE '%'||#{wlbh}||'%'
+			</if>
+			<if test="wllx != null and wllx != ''">
+				AND a.wllx LIKE '%'||#{wllx}||'%'
+			</if>
+			<if test="wlz != null and wlz != ''">
+				AND a.wlz LIKE '%'||#{wlz}||'%'
+			</if>
+			<if test="wldmszw != null and wldmszw != ''">
+				AND a.wldmszw LIKE '%'||#{wldmszw}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_material_info(
+			id,
+			wlbh,
+			wllx,
+			wlz,
+			mpq,
+			wldmszw,
+			wldmsyw,
+			wlms,
+			ggcc,
+			cpdl,
+			cpzl,
+			cpxl,
+			wldw,
+			wlzt,
+			sjc,
+			model
+		) VALUES (
+			#{id},
+			#{wlbh},
+			#{wllx},
+			#{wlz},
+			#{mpq},
+			#{wldmszw},
+			#{wldmsyw},
+			#{wlms},
+			#{ggcc},
+			#{cpdl},
+			#{cpzl},
+			#{cpxl},
+			#{wldw},
+			#{wlzt},
+			#{sjc},
+			#{model}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_material_info
+		<set>
+            <if test="wlbh != null" >
+				wlbh = #{wlbh},
+			</if>
+            <if test="wllx != null" >
+				wllx = #{wllx},
+			</if>
+            <if test="wlz != null" >
+				wlz = #{wlz},
+			</if>
+            <if test="mpq != null" >
+				mpq = #{mpq},
+			</if>
+            <if test="wldmszw != null" >
+				wldmszw = #{wldmszw},
+			</if>
+            <if test="wldmsyw != null" >
+				wldmsyw = #{wldmsyw},
+			</if>
+            <if test="wlms != null" >
+				wlms = #{wlms},
+			</if>
+            <if test="ggcc != null" >
+				ggcc = #{ggcc},
+			</if>
+            <if test="cpdl != null" >
+				cpdl = #{cpdl},
+			</if>
+            <if test="cpzl != null" >
+				cpzl = #{cpzl},
+			</if>
+            <if test="cpxl != null" >
+				cpxl = #{cpxl},
+			</if>
+            <if test="wldw != null" >
+				wldw = #{wldw},
+			</if>
+            <if test="wlzt != null" >
+				wlzt = #{wlzt},
+			</if>
+            <if test="sjc != null" >
+				sjc = #{sjc},
+			</if>
+			<if test="model != null" >
+				model = #{model},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_material_info
+		WHERE id = #{id}
+	</delete>
+	<!-- 同步物料主数据 -->
+	<update id="callTbwlxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP.P_MATERIAL}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

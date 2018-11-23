@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.shippingsheet.dao.SapShippingsheetDao">
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.shippingsheet.dto.ShippingsheetBodyDto" >
+		<result column="matnr" property="matnr" jdbcType="VARCHAR" />
+		<result column="vbeln" property="vbeln" jdbcType="VARCHAR" />
+		<result column="price" property="price" jdbcType="VARCHAR" />
+		<result column="waers" property="waers" jdbcType="VARCHAR" />
+		<result column="meins" property="meins" jdbcType="VARCHAR" />
+		<result column="znote" property="znote" jdbcType="VARCHAR" />
+	</resultMap>
+	
+ 	<select id="callSelectByDrdh" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_SHEET.P_QRY_BY_DRDH(
+			#{drdh,jdbcType=VARCHAR,mode=IN},
+			#{bodyList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.shippingsheet.dao.SapShippingsheetDao.bodyResultMap})
+		}
+	</select>
+	
+</mapper>

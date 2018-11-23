@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.payment.dao.IPayReceiveClaimDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.interfaces.payment.dto.PayReceiveClaimBodyDto" >
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="skrq" property="skrq" jdbcType="VARCHAR" />
+		<result column="skdh" property="skdh" jdbcType="VARCHAR" />
+		<result column="rlrq" property="rlrq" jdbcType="VARCHAR" />
+		<result column="rldh" property="rldh" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="skdjje" property="skdjje" jdbcType="VARCHAR" />
+		<result column="skbz" property="skbz" jdbcType="VARCHAR" />
+		<result column="rlje" property="rlje" jdbcType="VARCHAR" />
+		<result column="rlbz" property="rlbz" jdbcType="VARCHAR" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="sxf" property="sxf" jdbcType="VARCHAR" />
+		<result column="skyhzh" property="skyhzh" jdbcType="VARCHAR" />
+		<result column="sklx" property="sklx" jdbcType="VARCHAR" />
+		<result column="rlchbs" property="rlchbs" jdbcType="VARCHAR" />
+		<result column="wrlje" property="wrlje" jdbcType="VARCHAR" />
+		<result column="zxbmfdm" property="zxbmfdm" jdbcType="VARCHAR" />
+		<result column="qyrq" property="qyrq" jdbcType="VARCHAR" />
+		<result column="sjskrq" property="sjskrq" jdbcType="VARCHAR" />
+		<result column="shbs" property="shbs" jdbcType="VARCHAR" />
+		<result column="ljyshje" property="ljyshje" jdbcType="VARCHAR" />
+		<result column="tzqje" property="tzqje" jdbcType="VARCHAR" />
+	</resultMap>
+    
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_PAY_CLAIM_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.payment.dao.IPayReceiveClaimDao.baseResultMap})
+		}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

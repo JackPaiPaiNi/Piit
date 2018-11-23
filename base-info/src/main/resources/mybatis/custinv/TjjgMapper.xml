@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ey.piit.sdo.custinv.dao.TjjgDao">
+	<resultMap type="com.ey.piit.sdo.custinv.vo.TjjgVo" id="baseResultMap">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR"/>	
+		<result column="ddid" property="ddid" jdbcType="VARCHAR"/>
+		<result column="khbm" property="khbm" jdbcType="VARCHAR"/>
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj_jgk" property="jgkdj" jdbcType="DECIMAL" />
+		<result column="je_jgk" property="jgkje" jdbcType="DECIMAL" />
+		<result column="no_tjbz" property="notjbz" jdbcType="INTEGER" />
+		<result column="re_cxbz" property="recxbz" jdbcType="INTEGER" />
+	    <result column="dj_tz" property="tzdj" jdbcType="DECIMAL" />
+		<result column="je_tz" property="tzje" jdbcType="DECIMAL" />
+		<result column="tjdx" property="tjdx" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<select id="callSelectTjjg" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ZGQD_JHD_PRICE.P_QRY_TJJG(
+		   #{vo.chdh,jdbcType=VARCHAR,mode=IN},
+		   #{vo.ddid,jdbcType=VARCHAR,mode=IN},
+		   #{vo.khbm,jdbcType=VARCHAR,mode=IN},
+		   #{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+		   #{vo.tjdx,jdbcType=INTEGER,mode=IN},
+		   #{page.page,jdbcType=INTEGER,mode=IN},
+		   #{page.rows,jdbcType=INTEGER,mode=IN},
+		   #{page.sidx,jdbcType=VARCHAR,mode=IN},
+		   #{page.sord,jdbcType=VARCHAR,mode=IN},
+		   #{total,jdbcType=INTEGER,mode=OUT},
+		   #{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.TjjgDao.baseResultMap}
+		)}			
+	</select>
+</mapper>

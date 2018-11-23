@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.pso.repository.PsoOtherDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.pso.vo.PsoOtherVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="qtxm" property="qtxm" jdbcType="VARCHAR" />
+		<result column="qtxmmc" property="qtxmmc" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="yt" property="yt" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="skdh" property="skdh" jdbcType="VARCHAR" />
+	</resultMap>
+	 <insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_SAVE_OTHER(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.qtxm,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.yt,jdbcType=VARCHAR,mode=IN},
+			#{vo.je,jdbcType=DECIMAL,mode=IN},
+			#{vo.skdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	 <insert id="callInsertBf" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_SAVE_OTHER_BF(
+	    	#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+     <update id="callUpdateOther" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_UPDATE_OTHER(
+	    	#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.qtxm,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.yt,jdbcType=VARCHAR,mode=IN},
+			#{vo.je,jdbcType=DECIMAL,mode=IN},
+			#{vo.skdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	  <update id="callDeleteOther" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_DELETE_OTHER(
+			#{yzhdh,jdbcType=VARCHAR,mode=IN},
+		<!-- 	#{vo.bbh,jdbcType=INTEGER,mode=IN}, -->
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

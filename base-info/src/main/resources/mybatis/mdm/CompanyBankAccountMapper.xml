@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CompanyBankAccountDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CompanyBankAccountVo" >
+	
+		<result column="id"   property="id" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="yhzh" property="yhzh" jdbcType="VARCHAR" />
+		<result column="swiftdm" property="swiftdm" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="sf_lc" property="sfLc" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zwmc" property="zwmc" jdbcType="VARCHAR" />
+		<result column="ywmc" property="ywmc" jdbcType="VARCHAR" />
+		<result column="zwdz" property="zwdz" jdbcType="VARCHAR" />
+		<result column="ywdz" property="ywdz" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.gsbm AS "gsbm",
+		a.yhzh AS "yhzh",
+		a.swiftdm AS "swiftdm",
+		a.bz AS "bz",
+		a.sf_lc AS "sfLc",
+		a.bzxx AS "bzxx"
+	</sql>
+	
+	<sql id="columnJoins">
+	  left  join   t_bank  b on a.swiftdm=b.swiftdm
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>, b.zwmc AS "zwmc", b.ywmc AS "ywmc", b.zwdz AS "zwdz", b.ywdz AS "ywdz"
+		FROM t_company_bank_account a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>, b.zwmc AS "zwmc", b.ywmc AS "ywmc", b.zwdz AS "zwdz", b.ywdz AS "ywdz"
+		FROM t_company_bank_account a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="gsbm != null">
+				AND a.gsbm = #{gsbm}
+			</if>
+			<if test="sfLc != null">
+				AND a.sf_lc = #{sfLc}
+			</if>
+			<if test="bz != null">
+				AND a.bz = #{bz}
+			</if>
+			<if test="swiftdm != null">
+				AND a.swiftdm = #{swiftdm}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_company_bank_account(
+			id,
+			gsbm,
+			yhzh,
+			swiftdm,
+			bz,
+			sf_lc,
+			bzxx
+		) VALUES (
+			#{id},
+			#{gsbm},
+			#{yhzh},
+			#{swiftdm},
+		    #{bz},
+		    #{sfLc},
+			#{bzxx}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_company_bank_account
+		<set>
+            <if test="gsbm != null" >
+				gsbm = #{gsbm},
+			</if>
+            <if test="yhzh != null" >
+				yhzh = #{yhzh},
+			</if>
+            <if test="swiftdm != null" >
+				swiftdm = #{swiftdm},
+			</if>
+			<if test="bz != null" >
+				bz = #{bz},
+			</if>
+            <if test="sfLc != null" >
+				sf_lc = #{sfLc},
+			</if>
+			<if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_company_bank_account
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE gsbm = #{gsbm}
+			</otherwise>
+		</choose>
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	<select id="queryCompanyBank" resultMap="baseResultMap">
+	     SELECT 
+	       DISTINCT  A.GSBM,B.ZWMC,B.ZWDZ,A.SWIFTDM ,B.YWMC    
+         FROM  T_COMPANY_BANK_ACCOUNT  A 
+         INNER JOIN  T_BANK B ON A.SWIFTDM=B.SWIFTDM 
+	   <where>
+	        <if test="gsbm != null">
+				   GSBM = #{gsbm}
+			</if>
+			<if test="bz != null">
+				AND  BZ = #{bz}
+			</if>
+	   </where>
+	</select>
+</mapper>

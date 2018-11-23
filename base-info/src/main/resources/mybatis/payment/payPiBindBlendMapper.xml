@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.payment.repository.PayPiBindBlendDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.payment.vo.PayPiBindItemVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="fklx" property="fklx" jdbcType="VARCHAR" />
+		<result column="jd" property="jd" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="syje" property="syje" jdbcType="DECIMAL" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="gdsj" property="gdsj" jdbcType="TIMESTAMP" />
+		<result column="sf_zdgd" property="sfZdgd" jdbcType="DECIMAL" />
+		<result column="gddh" property="gddh" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="DECIMAL" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="skbzxx" property="skbzxx" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	<resultMap id="blendResultMap" type="com.ey.piit.sdo.payment.vo.PayPiBindBlendVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="gddh" property="gddh" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="bdje" property="bdje" jdbcType="DECIMAL" />
+		<result column="ygdje" property="ygdje" jdbcType="DECIMAL" />
+		<result column="gdje" property="gdje" jdbcType="DECIMAL" />
+		<result column="skdh" property="skdh" jdbcType="VARCHAR" />
+		<result column="ye" property="ye" jdbcType="DECIMAL" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<!-- 通过piid查询时所需字段 -->
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="fklx" property="fklx" jdbcType="VARCHAR" />
+		<result column="sf_wcgd" property="sfWcgd" jdbcType="DECIMAL" />
+		<result column="skdh" property="skdh" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	 <select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_QRY(
+			#{vo.piid,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.fklx,jdbcType=VARCHAR,mode=IN},
+			#{vo.jd,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.skdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PayPiBindBlendDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectDb" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_QRY_BLEND_DB(
+			#{vo.piid,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PayPiBindBlendDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectByPiid" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_QRY_BY_PIID(
+			#{piid,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PayPiBindBlendDao.blendResultMap})
+		}
+	</select>
+	
+	<!-- 手工勾兑明细保存 -->
+	<update id="callSaveBlend" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_SAVE_BLEND(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.gddh,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bdje,jdbcType=DECIMAL,mode=IN},
+			#{vo.gdje,jdbcType=DECIMAL,mode=IN},
+			#{vo.skdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bzxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 自动保存勾兑明细 -->
+	<update id="callBlendAuto" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_SAVE_BLEND_AUTO(
+			#{piids,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 删除勾兑明细 -->
+	<delete id="calldeleteBlend" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_PI_BIND_BLEND.P_DELETE_BLEND(
+			#{gddh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

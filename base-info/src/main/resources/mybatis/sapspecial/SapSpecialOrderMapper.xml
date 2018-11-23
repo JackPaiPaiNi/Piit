@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.sapspecial.vo.SapSpecialOrderVo">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="xsdd" property="xsdd" jdbcType="VARCHAR" />
+		<result column="spcl" property="spcl" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="fxqd" property="fxqd" jdbcType="VARCHAR" />
+		<result column="xsbgs" property="xsbgs" jdbcType="VARCHAR" />
+		<result column="jgqd" property="jgqd" jdbcType="VARCHAR" />
+		<result column="cgdd" property="cgdd" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="xsy" property="xsy" jdbcType="VARCHAR" />
+		<result column="sqr" property="sqr" jdbcType="VARCHAR" />
+		<result column="sqrq" property="sqrq" jdbcType="TIMESTAMP" />
+		<result column="ddrq" property="ddrq" jdbcType="TIMESTAMP" />
+		<result column="djrq" property="djrq" jdbcType="TIMESTAMP" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="jshb" property="jshb" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="dept" property="dept" jdbcType="VARCHAR" />
+		<result column="bukrs" property="bukrs" jdbcType="VARCHAR" />
+		<result column="tssapzt" property="tssapzt" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap id="logResultMap" type="com.ey.piit.sdo.sapspecial.vo.SapApproveLogVo">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="czlx" property="czlx" jdbcType="VARCHAR" />
+		<result column="czr" property="czr" jdbcType="VARCHAR" />
+		<result column="czrmc" property="czrmc" jdbcType="VARCHAR" />
+		<result column="czsj" property="czsj" jdbcType="TIMESTAMP" />
+		<result column="nr" property="nr" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_BY_SPECIAL_ORDER_ID(
+		#{id,jdbcType=VARCHAR,mode=IN},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.baseResultMap},
+		#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialItemDao.baseResultMap},
+		#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_SPECIAL_ORDER(
+		#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+		#{vo.xsdd,jdbcType=VARCHAR,mode=IN},
+		#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+		#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+		#{vo.sqr,jdbcType=VARCHAR,mode=IN},
+		#{vo.zt,jdbcType=DECIMAL,mode=IN},
+		#{page.page,jdbcType=INTEGER,mode=IN},
+		#{page.rows,jdbcType=INTEGER,mode=IN},
+		#{page.sidx,jdbcType=VARCHAR,mode=IN},
+		#{page.sord,jdbcType=VARCHAR,mode=IN},
+		#{total,jdbcType=INTEGER,mode=OUT},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.baseResultMap}
+		)}
+	</select>
+	<select id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_SPECIAL_APPROVE(
+		#{vo.approveType,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	
+	<select id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_SPECIAL_ORDER_SUBMIT(
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+
+	<select id="callQueryLog" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_LOG(
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+	
+	<select id="callComplete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_SPECIAL_ORDER_COMPLETE(
+			#{vo.tssapzt,jdbcType=INTEGER,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<!--===============================================自动生成分隔线=============================================== -->
+
+</mapper>

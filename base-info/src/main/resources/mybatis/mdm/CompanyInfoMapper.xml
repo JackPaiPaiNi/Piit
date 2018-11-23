@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CompanyInfoDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CompanyInfoVo" >
+	    <result column="id"   property="id"   jdbcType="VARCHAR" />
+	    <result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="gszwmc" property="gszwmc" jdbcType="VARCHAR" />
+		<result column="gsywmc" property="gsywmc" jdbcType="VARCHAR" />
+		<result column="gszwdz" property="gszwdz" jdbcType="VARCHAR" />
+		<result column="gsywdz" property="gsywdz" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="sapgsdm" property="sapgsdm" jdbcType="VARCHAR" />
+		<result column="syrmc" property="syrmc" jdbcType="VARCHAR" />
+		<result column="syrdz" property="syrdz" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+	    a.id   AS  "id",
+		a.gsbm AS "gsbm",
+		a.gszwmc AS "gszwmc",
+		a.gsywmc AS "gsywmc",
+		a.gszwdz AS "gszwdz",
+		a.gsywdz AS "gsywdz",
+		a.bz AS "bz",
+		a.sapgsdm as "sapgsdm"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_company_info a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+	 	FROM t_company_info a
+		    <include refid="columnJoins"/>
+		<where>
+			<if test="gsbm != null and gsbm!='' ">
+				AND a.gsbm LIKE '%'||#{gsbm}||'%'
+			</if>
+			<if test="gszwmc != null and gszwmc!='' ">
+				AND a.gszwmc LIKE '%'||#{gszwmc}||'%'
+			</if>
+			<if test="gsywmc != null and gsywmc!='' ">
+				AND a.gsywmc LIKE '%'||#{gsywmc}||'%'
+			</if>
+		</where>
+		order by gsbm
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_company_info(
+		    id,
+			gsbm,
+			gszwmc,
+			gsywmc,
+			gszwdz,
+			gsywdz,
+			bz,
+			sapgsdm
+		) VALUES (
+		    #{id},
+			#{gsbm},
+			#{gszwmc},
+			#{gsywmc},
+			#{gszwdz},
+			#{gsywdz},
+			#{bz},
+			#{sapgsdm}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_company_info
+		<set>
+            <if test="gsbm != null" >
+				gsbm = #{gsbm},
+			</if>
+            <if test="gszwmc != null" >
+				gszwmc = #{gszwmc},
+			</if>
+            <if test="gsywmc != null" >
+				gsywmc = #{gsywmc},
+			</if>
+            <if test="gszwdz != null" >
+				gszwdz = #{gszwdz},
+			</if>
+            <if test="gsywdz != null" >
+				gsywdz = #{gsywdz},
+			</if>
+            <if test="bz != null" >
+				bz = #{bz},
+			</if>
+			<if test="sapgsdm != null">
+				sapgsdm = #{sapgsdm}
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_company_info
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteBankAccount">
+		DELETE FROM t_company_bank_account
+		WHERE gsbm = #{gsbm}
+	</delete>
+	
+	<select id="callSelectSyr" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PUB.P_QRY_SYR(
+			#{type,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.CompanyInfoDao.baseResultMap})
+		}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

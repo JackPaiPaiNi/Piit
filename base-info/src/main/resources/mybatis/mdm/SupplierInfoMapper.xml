@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.SupplierInfoDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.SupplierInfoVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="gysbm" property="gysbm" jdbcType="VARCHAR" />
+		<result column="gysmc" property="gysmc" jdbcType="VARCHAR" />
+		<result column="gysjc" property="gysjc" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="dz" property="dz" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="wz" property="wz" jdbcType="VARCHAR" />
+		<result column="lxr" property="lxr" jdbcType="VARCHAR" />
+		<result column="sjh" property="sjh" jdbcType="VARCHAR" />
+		<result column="yx" property="yx" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.gysbm AS "gysbm",
+		a.gysmc AS "gysmc",
+		a.gysjc AS "gysjc",
+		a.gsbm AS "gsbm",
+		a.dz AS "dz",
+		a.bz AS "bz",
+		a.dh AS "dh",
+		a.wz AS "wz",
+		a.lxr AS "lxr",
+		a.sjh AS "sjh",
+		a.yx AS "yx",
+		a.bzxx AS "bzxx",
+		a.zt AS "zt"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_supplier_info a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_supplier_info a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="gysbm != null and gysbm != ''">
+				AND a.gysbm LIKE '%'||#{gysbm}||'%'
+			</if>
+			<if test="gysmc != null and gysmc != ''">
+				AND a.gysmc LIKE '%'||#{gysmc}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_supplier_info(
+			id,
+			gysbm,
+			gysmc,
+			gysjc,
+			gsbm,
+			dz,
+			bz,
+			dh,
+			wz,
+			lxr,
+			sjh,
+			yx,
+			bzxx,
+			zt
+		) VALUES (
+			#{id},
+			#{gysbm},
+			#{gysmc},
+			#{gysjc},
+			#{gsbm},
+			#{dz},
+			#{bz},
+			#{dh},
+			#{wz},
+			#{lxr},
+			#{sjh},
+			#{yx},
+			#{bzxx},
+			#{zt}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_supplier_info
+		<set>
+            <if test="gysbm != null" >
+				gysbm = #{gysbm},
+			</if>
+            <if test="gysmc != null" >
+				gysmc = #{gysmc},
+			</if>
+            <if test="gysjc != null" >
+				gysjc = #{gysjc},
+			</if>
+            <if test="gsbm != null" >
+				gsbm = #{gsbm},
+			</if>
+            <if test="dz != null" >
+				dz = #{dz},
+			</if>
+            <if test="bz != null" >
+				bz = #{bz},
+			</if>
+            <if test="dh != null" >
+				dh = #{dh},
+			</if>
+            <if test="wz != null" >
+				wz = #{wz},
+			</if>
+            <if test="lxr != null" >
+				lxr = #{lxr},
+			</if>
+            <if test="sjh != null" >
+				sjh = #{sjh},
+			</if>
+            <if test="yx != null" >
+				yx = #{yx},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_supplier_info
+		WHERE id = #{id}
+	</delete>
+	
+	<!-- 同步供应商数据 -->
+	<update id="callTbgys" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP.P_SUPPLIER}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

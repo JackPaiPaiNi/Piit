@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.ShippingCompanyDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.ShippingCompanyVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="gsmc" property="gsmc" jdbcType="VARCHAR" />
+		<result column="lxr" property="lxr" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="cz" property="cz" jdbcType="VARCHAR" />
+		<result column="yb" property="yb" jdbcType="VARCHAR" />
+		<result column="yx" property="yx" jdbcType="VARCHAR" />
+		<result column="dz" property="dz" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.gsbm AS "gsbm",
+		a.gsmc AS "gsmc",
+		a.lxr AS "lxr",
+		a.dh AS "dh",
+		a.cz AS "cz",
+		a.yb AS "yb",
+		a.yx AS "yx",
+		a.dz AS "dz",
+		a.bzxx AS "bzxx",
+		a.zdrid AS "zdrid",
+		a.zdrmc AS "zdrmc",
+		a.zdsj AS "zdsj",
+		a.zt AS "zt"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_shipping_company a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_shipping_company a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="gsbm != null and gsbm != ''">
+				AND a.gsbm LIKE '%'||#{gsbm}||'%'
+			</if>
+			<if test="gsmc != null and gsmc != ''">
+				AND a.gsmc LIKE '%'||#{gsmc}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_shipping_company(
+			id,
+			gsbm,
+			gsmc,
+			lxr,
+			dh,
+			cz,
+			yb,
+			yx,
+			dz,
+			bzxx,
+			zdrid,
+			zdrmc,
+			zdsj,
+			zt
+		) VALUES (
+			#{id},
+			#{gsbm},
+			#{gsmc},
+			#{lxr},
+			#{dh},
+			#{cz},
+			#{yb},
+			#{yx},
+			#{dz},
+			#{bzxx},
+			#{zdrid},
+			#{zdrmc},
+			#{zdsj},
+			#{zt}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_shipping_company
+		<set>
+            <if test="gsbm != null" >
+				gsbm = #{gsbm},
+			</if>
+            <if test="gsmc != null" >
+				gsmc = #{gsmc},
+			</if>
+            <if test="lxr != null" >
+				lxr = #{lxr},
+			</if>
+            <if test="dh != null" >
+				dh = #{dh},
+			</if>
+            <if test="cz != null" >
+				cz = #{cz},
+			</if>
+            <if test="yb != null" >
+				yb = #{yb},
+			</if>
+            <if test="yx != null" >
+				yx = #{yx},
+			</if>
+            <if test="dz != null" >
+				dz = #{dz},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="zdrid != null" >
+				zdrid = #{zdrid},
+			</if>
+            <if test="zdrmc != null" >
+				zdrmc = #{zdrmc},
+			</if>
+            <if test="zdsj != null" >
+				zdsj = #{zdsj},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_shipping_company
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

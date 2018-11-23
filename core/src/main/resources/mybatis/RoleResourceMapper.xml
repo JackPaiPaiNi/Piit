@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.core.repository.RoleResourceDao" >
+
+	<delete id="deleteByParam" parameterType="java.util.Map" >
+        delete from T_ROLE_RESOURCE
+        <where >
+        	<if test="id != null and id != ''" >
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="roleId != null and roleId != ''" >
+                and ROLE_ID = #{roleId,jdbcType=VARCHAR}
+            </if>
+            <if test="resourceId != null and resourceId != ''" >
+                and RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.core.entity.RoleResource" >
+        insert into T_ROLE_RESOURCE (ID, ROLE_ID, RESOURCE_ID
+            )
+        values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}
+            )
+    </insert>
+
+</mapper>

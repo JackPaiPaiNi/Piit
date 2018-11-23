@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.booking.repository.BookingDao">
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.booking.vo.BookingVo">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dcdh" property="dcdh" jdbcType="VARCHAR" />
+		<result column="cylx" property="cylx" jdbcType="VARCHAR" />
+		<result column="cylxmc" property="cylxmc" jdbcType="VARCHAR" />
+		<result column="qyg" property="qyg" jdbcType="VARCHAR" />
+		<result column="qygmc" property="qygmc" jdbcType="VARCHAR" />
+		<result column="mytk" property="mytk" jdbcType="VARCHAR" />
+		<result column="mytkmc" property="mytkmc" jdbcType="VARCHAR" />
+		<result column="qygbz" property="qygbz" jdbcType="VARCHAR" />
+		<result column="mdg" property="mdg" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="cdgsbm" property="cdgsbm" jdbcType="VARCHAR" />
+		<result column="cdgsmc" property="cdgsmc" jdbcType="VARCHAR" />
+		<result column="cdgslxr" property="cdgslxr" jdbcType="VARCHAR" />
+		<result column="cdgsdh" property="cdgsdh" jdbcType="VARCHAR" />
+		<result column="cdgsyx" property="cdgsyx" jdbcType="VARCHAR" />
+		<result column="dch" property="dch" jdbcType="VARCHAR" />
+		<result column="cm" property="cm" jdbcType="VARCHAR" />
+		<result column="hc" property="hc" jdbcType="VARCHAR" />
+		<result column="hbh" property="hbh" jdbcType="VARCHAR" />
+		<result column="yjkcq" property="yjkcq" jdbcType="TIMESTAMP" />
+		<result column="yjdgq" property="yjdgq" jdbcType="TIMESTAMP" />
+		<result column="zgrq" property="zgrq" jdbcType="TIMESTAMP" />
+		<result column="yg_zgs" property="ygZgs" jdbcType="DECIMAL" />
+		<result column="yg_20gp" property="yg20gp" jdbcType="DECIMAL" />
+		<result column="yg_40gp" property="yg40gp" jdbcType="DECIMAL" />
+		<result column="yg_40hq" property="yg40hq" jdbcType="DECIMAL" />
+		<result column="yg_gsbz" property="ygGsbz" jdbcType="VARCHAR" />
+		<result column="dc_zcs" property="dcZcs" jdbcType="DECIMAL" />
+		<result column="dc_3d" property="dc3d" jdbcType="DECIMAL" />
+		<result column="dc_5d" property="dc5d" jdbcType="DECIMAL" />
+		<result column="dc_8d" property="dc8d" jdbcType="DECIMAL" />
+		<result column="dc_10d" property="dc10d" jdbcType="DECIMAL" />
+		<result column="dc_12d" property="dc12d" jdbcType="DECIMAL" />
+		<result column="dc_dcbz" property="dcDcbz" jdbcType="VARCHAR" />
+		<result column="jcsj" property="jcsj" jdbcType="TIMESTAMP" />
+		<result column="jfxtsj" property="jfxtsj" jdbcType="TIMESTAMP" />
+		<result column="kcsj" property="kcsj" jdbcType="TIMESTAMP" />
+		<result column="jblsj" property="jblsj" jdbcType="TIMESTAMP" />
+		<result column="kdlx" property="kdlx" jdbcType="VARCHAR" />
+		<result column="kdlxmc" property="kdlxmc" jdbcType="VARCHAR" />
+		<result column="kd" property="kd" jdbcType="VARCHAR" />
+		<result column="kdmc" property="kdmc" jdbcType="VARCHAR" />
+		<result column="kdbz" property="kdbz" jdbcType="VARCHAR" />
+		<result column="dfzh" property="dfzh" jdbcType="VARCHAR" />
+		<result column="jgq" property="jgq" jdbcType="TIMESTAMP" />
+		<result column="fj" property="fj" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="bc_gdbs" property="bcGdbs" jdbcType="VARCHAR" />
+		<result column="bc_spobs" property="bcSpobs" jdbcType="VARCHAR" />
+		<result column="bc_wjyq" property="bcWjyq" jdbcType="VARCHAR" />
+		<result column="bc_zgyq" property="bcZgyq" jdbcType="VARCHAR" />
+		<result column="bc_qt" property="bcQt" jdbcType="VARCHAR" />
+		<result column="pxx" property="pxx" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="gsmc" property="gsmc" jdbcType="VARCHAR" />
+		<result column="yzhlx" property="yzhlx" jdbcType="VARCHAR" />
+		<result column="sapgsdm" property="sapgsdm" jdbcType="VARCHAR" />
+		<result column="yssfcq" property="yssfcq" jdbcType="DECIMAL" />
+		<result column="nr" property="nr" jdbcType="VARCHAR" />
+		<result column="scjd" property="scjd" jdbcType="VARCHAR" />
+	    <result column="scjdmc" property="scjdmc" jdbcType="VARCHAR" />
+	    <result column="khlx" property="khlx" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<resultMap id="logResultMap" type="com.ey.piit.sdo.booking.vo.BookingLogVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dcdh" property="dcdh" jdbcType="VARCHAR" />
+		<result column="czlx" property="czlx" jdbcType="VARCHAR" />
+		<result column="czzw" property="czzw" jdbcType="VARCHAR" />
+		<result column="czr" property="czr" jdbcType="VARCHAR" />
+		<result column="czrmc" property="czrmc" jdbcType="VARCHAR" />
+		<result column="czrj" property="czrj" jdbcType="TIMESTAMP" />
+		<result column="nr" property="nr" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="emailResultMap" type="com.ey.piit.sdo.booking.vo.BookingEmailVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="dcdh" property="dcdh" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="receiverResultMap" type="com.ey.piit.sdo.booking.entity.BookingReceiver" >
+		<result column="sjr" property="sjr" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.baseResultMap},
+			#{bookingList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingItemDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.logResultMap})
+		}
+	</select>
+	
+	<select id="callSelectKtyzh" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_QRY_KTYZH(
+			#{yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.pso.repository.PsoDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectByYzhdhs" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_QRY_BY_YZHDHS(
+			#{ids,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.baseResultMap},
+			#{bookingList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingItemDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_QRY(
+			#{vo.dcdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.cylx,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=VARCHAR,mode=IN},
+			#{vo.xwgj,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.kh,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.scjd,jdbcType=VARCHAR,mode=IN},
+		    #{userId,jdbcType=VARCHAR,mode=IN},
+			#{sfXsy,jdbcType=DECIMAL,mode=IN},
+			#{bmIds,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.baseResultMap})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_BOOKING.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.scjd,jdbcType=VARCHAR,mode=IN},
+			#{vo.dcdh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.gsbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.cylx,jdbcType=VARCHAR,mode=IN},
+			#{vo.cylxmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.qyg,jdbcType=VARCHAR,mode=IN},
+			#{vo.qygmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.qygbz,jdbcType=VARCHAR,mode=IN},
+			#{vo.mdg,jdbcType=VARCHAR,mode=IN},
+			#{vo.xwgj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xwgjmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.mytk,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgsbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgsmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgslxr,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgsdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgsyx,jdbcType=VARCHAR,mode=IN},
+			#{vo.dch,jdbcType=VARCHAR,mode=IN},
+			#{vo.cm,jdbcType=VARCHAR,mode=IN},
+			#{vo.hc,jdbcType=VARCHAR,mode=IN},
+			#{vo.hbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.yjdgq,jdbcType=DATE,mode=IN},
+			#{vo.zgrq,jdbcType=DATE,mode=IN},
+			#{vo.ygZgs,jdbcType=DECIMAL,mode=IN},
+			#{vo.yg20gp,jdbcType=DECIMAL,mode=IN},
+			#{vo.yg40gp,jdbcType=DECIMAL,mode=IN},
+			#{vo.yg40hq,jdbcType=DECIMAL,mode=IN},
+			#{vo.ygGsbz,jdbcType=VARCHAR,mode=IN},
+			#{vo.dcZcs,jdbcType=DECIMAL,mode=IN},
+			#{vo.dc3d,jdbcType=DECIMAL,mode=IN},
+			#{vo.dc5d,jdbcType=DECIMAL,mode=IN},
+			#{vo.dc8d,jdbcType=DECIMAL,mode=IN},
+			#{vo.dc10d,jdbcType=DECIMAL,mode=IN},
+			#{vo.dc12d,jdbcType=DECIMAL,mode=IN},
+			#{vo.dcDcbz,jdbcType=VARCHAR,mode=IN},
+			#{vo.jcsj,jdbcType=TIMESTAMP,mode=IN},
+			#{vo.jfxtsj,jdbcType=TIMESTAMP,mode=IN},
+			#{vo.kcsj,jdbcType=TIMESTAMP,mode=IN},
+			#{vo.jblsj,jdbcType=TIMESTAMP,mode=IN},
+			#{vo.kdlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.kd,jdbcType=VARCHAR,mode=IN},
+			#{vo.kdbz,jdbcType=VARCHAR,mode=IN},
+			#{vo.dfzh,jdbcType=VARCHAR,mode=IN},
+			#{vo.yjkcq,jdbcType=DATE,mode=IN},
+			#{vo.jgq,jdbcType=TIMESTAMP,mode=IN},
+			#{vo.fj,jdbcType=VARCHAR,mode=IN},
+			#{vo.bzxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdsj,jdbcType=DATE,mode=IN},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 应收超期保存 -->
+	<update id="callYscqSave" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_SAVE_KHYSCQ(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.yssfcq,jdbcType=DECIMAL,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.nr,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_APPROVE(
+			#{vo.approveType,jdbcType=INTEGER,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 订舱待办查询 -->
+	<select id="callSelectDB" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_QRY_DB(
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.cwzyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.scjd,jdbcType=VARCHAR,mode=IN},
+		    #{userId,jdbcType=VARCHAR,mode=IN},
+			#{sfXsy,jdbcType=DECIMAL,mode=IN},
+			#{bmIds,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.pso.repository.PsoDao.baseResultMap})
+		}
+	</select>
+	
+	<!-- 订舱取消 -->
+	<update id="callCancel" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_CANCEL(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!-- 查询订单邮件内容 -->
+	<select id="callSelectEmail" parameterType="Map" statementType="CALLABLE">
+		{call PKG_EMAIL.P_QRY_BOOKING(
+			#{id,jdbcType=VARCHAR,mode=IN},
+	     	#{recevierList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.receiverResultMap},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.booking.repository.BookingDao.emailResultMap})
+		}
+	</select>
+	
+	<update id="callGetback" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BOOKING.P_GETBACK(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

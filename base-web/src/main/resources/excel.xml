@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<excel-configuration>
+    
+    <excel>
+        <id>AREA_IMPORT</id>
+        <className>com.ey.piit.baseinfo.area.vo.AreaVo</className>
+        <startRow>1</startRow>
+        <description>地区数据导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.baseinfo.area.handler.AreaImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>base/area/list</nextAction>
+        <idField>id</idField>
+        <codeField>code</codeField>
+        <columns>
+            <column number="0" name="序号" field="id" type="java.lang.String" />
+            <column number="1" name="编码" field="code" type="java.lang.String" required="true" />
+            <column number="2" name="中文名称" field="cnName" type="java.lang.String" required="true" />
+            <column number="3" name="中文全称" field="cnFullName" type="java.lang.String" />
+            <column number="4" name="英文名称" field="enName" type="java.lang.String" />
+            <column number="5" name="英文全称" field="enFullName" type="java.lang.String" />
+            <column number="6" name="上级节点编号" field="parentCode" type="java.lang.String" />
+            <column number="7" name="全路径编码" field="fullPathCode" type="java.lang.String" required="true" />
+            <column number="8" name="子计数" field="childCount" type="java.lang.Integer" required="true" />
+            <column number="9" name="层级" field="levels" type="java.lang.Integer" />
+            <column number="10" name="排序" field="sort" type="java.lang.Long" />
+            <column number="11" name="状态编码" field="status" type="java.lang.String" />
+            <!-- <column number="12" name="状态" field="" type="java.lang.String" /> -->
+            <column number="13" name="三位编码" field="extCode" type="java.lang.String" />
+        </columns>
+    </excel>
+    <excel>
+        <id>USER_DEMO_IMPORT</id>
+        <className>com.ey.piit.basedemo.user.vo.UserDemoVo</className>
+        <startRow>1</startRow>
+        <description>DEMO导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction>user/userDemo/list</nextAction>
+        <idField>id</idField>
+        <codeField>code</codeField>
+        <columns>
+            <column number="0" name="序号" field="id" type="java.lang.String" />
+            <column number="1" name="用户账号" field="loginAcct" type="java.lang.String" />
+            <column number="2" name="用户名" field="userName" type="java.lang.String" required="true" />
+            <column number="3" name="工号" field="empCode" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    <excel>
+        <id>CKD_IMPORT</id>
+        <className>com.ey.piit.sdo.order.vo.OrderProductCkdVo</className>
+        <startRow>1</startRow>
+        <description>CKD导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0"  name="ID"    field="id"   type="java.lang.String"   required="false" />
+            <column number="1" 	name="操作类型"  field="flag" type="java.lang.String" required="true" />
+            <column number="2"  name="物料编码" field="wlbm"   type="java.lang.String"   required="true" />
+            <column number="3"  name="描述"    field="ms"    type="java.lang.String"   required="true" />
+            <column number="4"  name="单机用量" field="djyl" type="java.lang.Integer" required="true" />
+            <column number="5"  name="上单结余数量" field="sdjysl" type="java.lang.Double" required="true" />
+            <column number="6"  name="大货数量" field="dhsl" type="java.lang.Double" required="true" />
+            <column number="7"  name="免费备损数量" field="mfbssl" type="java.lang.Double" required="true" />
+            <column number="8"  name="付费备损数量" field="ffbssl" type="java.lang.Double" required="true" />
+            <column number="9"  name="MOQ数量" field="moqsl" type="java.lang.Integer" required="true" />
+            <column number="10" name="下单数量" field="xdsl" type="java.lang.Double" required="true" />
+            <column number="11" name="SAP大货订单数量" field="sapdhddsl" type="java.lang.Double" required="true" />
+            <column number="12" name="本单结余数量" field="bdjysl" type="java.lang.Double" required="true" />
+            <column number="13" name="NE" field="ne" type="java.lang.String" required="true" />
+            <column number="14" name="PO" field="po" type="java.lang.String" required="true" />
+            <column number="15" name="NCMCODE" field="ncmcode" type="java.lang.String" required="true" />
+            <column number="16" name="NCM" field="ncm" type="java.lang.String" required="true" />
+            <column number="17" name="币种"    field="bz" type="java.lang.String" required="true" />
+            <column number="18" name="单位" field="dw" type="java.lang.String" required="true" />
+            <column number="19" name="单价"  field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="20" name="净重" field="jz" type="java.math.BigDecimal" required="true" />
+            <column number="21" name="毛重" field="mz" type="java.math.BigDecimal" required="true" />
+            <column number="22" name="供应商编码" field="gysbm" type="java.lang.String" required="true" />
+            <column number="23" name="供应商名称" field="gysmc" type="java.lang.String" required="true" />
+            <column number="24" name="供应商地址" field="gysdz" type="java.lang.String" required="true" />
+            <column number="25" name="原产地" field="ycd" type="java.lang.String" required="true" />
+            <column number="26" name="PID号"   field="pid" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    
+    <excel>
+        <id>ORDER_BOM_PRICE_IMPORT</id>
+        <className>com.ey.piit.sdo.price.vo.OrderBomPriceVo</className>
+        <startRow>1</startRow>
+        <description>销单BOM价格导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.price.handler.OrderBomPriceImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>price/orderBomPrice/list</nextAction>
+        <idField>id</idField>
+        <codeField>id</codeField>
+        <columns>
+            <column number="0"  name="订单号"    field="ddid"   type="java.lang.String"   required="true" />
+            <column number="1"  name="物料编码"   field="wlbm"    type="java.lang.String"   required="true" />
+            <column number="2" name="单价"  field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="3" name="币种"    field="bz" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+     <excel>
+        <id>JHD_PRICE_IMPORT</id>
+        <className>com.ey.piit.sdo.price.vo.JhdPriceVo</className>
+        <startRow>1</startRow>
+        <description>交货单价格导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.price.handler.JhdPriceImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>price/orderBomPrice/jhdList</nextAction>
+        <idField>id</idField>
+        <codeField>id</codeField>
+        <columns>
+            <column number="0"  name="交货单号"    field="jhdh"   type="java.lang.String"   required="true" />
+            <column number="1"  name="行项目号"   field="serino"    type="java.lang.Integer"   required="true" />
+            <column number="6" name="单价"  field="dj" type="java.math.BigDecimal" required="true" />
+        </columns>
+    </excel>
+    
+    <excel>
+        <id>FCST_BRANCH_IMPORT</id>
+        <className>com.ey.piit.sdo.fcst.vo.FcstBranchTmpVo</className>
+        <startRow>1</startRow>
+        <description>分公司销售预测导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction>fcst/fcstBranchData/list</nextAction>
+        <idField>pid</idField>
+        <codeField>code</codeField>
+        <columns>
+            <column number="0" name="业务部"  field="xszz" type="java.lang.String" required="true" />
+            <column number="1" name="业务组"  field="ywz" type="java.lang.String" required="true" />
+            <column number="2" name="尺寸"  field="cc"   type="java.lang.String" required="true" />
+            <column number="3" name="机型"  field="jixing"   type="java.lang.String" required="true" />
+			<column number="4" name="预测1"  field="m1" type="java.lang.String" required="true" />
+            <column number="5" name="预测2"  field="m2" type="java.lang.String" required="true" />
+            <column number="6" name="预测3"  field="m3"   type="java.lang.String" required="true" />
+            <column number="7" name="预测4"  field="m4"   type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+     <excel>
+        <id>BRANCH_PRICE_IMPORT</id>
+        <className>com.ey.piit.sdo.price.vo.BranchPriceVo</className>
+        <startRow>1</startRow>
+        <description>分公司产品价格导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.price.handler.BranchPriceImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>price/branchPrice/list</nextAction>
+        <idField>id</idField>
+        <codeField>pid</codeField>
+        <columns>
+            <column number="0" name="序号" field="id" type="java.lang.String" />
+            <column number="1" name="销售员" field="xsyid" type="java.lang.String" required="true" />
+            <column number="2" name="销售员名称" field="xsymc" type="java.lang.String" required="true" />
+            <column number="3" name="客户编码" field="khbm" type="java.lang.String" />
+            <column number="4" name="客户名称" field="khmc" type="java.lang.String" />
+            <column number="5" name="币种" field="bz" type="java.lang.String" />
+            <column number="6" name="付款条件" field="fktj" type="java.lang.String" />
+            <column number="7" name="天数" field="ts" type="java.lang.Integer" required="true" />
+            <column number="8" name="保费率" field="bfl" type="java.lang.Double" required="true" />
+            <column number="9" name="品牌" field="pp" type="java.lang.String" />
+            <column number="10" name="区域" field="qy" type="java.lang.String" />
+            <column number="11" name="加工方式" field="jgfs" type="java.lang.String" />
+            <column number="12" name="PID" field="pid" type="java.lang.String" />
+            <column number="13" name="最新配屏编码" field="zxppbm" type="java.lang.String" />
+            <column number="14" name="尺寸" field="cc" type="java.lang.Double" />
+            <column number="15" name="产品类别" field="cplb" type="java.lang.String" />
+            <column number="16" name="2D/3D" field="sf3d" type="java.lang.String" />
+            <column number="17" name="PanelType" field="paneltype" type="java.lang.String" />
+            <column number="18" name="机型" field="jixing" type="java.lang.String" />
+            <column number="19" name="机芯" field="jixin" type="java.lang.String" />
+            <column number="20" name="款式" field="ks" type="java.lang.String" required="false" />
+            <column number="21" name="泡沫" field="pm" type="java.lang.String" />
+            <column number="22" name="纸箱" field="zx" type="java.lang.String" />
+            <column number="23" name="彩盒" field="ch" type="java.lang.String" />
+            <column number="24" name="挂架" field="gj" type="java.lang.String" />
+            <column number="25" name="屏包材" field="pbc" type="java.lang.String" />
+            <column number="26" name="1%备损（不含屏）" field="bsbhp" type="java.lang.String" />
+            <column number="27" name="其他特殊要求" field="qttsyq" type="java.lang.String" />
+            <column number="28" name="FOB屏价格" field="fobP" type="java.math.BigDecimal" />
+            <column number="29" name="FOB散件价格" field="fobSj" type="java.math.BigDecimal" />
+            <column number="30" name="FOB整机价格" field="fobZj" type="java.math.BigDecimal" />
+            <column number="31" name="FOB主板价格" field="fobZb" type="java.math.BigDecimal" />
+            <column number="32" name="CIF屏价格" field="cifP" type="java.math.BigDecimal" />
+            <column number="33" name="CIF散件价格" field="cifSj" type="java.math.BigDecimal" />
+            <column number="34" name="CIF整机价格" field="cifZj" type="java.math.BigDecimal" />
+            <column number="35" name="CIF主板价格" field="cifZb" type="java.math.BigDecimal" />
+            <column number="36" name="有效期开始" field="yxqks" type="java.util.Date" />
+            <column number="37" name="有效期结束" field="yxqjs" type="java.util.Date" />
+
+        </columns>
+    </excel>
+    <excel>
+        <id>SKD_PRICE_IMPORT</id>
+        <className>com.ey.piit.sdo.price.vo.SkdPriceVo</className>
+        <startRow>1</startRow>
+        <description>SKD物料价格导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.price.handler.SkdPriceImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>price/skdPrice/list</nextAction>
+        <idField>id</idField>
+        <codeField>wlbh</codeField>
+        <columns>
+            <column number="0" name="物料编号" field="wlbh" type="java.lang.String" required="true"/>
+            <column number="1" name="物料描述" field="wlms" type="java.lang.String" />
+            <column number="2" name="单位" field="dw" type="java.lang.String" required="true" />
+            <column number="3" name="币种" field="bz" type="java.lang.String" required="true" />
+            <column number="4" name="单价" field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="5" name="有效期开始" field="yxqks" type="java.util.Date" />
+            <column number="6" name="有效期结束" field="yxqjs" type="java.util.Date" />
+
+        </columns>
+    </excel>
+    <excel>
+        <id>PI_SPO_ITEM_IMPORT</id>
+        <className>com.ey.piit.sdo.pi.vo.PiItemVo</className>
+        <startRow>2</startRow>
+        <description>备损PI产品导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="mxlx" field="mxlx" type="java.lang.String" required="true" />
+            <column number="1" name="wlbh"  field="wlbh" type="java.lang.String" required="true" />
+            <column number="2" name="khxhms" field="khxhms" type="java.lang.String" required="true" />
+            <column number="3" name="dw" field="dw" type="java.lang.String" required="true" />
+            <column number="4" name="sl" field="sl" type="java.lang.Integer" required="true" />
+            <column number="5" name="dj" field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="6" name="ckddh" field="ckddh" type="java.lang.String" required="true" />
+            <column number="7" name="jixin" field="jixin" type="java.lang.String" required="true" />
+            <column number="8" name="jixing" field="jixing" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    <excel>
+        <id>PI_FY_GZ_ITEM_IMPORT</id>
+        <className>com.ey.piit.sdo.pi.vo.PiFyItemVo</className>
+        <startRow>2</startRow>
+        <description>工装PI产品导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="mxlx" field="mxlx" type="java.lang.String" />
+            <column number="1" name="wlbh"  field="wlbh" type="java.lang.String" required="true" />
+            <column number="2" name="khxhms" field="khxhms" type="java.lang.String" />
+            <column number="3" name="sl" field="sl" type="java.lang.Integer" required="true" />
+            <column number="4" name="dj" field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="5" name="mfsl" field="mfsl" type="java.lang.Integer" />
+            <column number="6" name="ckddh" field="ckddh" type="java.lang.String" />
+            <column number="7" name="jixin" field="jixin" type="java.lang.String" />
+            <column number="8" name="jixing" field="jixing" type="java.lang.String"/>
+        </columns>
+    </excel>
+	<excel>
+        <id>ORDER_SPO_ITEM_IMPORT</id>
+        <className>com.ey.piit.sdo.order.vo.OrderSpoItemVo</className>
+        <startRow>2</startRow>
+        <description>备损订单物料导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+        	<column number="0" name="flag" field="flag" type="java.lang.String" required="true" />
+        	<column number="1" name="wllx" field="wllx" type="java.lang.String" required="true" />
+            <column number="2" name="wlbh"  field="wlbh" type="java.lang.String" required="true" />
+            <!-- <column number="3" name="wlms" field="wlms" type="java.lang.String" required="true" />
+            <column number="4" name="dw" field="dw" type="java.lang.String" required="true" /> -->
+            <column number="3" name="sl" field="sl" type="java.math.BigDecimal" required="true" />
+            <column number="4" name="dj" field="dj" type="java.math.BigDecimal" required="true" />
+            <column number="5" name="ckddh" field="ckddh" type="java.lang.String" required="true" />
+           <!--  <column number="6" name="jixin" field="jixin" type="java.lang.String" required="true" />
+            <column number="7" name="jixing" field="jixing" type="java.lang.String" required="true" /> -->
+        </columns>
+    </excel>
+    <excel>
+        <id>T_MATERIAL_DESCRIPTION_IMPORT</id>
+        <className>com.ey.piit.sdo.mdm.vo.MaterialDescriptionVo</className>
+        <startRow>1</startRow>
+        <description>物料其他语言描述导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.mdm.handler.MaterialDescriptionImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>mdm/materialDescription/list</nextAction>
+        <idField>id</idField>
+        <codeField>wlbh</codeField>
+        <columns>
+            <column number="0" name="wlbh"  field="wlbh" type="java.lang.String" required="true" />
+            <column number="1" name="yy" field="yy" type="java.lang.String" required="true" />
+            <column number="2" name="ms" field="ms" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    
+    
+    <excel>
+        <id>TRACK_DELAY_IMPORT</id>
+        <className>com.ey.piit.sdo.track.vo.TrackDelayVo</className>
+        <startRow>1</startRow>
+        <description>延误原因导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="id"  field="id" type="java.lang.String" required="false" />
+            <column number="1" name="ddid"  field="ddid" type="java.lang.String" required="true" />
+            <column number="2" name="khbm"  field="khbm" type="java.lang.String" required="true" />
+            <column number="3" name="khmc"  field="khmc" type="java.lang.String" required="true" />
+            <column number="4" name="ywjd"  field="ywjd"   type="java.lang.String" required="true" />
+            <column number="5" name="ywjdmc"  field="ywjdmc"   type="java.lang.String" required="true" />
+            <column number="6" name="ywyy"  field="ywyy"   type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    
+    <excel>
+        <id>TRACK_SOFTWARE_IMPORT</id>
+        <className>com.ey.piit.sdo.track.vo.TrackSoftwareVo</className>
+        <startRow>1</startRow>
+        <description>软件确认导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="ddid"  field="ddid" type="java.lang.String" required="true" />
+            <column number="1" name="khbm"  field="khbm" type="java.lang.String" required="true" />
+            <column number="2" name="khmc"  field="khmc" type="java.lang.String" required="true" />
+            <column number="3" name="pid"   field="pid"  type="java.lang.String"  required="true" />
+            <column number="4" name="rjqrsj"   field="rjqrsj"  type="java.util.Date"  required="true" />
+            <column number="5" name="rjzywtd"  field="rjzywtd"   type="java.lang.String" required="true" />
+            <column number="6" name="bzxx"  field="bzxx"   type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    <excel>
+        <id>TRACK_PLAINTIME_IMPORT</id>
+        <className>com.ey.piit.sdo.track.vo.TrackValidationVo</className>
+        <startRow>1</startRow>
+        <description>生产计划完成时间导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="ddid"  field="ddid" type="java.lang.String" required="true" />
+            <column number="1" name="khbm"  field="khbm" type="java.lang.String" required="true" />
+            <column number="2" name="khmc"  field="khmc" type="java.lang.String" required="true" />
+            <column number="3" name="pid"   field="pid"  type="java.lang.String"  required="true" />
+            <column number="4" name="ckzgsj"   field="ckzgsj"  type="java.util.Date"  required="true" />
+            <column number="5" name="scjhwc" field="scjhwc"  type="java.util.Date"  required="true" />
+        </columns>
+    </excel>
+     <excel>
+        <id>FCST_DATA_APPROVE_IMPORT</id>
+        <className>com.ey.piit.sdo.fcst.vo.TmpApproveFcstDataVo</className>
+        <startRow>3</startRow>
+        <description>采购FCST数据评审</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.fcst.handler.FcstDataApproveImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>fcst/fcstData/list</nextAction>
+        <idField>id</idField>
+        <codeField>pid</codeField>
+        <columns>
+            <column number="0" name="录入方式" field="lrfs" type="java.lang.String"/>
+            <column number="2" name="业务部编码" field="xszz" type="java.lang.String"/>
+            <column number="4" name="业务组编码" field="xszz" type="java.lang.String"/>
+            <column number="6" name="销售员ID" field="xsyid" type="java.lang.String"/>
+            <column number="8" name="PID" field="pid" type="java.lang.String"/>
+            <column number="9" name="客户编码" field="khbm" type="java.lang.String"/>
+            <column number="10" name="客户名称" field="khmc" type="java.lang.String"/>
+            <column number="11" name="机型" field="jixing" type="java.lang.String" />
+            <column number="12" name="机芯" field="jixin" type="java.lang.String" />
+            <column number="13" name="品牌" field="pp" type="java.lang.String" />
+            <column number="14" name="销往国家" field="xwgj" type="java.lang.String" />
+            <column number="15" name="走货方式" field="zhfs" type="java.lang.String" />
+            <column number="16" name="尺寸" field="cc" type="java.lang.Double" />
+            <!-- <column number="22" name="FCST需求" field="w1Ycs" type="java.lang.Double" required="true"  />
+            <column number="23" name="订单数" field="w1Dds" type="java.lang.Double" />
+            <column number="24" name="未下单数" field="w1Wxds" type="java.lang.Double" />
+            <column number="25" name="FCST需求" field="w2Ycs" type="java.lang.Double"  required="true" />
+            <column number="26" name="订单数" field="w2Dds" type="java.lang.Double" />
+            <column number="27" name="未下单数" field="w2Wxds" type="java.lang.Double" />
+            <column number="28" name="FCST需求" field="w3Ycs" type="java.lang.Double" required="true"  />
+            <column number="29" name="订单数" field="w3Dds" type="java.lang.Double" />
+            <column number="30" name="未下单数" field="w3Wxds" type="java.lang.Double" />
+            <column number="31" name="FCST需求" field="w4Ycs" type="java.lang.Double" required="true" />
+            <column number="32" name="订单数" field="w4Dds" type="java.lang.Double" />
+            <column number="33" name="未下单数" field="w4Wxds" type="java.lang.Double" /> -->
+            <column number="39" name="FCST需求" field="w5Ycs" type="java.lang.Double" required="true" />
+<!--             <column number="36" name="订单数" field="w5Dds" type="java.lang.Double" /> -->
+            <column number="41" name="FCST需求" field="w6Ycs" type="java.lang.Double" required="true" />
+<!--             <column number="38" name="未下单数" field="w6Wxds" type="java.lang.Double" />
+            <column number="39" name="订单数" field="w6Dds" type="java.lang.Double" /> -->
+            <column number="44" name="FCST需求" field="w7Ycs" type="java.lang.Double" required="true" />
+            <!--  <column number="41" name="订单数" field="w7Dds" type="java.lang.Double" />
+            <column number="42" name="未下单数" field="w7Wxds" type="java.lang.Double" />
+            <column number="42" name="FCST需求" field="w8Ycs" type="java.lang.Double" required="true" />
+            <column number="43" name="订单数" field="w8Dds" type="java.lang.Double" />
+            <column number="44" name="未下单数" field="w8Wxds" type="java.lang.Double" />
+            <column number="36" name="FCST需求" field="w9Ycs" type="java.lang.Double" required="true" />
+            <column number="37" name="订单数" field="w9Dds" type="java.lang.Double" />
+            <column number="38" name="未下单数" field="w9Wxds" type="java.lang.Double" />
+            <column number="39" name="FCST需求" field="w10Ycs" type="java.lang.Double" required="true"/>
+            <column number="40" name="订单数" field="w10Dds" type="java.lang.Double" />
+            <column number="41" name="未下单数" field="w10Wxds" type="java.lang.Double" />
+            <column number="42" name="FCST需求" field="w11Ycs" type="java.lang.Double" required="true"/>
+            <column number="43" name="订单数" field="w11Dds" type="java.lang.Double" />
+            <column number="44" name="未下单数" field="w11Wxds" type="java.lang.Double" />
+            <column number="45" name="FCST需求" field="w12Ycs" type="java.lang.Double" required="true"/>
+            <column number="46" name="订单数" field="w12Dds" type="java.lang.Double" />
+            <column number="47" name="未下单数" field="w12Wxds" type="java.lang.Double" />
+            <column number="48" name="FCST需求" field="w13Ycs" type="java.lang.Double" required="true"/>
+            <column number="49" name="订单数" field="w13Dds" type="java.lang.Double" />
+            <column number="50" name="未下单数" field="w13Wxds" type="java.lang.Double" />
+            <column number="51" name="FCST需求" field="w14Ycs" type="java.lang.Double" required="true"/>
+            <column number="52" name="订单数" field="w14Dds" type="java.lang.Double" />
+            <column number="53" name="未下单数" field="w14Wxds" type="java.lang.Double" />
+            <column number="54" name="FCST需求" field="w15Ycs" type="java.lang.Double" required="true"/>
+            <column number="55" name="订单数" field="w15Dds" type="java.lang.Double" />
+            <column number="56" name="未下单数" field="w15Wxds" type="java.lang.Double" />
+            <column number="57" name="FCST需求" field="w16Ycs" type="java.lang.Double" required="true"/>
+            <column number="58" name="订单数" field="w16Dds" type="java.lang.Double" />
+            <column number="59" name="未下单数" field="w16Wxds" type="java.lang.Double" />
+            <column number="60" name="FCST需求" field="w17Ycs" type="java.lang.Double" required="true"/>
+            <column number="61" name="订单数" field="w17Dds" type="java.lang.Double" />
+            <column number="62" name="未下单数" field="w17Wxds" type="java.lang.Double" /> -->
+           <!--  <column number="47" name="FCST需求" field="w18Ycs" type="java.lang.Double"/>
+            <column number="48" name="订单数" field="w18Dds" type="java.lang.Double" />
+            <column number="49" name="FCST需求" field="w19Ycs" type="java.lang.Double"/>
+            <column number="50" name="订单数" field="w19Dds" type="java.lang.Double" />
+            <column number="51" name="FCST需求" field="w20Ycs" type="java.lang.Double"/>
+            <column number="52" name="订单数" field="w20Dds" type="java.lang.Double" />
+            <column number="53" name="FCST需求" field="w21Ycs" type="java.lang.Double"/>
+            <column number="54" name="订单数" field="w21Dds" type="java.lang.Double" />
+            <column number="55" name="FCST需求" field="w22Ycs" type="java.lang.Double"/>
+            <column number="56" name="订单数" field="w22Dds" type="java.lang.Double" />
+            <column number="57" name="FCST需求" field="w23Ycs" type="java.lang.Double"/>
+            <column number="58" name="订单数" field="w23Dds" type="java.lang.Double" />
+            <column number="59" name="FCST需求" field="w24Ycs" type="java.lang.Double"/>
+            <column number="60" name="订单数" field="w24Dds" type="java.lang.Double" />
+            <column number="61" name="FCST需求" field="w25Ycs" type="java.lang.Double"/>
+            <column number="62" name="订单数" field="w25Dds" type="java.lang.Double" /> -->
+        </columns>
+    </excel>
+     <excel>
+        <id>FCST_DATA_IMPORT</id>
+        <className>com.ey.piit.sdo.fcst.vo.TmpFcstDataVo</className>
+        <startRow>3</startRow>
+        <description>采购FCST数据填报</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.fcst.handler.FcstDataImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>fcst/fcstData/list</nextAction>
+        <idField>id</idField>
+        <codeField>pid</codeField>
+        <columns>
+            <column number="0" name="客户编码" field="khbm" type="java.lang.String" required="true" />
+            <column number="1" name="客户名称" field="khmc" type="java.lang.String" />
+            <column number="2" name="PID" field="pid" type="java.lang.String" required="true" />
+            <column number="3" name="机型" field="jixing" type="java.lang.String" />
+            <column number="4" name="机芯" field="jixin" type="java.lang.String" />
+            <column number="5" name="品牌" field="pp" type="java.lang.String" />
+            <column number="6" name="销往国家编码" field="xwgjbm" type="java.lang.String" />
+            <column number="7" name="销往国家" field="xwgj" type="java.lang.String" />
+            <column number="8" name="走货方式编码" field="zhfs" type="java.lang.String" />
+            <column number="9" name="走货方式" field="zhfsmc" type="java.lang.String" />
+            <column number="10" name="尺寸" field="cc" type="java.lang.Double" />
+            <column number="11" name="FCST需求" field="w1Ycs" type="java.lang.Double" required="true"  />
+            <column number="12" name="订单数" field="w1Dds" type="java.lang.Double" />
+            <column number="13" name="FCST需求" field="w2Ycs" type="java.lang.Double"  required="true" />
+            <column number="14" name="订单数" field="w2Dds" type="java.lang.Double" />
+            <column number="15" name="FCST需求" field="w3Ycs" type="java.lang.Double" required="true"  />
+            <column number="16" name="订单数" field="w3Dds" type="java.lang.Double" />
+            <column number="17" name="FCST需求" field="w4Ycs" type="java.lang.Double" required="true" />
+            <column number="18" name="订单数" field="w4Dds" type="java.lang.Double" />
+            <column number="19" name="FCST需求" field="w5Ycs" type="java.lang.Double" required="true" />
+            <column number="20" name="订单数" field="w5Dds" type="java.lang.Double" />
+            <column number="21" name="FCST需求" field="w6Ycs" type="java.lang.Double" required="true" />
+            <column number="22" name="订单数" field="w6Dds" type="java.lang.Double" />
+            <column number="23" name="FCST需求" field="w7Ycs" type="java.lang.Double" required="true" />
+            <column number="24" name="订单数" field="w7Dds" type="java.lang.Double" />
+            <column number="25" name="FCST需求" field="w8Ycs" type="java.lang.Double" required="true" />
+            <column number="26" name="订单数" field="w8Dds" type="java.lang.Double" />
+            <column number="27" name="FCST需求" field="w9Ycs" type="java.lang.Double" required="true" />
+            <column number="28" name="订单数" field="w9Dds" type="java.lang.Double" />
+            <column number="29" name="FCST需求" field="w10Ycs" type="java.lang.Double" required="true"/>
+            <column number="30" name="订单数" field="w10Dds" type="java.lang.Double" />
+            <column number="31" name="FCST需求" field="w11Ycs" type="java.lang.Double" required="true"/>
+            <column number="32" name="订单数" field="w11Dds" type="java.lang.Double" />
+            <column number="33" name="FCST需求" field="w12Ycs" type="java.lang.Double" required="true"/>
+            <column number="34" name="订单数" field="w12Dds" type="java.lang.Double" />
+            <column number="35" name="FCST需求" field="w13Ycs" type="java.lang.Double" required="true"/>
+            <column number="36" name="订单数" field="w13Dds" type="java.lang.Double" />
+            <column number="37" name="FCST需求" field="w14Ycs" type="java.lang.Double" required="true"/>
+            <column number="38" name="订单数" field="w14Dds" type="java.lang.Double" />
+            <column number="39" name="FCST需求" field="w15Ycs" type="java.lang.Double" required="true"/>
+            <column number="40" name="订单数" field="w15Dds" type="java.lang.Double" />
+            <column number="41" name="FCST需求" field="w16Ycs" type="java.lang.Double" required="true"/>
+            <column number="42" name="订单数" field="w16Dds" type="java.lang.Double" />
+            <column number="43" name="FCST需求" field="w17Ycs" type="java.lang.Double" required="true"/>
+            <column number="44" name="订单数" field="w17Dds" type="java.lang.Double" />
+            <column number="45" name="FCST需求" field="w18Ycs" type="java.lang.Double" required="true"/>
+            <column number="46" name="订单数" field="w18Dds" type="java.lang.Double" />
+            <column number="47" name="FCST需求" field="w19Ycs" type="java.lang.Double" required="true"/>
+            <column number="48" name="订单数" field="w19Dds" type="java.lang.Double" />
+            <column number="49" name="FCST需求" field="w20Ycs" type="java.lang.Double" required="true"/>
+            <column number="50" name="订单数" field="w20Dds" type="java.lang.Double" />
+        </columns>
+    </excel>
+    <!-- 收款登记导入 -->
+     <excel>
+        <id>PAY_RECEIVE_IMPORT</id>
+        <className>com.ey.piit.sdo.payment.vo.PayReceiveVo</className>
+        <startRow>1</startRow>
+        <description>收款登记信息导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="付款人" field="fkr" type="java.lang.String" required="true" />
+            <column number="1" name="付款银行" field="fkyh" type="java.lang.String" required="true" />
+            <column number="2" name="付款国家" field="fkgj" type="java.lang.String" required="true" />
+            <column number="3" name="币种" field="bz" type="java.lang.String" required="true" />
+            <column number="4" name="收款日期" field="skrq" type="java.util.Date"   required="true"/>
+            <column number="5" name="收款银行名称" field="skyhmc" type="java.lang.String"   required="true"/>
+            <column number="6" name="收款银行账号" field="skyh" type="java.lang.String"   required="true"/>
+            <column number="7" name="接单主体" field="gsbm" type="java.lang.String"   required="true"/>
+            <column number="8" name="金额" field="je" type="java.math.BigDecimal"   required="true"/>
+            <column number="9" name="参考手续费" field="cksxf" type="java.math.BigDecimal" required="true"  />
+            <column number="10" name="备注信息" field="bzxx" type="java.lang.String"  />
+        </columns>
+    </excel>
+    <excel>
+        <id>EXCHANGE_RATE_IMPORT</id>
+        <className>com.ey.piit.sdo.mdm.vo.ExchangeRateVo</className>
+        <startRow>1</startRow>
+        <description>汇率导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.mdm.handler.ExchangeRateImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>mdm/exchangeRate/list</nextAction>
+        <idField>id</idField>
+        <codeField>sjc</codeField>
+        <columns>
+            <column number="0" name="从币种" field="cbz" type="java.lang.String" required="true" />
+            <column number="1" name="到币种" field="dbz" type="java.lang.String" required="true" />
+            <column number="2" name="有效期开始" field="yxqks" type="java.util.Date" />
+            <column number="3" name="有效期结束" field="yxqjs" type="java.util.Date" />
+            <column number="4" name="比例" field="bl" type="java.math.BigDecimal" required="true" />
+        </columns>
+    </excel>
+    <excel>
+        <id>EUROPE_SKD_ORDER_STATUS_IMPORT</id>
+        <className>com.ey.piit.sdo.report.vo.ReportSkdOrderStatusVo</className>
+        <startRow>1</startRow>
+        <description>欧洲供应链SKD订单状态信息导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass>com.ey.piit.sdo.report.handler.SkdOrderStatusImportHandler</handleClass>
+        <redirect>true</redirect>
+        <nextAction>report/skdOrderStatus</nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="订单号" field="ddid" type="java.lang.String" required="true" />
+			<column number="1" name="出货单号" field="chdh" type="java.lang.String" required="true" />
+			<column number="2" name="海上在途数量" field="hsztsl"	 type="java.lang.Integer" />
+			<column number="3" name="物料到达波兰工厂数量" field="wlddblgcsl" type="java.lang.Integer" />
+			<column number="4" name="skd待生产数量" field="skddscsl" type="java.lang.Integer" />
+			<column number="5" name="整机待出货数量" field="zjdchsl" type="java.lang.Integer" />
+			<column number="6" name="整机不良品数量" field="zjblpsl" type="java.lang.Integer" />
+			<column number="7" name="无状态数量" field="wztsl" type="java.lang.Integer" />
+			<column number="8" name="出货数量" field="chsl" type="java.lang.Integer" />
+			<column number="9" name="波兰工厂出货日期" field="blgcchrq" type="java.util.Date" />
+			<column number="10" name="本次出货客户名" field="bcchkhmc"	 type="java.lang.String" />
+			<column number="11" name="备注" field="bzxx"	 type="java.lang.String" />
+        </columns>
+    </excel>
+    
+    <excel>
+        <id>SHIPPING_SHEET_IMPORT</id>
+        <className>com.ey.piit.sdo.price.vo.ShippingsheetItemVo</className>
+        <startRow>1</startRow>
+        <description>出货资料表信息导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="操作类型" field="flag" type="java.lang.String" required="true" />
+            <column number="1" name="订单号" field="ddid" type="java.lang.String" required="true" />
+			<column number="2" name="物料编码" field="wlbh" type="java.lang.String" required="true" />
+			<column number="3" name="币种" field="bz" type="java.lang.String" required="true" />
+			<column number="4" name="单价" field="dj" type="java.math.BigDecimal" required="true" />
+			<column number="5" name="单位" field="dw" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+    
+    <excel>
+        <id>MATTER_PRICE_IMPORT</id>
+        <className>com.ey.piit.sdo.custinv.vo.MatterPriceVo</className>
+        <startRow>1</startRow>
+        <description>客户物料价格库导入</description>
+        <defaultConfig>true</defaultConfig>
+        <handleClass></handleClass>
+        <redirect>true</redirect>
+        <nextAction></nextAction>
+        <idField></idField>
+        <codeField></codeField>
+        <columns>
+            <column number="0" name="客户编码" field="khbm" type="java.lang.String" required="true" />
+			<column number="1" name="物料编码" field="wlbh" type="java.lang.String" required="true" />
+			<column number="2" name="币种" field="bz" type="java.lang.String" required="true" />
+			<column number="3" name="单价" field="dj" type="java.math.BigDecimal" required="true" />
+			<column number="4" name="单位" field="dw" type="java.lang.String" required="true" />
+            <column number="5" name="物料描述" field="wlms" type="java.lang.String" required="true" />
+        </columns>
+    </excel>
+</excel-configuration>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.basedemo.user.repository.UserDemoDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.basedemo.user.vo.UserDemoVo" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="login_acct" property="loginAcct" jdbcType="VARCHAR" />
+		<result column="user_name" property="userName" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="emp_code" property="empCode" jdbcType="VARCHAR" />
+		<result column="comp_code" property="compCode" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="creator" property="creator.id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="last_updater" property="lastUpdater.id" jdbcType="VARCHAR" />
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="defaut_role" property="defautRole" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.login_acct AS "loginAcct",
+		a.user_name AS "userName",
+		a.password AS "password",
+		a.emp_code AS "empCode",
+		a.comp_code AS "compCode",
+		a.email AS "email",
+		a.status AS "status",
+		a.type AS "type",
+		a.description AS "description",
+		a.creator AS "creator.id",
+		a.create_time AS "createTime",
+		a.last_updater AS "lastUpdater.id",
+		a.last_update_time AS "lastUpdateTime",
+		a.defaut_role AS "defautRole"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_user a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_user a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="userName != null and userName != ''" >
+                and USER_NAME like '%'||#{userName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="empCode != null and empCode != ''" >
+                and EMP_CODE = #{empCode,jdbcType=VARCHAR}
+            </if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_user(
+			id,
+			login_acct,
+			user_name,
+			password,
+			emp_code,
+			comp_code,
+			email,
+			status,
+			type,
+			description,
+			creator,
+			create_time,
+			last_updater,
+			last_update_time,
+			defaut_role
+		) VALUES (
+			#{id},
+			#{loginAcct},
+			#{userName},
+			#{password},
+			#{empCode},
+			#{compCode},
+			#{email},
+			#{status},
+			#{type},
+			#{description},
+			#{creator.id},
+			#{createTime},
+			#{lastUpdater.id},
+			#{lastUpdateTime},
+			#{defautRole}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_user
+		<set>
+            <if test="loginAcct != null" >
+				login_acct = #{loginAcct},
+			</if>
+            <if test="userName != null" >
+				user_name = #{userName},
+			</if>
+            <if test="password != null" >
+				password = #{password},
+			</if>
+            <if test="empCode != null" >
+				emp_code = #{empCode},
+			</if>
+            <if test="compCode != null" >
+				comp_code = #{compCode},
+			</if>
+            <if test="email != null" >
+				email = #{email},
+			</if>
+            <if test="status != null" >
+				status = #{status},
+			</if>
+            <if test="type != null" >
+				type = #{type},
+			</if>
+            <if test="description != null" >
+				description = #{description},
+			</if>
+            <if test="lastUpdater != null" >
+				last_updater = #{lastUpdater.id},
+			</if>
+            <if test="lastUpdateTime != null" >
+				last_update_time = #{lastUpdateTime},
+			</if>
+            <if test="defautRole != null" >
+				defaut_role = #{defautRole},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM t_user
+		WHERE id = #{id}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+	<select id="callUserList" statementType="CALLABLE">
+		{call PKG_TEST.QRY_TEST(
+			#{userName,jdbcType=VARCHAR,mode=IN},
+			#{userList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.basedemo.user.repository.UserDemoDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callVarchar" statementType="CALLABLE">
+		{call PKG_TEST.SAVE_TEST(
+			#{pId,jdbcType=INTEGER,mode=IN},
+			#{pName,jdbcType=VARCHAR,mode=IN},
+			#{pReturn,jdbcType=INTEGER,mode=OUT},
+			#{pMsg,jdbcType=VARCHAR,mode=OUT})
+		}
+	</select>
+	
+</mapper>

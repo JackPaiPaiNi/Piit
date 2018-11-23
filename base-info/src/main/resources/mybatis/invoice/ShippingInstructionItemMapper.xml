@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.invoice.repository.ShippingInstructionItemDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.invoice.vo.ShippingInstructionItemVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="bldh" property="bldh" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="gh" property="gh" jdbcType="VARCHAR" />
+		<result column="fth" property="fth" jdbcType="VARCHAR" />
+		<result column="kbtj" property="kbtj" jdbcType="DECIMAL" />
+		<result column="xs" property="xs" jdbcType="DECIMAL" />
+		<result column="zsl" property="zsl" jdbcType="DECIMAL" />
+		<result column="pz" property="pz" jdbcType="DECIMAL" />
+		<result column="gmz" property="gmz" jdbcType="DECIMAL" />
+		<result column="gx" property="gx" jdbcType="VARCHAR" />
+		<result column="zmz" property="zmz" jdbcType="DECIMAL" />
+		<result column="dch" property="dch" jdbcType="CHAR" />
+		
+		<!-- 出库明细字段 -->
+		<result column="serino" property="serino" jdbcType="DECIMAL" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="mxlx" property="mxlx" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="jhdh" property="jhdh" jdbcType="VARCHAR" />
+		<result column="jhdhxmh" property="jhdhxmh" jdbcType="VARCHAR" />
+		<result column="zgrq" property="zgrq" jdbcType="TIMESTAMP" />
+		<result column="pono" property="pono" jdbcType="VARCHAR" />
+		<result column="potype" property="potype" jdbcType="VARCHAR" />
+		<result column="kbh" property="kbh" jdbcType="VARCHAR" />
+		<result column="gx" property="gx" jdbcType="VARCHAR" />
+		<result column="gh" property="gh" jdbcType="VARCHAR" />
+		<result column="pz" property="pz" jdbcType="DECIMAL" />
+		<result column="fth" property="fth" jdbcType="VARCHAR" />
+		<result column="xh" property="xh" jdbcType="VARCHAR" />
+		<result column="xs" property="xs" jdbcType="DECIMAL" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="khxhms" property="khxhms" jdbcType="VARCHAR" />
+		<result column="spms" property="spms" jdbcType="VARCHAR" />
+		<result column="wllb" property="wllb" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="wlms_yw" property="wlmsYw" jdbcType="VARCHAR" />
+		<result column="wlms_zw" property="wlmsZw" jdbcType="VARCHAR" />
+		<result column="wlms_khyy" property="wlmsKhyy" jdbcType="VARCHAR" />
+		<result column="khlh" property="khlh" jdbcType="VARCHAR" />
+		<result column="mxsl" property="mxsl" jdbcType="DECIMAL" />
+		<result column="moq" property="moq" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="zsl" property="zsl" jdbcType="DECIMAL" />
+		<result column="zje" property="zje" jdbcType="DECIMAL" />
+		<result column="dhsl" property="dhsl" jdbcType="DECIMAL" />
+		<result column="dhje" property="dhje" jdbcType="DECIMAL" />
+		<result column="mfsl" property="mfsl" jdbcType="DECIMAL" />
+		<result column="mfje" property="mfje" jdbcType="DECIMAL" />
+		<result column="zx_c" property="zxC" jdbcType="DECIMAL" />
+		<result column="zx_k" property="zxK" jdbcType="DECIMAL" />
+		<result column="zx_g" property="zxG" jdbcType="DECIMAL" />
+		<result column="dgzl" property="dgzl" jdbcType="DECIMAL" />
+		<result column="djzmx" property="djzmx" jdbcType="DECIMAL" />
+		<result column="dmzmx" property="dmzmx" jdbcType="DECIMAL" />
+		<result column="zjz" property="zjz" jdbcType="DECIMAL" />
+		<result column="zmz" property="zmz" jdbcType="DECIMAL" />
+		<result column="mkbmz" property="mkbmz" jdbcType="DECIMAL" />
+		<result column="kb_c" property="kbC" jdbcType="DECIMAL" />
+		<result column="kb_k" property="kbK" jdbcType="DECIMAL" />
+		<result column="kb_g" property="kbG" jdbcType="DECIMAL" />
+		<result column="kbtj" property="kbtj" jdbcType="DECIMAL" />
+		<result column="gysdm" property="gysdm" jdbcType="VARCHAR" />
+		<result column="gysmc" property="gysmc" jdbcType="VARCHAR" />
+		<result column="gysdz" property="gysdz" jdbcType="VARCHAR" />
+		<result column="ycgj" property="ycgj" jdbcType="VARCHAR" />
+		<result column="khhgbm" property="khhgbm" jdbcType="VARCHAR" />
+		<result column="khhgbmms" property="khhgbmms" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<insert id="callInsertItem" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_SHIPPING_INSTRUCTION.P_SAVE_ITEM(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.bldh,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.gh,jdbcType=VARCHAR,mode=IN},
+			#{vo.fth,jdbcType=VARCHAR,mode=IN},
+			#{vo.kbtj,jdbcType=DECIMAL,mode=IN},
+			#{vo.xs,jdbcType=DECIMAL,mode=IN},
+			#{vo.zsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.pz,jdbcType=DECIMAL,mode=IN},
+			#{vo.gmz,jdbcType=DECIMAL,mode=IN},
+			#{vo.gx,jdbcType=DECIMAL,mode=IN},
+			#{vo.zmz,jdbcType=DECIMAL,mode=IN},
+			#{vo.dch,jdbcType=CHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<select id="callSelectCkmxByChxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_QRY_CKMX_BY_CHXX(
+			#{chxx,jdbcType=VARCHAR,mode=IN},
+			#{ckmxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionItemDao.baseResultMap})
+		}
+	</select>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

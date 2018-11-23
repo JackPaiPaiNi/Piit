@@ -1,0 +1,1007 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="/WEB-INF/views/index/taglib.jsp"%>
+<%@page import="com.ey.piit.core.utils.UserUtils"%>  
+<!DOCTYPE html>
+<html>
+<head>
+<%@include file="/WEB-INF/views/index/head.jsp" %>
+<%
+  String  zdrid =   UserUtils.getUser().getEmpCode() ;
+%>
+</head>
+<body>
+<div class="page-content">
+	<div class="row">
+		<div id="grid-parent" class="col-xs-12">
+			<!-- PAGE CONTENT BEGINS -->
+				
+			<div id="search-box" class="widget-box">
+				<div class="widget-header header-color-blue2">
+					<h5>查询条件</h5>
+					<span class="widget-toolbar">
+						<a href="#" data-action="collapse">
+							<i class="icon-chevron-up"></i>
+						</a>
+					</span>
+					<div class="widget-toolbar no-border">
+						<button id="btn-search" type="button" class="btn btn-info btn-minier bigger">
+							<i class="icon-search icon-on-right"></i>
+							查询
+						</button>
+						&nbsp;
+						<button id="btn-export" type="button" class="btn btn-success btn-minier bigger">
+							<i class="icon-download-alt icon-on-right"></i>
+							导出
+						</button>
+						&nbsp;
+						<button id="btn-ckdexport" type="button" class="btn btn-success btn-minier bigger">
+							<i class="icon-download-alt icon-on-right"></i>
+							CKD明细导出
+						</button>
+					</div>
+				</div>
+				<div class="widget-body">
+					<div class="widget-main">
+						<form id="form-search" class="form-search">
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">订单号&nbsp;&nbsp;</label>
+										<input type="text" name="ddid" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">公司&nbsp;&nbsp;</label>
+										<select role="select" name="gsbm" size="1" class="form-control skyselect">
+											${fns:loadCompanyOption('0')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">客户&nbsp;&nbsp;</label>
+										<input type="text" name="khmc" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">销售员&nbsp;&nbsp;</label>
+										<input type="text" name="xsymc" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="space-4"></div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">订单类别&nbsp;&nbsp;</label>
+										<select role="select" name="ddlb" size="1" class="form-control skyselect">
+											${fns:loadDictOption('DDLB_DH_NEW')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">业务类型&nbsp;&nbsp;</label>
+										<select role="select" name="ywlx" size="1" class="form-control skyselect">
+											${fns:loadDictOption('YWLX')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">订单状态&nbsp;&nbsp;</label>
+										<select role="select" name="zt" size="1" class="form-control skyselect">
+											${fns:loadDictOption('DJZT')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">付款保障状态&nbsp;&nbsp;</label>
+										<select role="select" name="fkbzzt" size="1" class="form-control skyselect">
+											${fns:loadDictOption('FKBZZT')}
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="space-4"></div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">生产基地&nbsp;&nbsp;</label>
+										<select role="select" name="scjd" size="1" class="form-control skyselect">
+											${fns:loadDictOption('SCJD')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">制单时间&nbsp;&nbsp;</label>
+										<input type="hidden" id="beginZdsj" name="beginZdsj"/>
+										<input type="hidden" id="endZdsj" name="endZdsj"/>
+										<input type="text" name="zdsj" class="form-control timeInterval"/>
+										<span class="input-group-addon">
+											<i class="icon-calendar bigger-110"></i>
+										</span>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">制单人&nbsp;&nbsp;</label>
+										<input type="text" name="zdrid" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">PID&nbsp;&nbsp;</label>
+										<input type="text" name="pid" class="form-control"/>
+									</div>
+								</div>
+							</div>
+							<div class="space-4"></div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">机芯&nbsp;&nbsp;</label>
+										<input type="text" name="jixin" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">机型&nbsp;&nbsp;</label>
+										<input type="text" name="wsxh" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">品牌&nbsp;&nbsp;</label>
+										<input type="text" name="pp" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">交货日期&nbsp;&nbsp;</label>
+										<input type="hidden" id="beginJhrq" name="beginJhrq"/>
+										<input type="hidden" id="endJhrq" name="endJhrq"/>
+										<input type="text" name="jhrq" class="form-control timeInterval"/>
+										<span class="input-group-addon">
+											<i class="icon-calendar bigger-110"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="space-4"></div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">PI号&nbsp;&nbsp;</label>
+										<input type="text" name="piid" class="form-control"/>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">是否模组CKD&nbsp;&nbsp;</label>
+										<select role="select" name="sfMzckd" size="1" class="form-control skyselect">
+											${fns:loadDictOption('SF')}
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-6 col-sm-3">
+									<div class="input-group input-group-sm">
+										<label class="input-group-addon">美工任务单号&nbsp;&nbsp;</label>
+										<input type="text" name="mgrwdh" class="form-control"/>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			<table id="grid-table"></table>
+			
+			<div id="grid-pager"></div>
+			<div id="grid-parent-ckd" hidden="hidden">
+				<table id="grid-table-ckd"></table>
+				<div id="grid-pager-ckd"></div>
+			</div>
+
+			<!-- PAGE CONTENT ENDS -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+	
+</div>
+<!-- /.page-content -->
+<div id="consoleDlg" class="page-content" >
+ <hr cellspacing="0" cellpadding="0">
+ <div id="formContainer" class="row">
+    <div class="col-xs-12">
+     	<form id="consoleForm">
+     	     <input type="hidden"  name="id"  />
+     	     <input type="hidden"  name="sjc"  />
+     	     <input type="hidden"  name="type"  />
+      	 <div class="row">
+			<div class="col-xs-6 col-sm-12">
+				<div class="input-group input-group-sm">
+					<label class="input-group-addon">取消备注&nbsp;&nbsp;</label> 
+					<textarea name="qxbz" class="autosize-transition form-control" ></textarea>
+				</div>
+			</div>
+      	 </div>
+      	 <div class="space-4"></div>
+      	 <div class="row">
+      	 	 <div class="col-xs-6 col-sm-12" align="center">
+				<button id="btn_ok" type="button" class="btn btn-info  btn-minier bigger" onclick="cancel()">
+					<i class="icon-ok icon-on-left bigger-110"></i>
+					确定
+				</button> 
+				&nbsp;&nbsp;&nbsp;
+			    <button id="btn_cancel" type="button" class="btn btn-danger btn-minier bigger"  onclick="back()">
+					 <i class="fa-times icon-on-right bigger-110"></i>
+					返回
+				</button> 
+			</div>
+      	 </div>
+     	</form>
+    	</div>
+    </div>
+ </div>
+ <!-- 交货日期 -->
+ <div id="consoleDlg-jhrq" class="page-content" >
+ <hr cellspacing="0" cellpadding="0">
+ <div id="formContainer-jhrq" class="row">
+    <div class="col-xs-12">
+     	<form id="consoleForm-jhrq">
+      	 <div class="row">
+			<div class="col-xs-12 col-sm-12">
+			    <input type="hidden" name="id" >
+			    <input type="hidden" name="sjc" >
+			    <!-- 1-暂停；2-启用；3-修改交期 （为了共用同一个弹窗添加   魏诚  2018-5-18）-->
+			    <input type="hidden" name="type" >
+				<div class="input-group input-group-sm">
+					<label class="input-group-addon">交货日期&nbsp;&nbsp;</label>
+					<input type="text"  name="jhrq" class="form-control"/>
+					<span class="input-group-addon">
+						<i class="icon-calendar bigger-110"></i>
+					</span>
+				</div>
+			</div>
+      	 </div>
+      	 <div class="space-4"></div>
+      	 <div class="space-4"></div>
+      	 <div class="row">
+      	 	 <div class="col-xs-6 col-sm-12" align="center">
+				<button id="btn_ok_jhrq" type="button" class="btn btn-info  btn-minier bigger" onclick="confirmJhrq()">
+					<i class="icon-ok icon-on-left bigger-110"></i>
+					确定
+				</button> 
+				&nbsp;&nbsp;&nbsp;
+			    <button id="btn_cancel_jhrq" type="button" class="btn btn-danger btn-minier bigger"  onclick="cancelJhrq()">
+					 <i class="fa-times icon-on-right bigger-110"></i>
+					返回
+				</button> 
+			</div>
+      	 </div>
+     	</form>
+    	</div>
+    </div>
+ </div>
+</body>
+<script type="text/javascript">
+    
+	var grid_selector = "#grid-table";
+	var pager_selector = "#grid-pager";
+	
+	var grid_selector_ckd = "#grid-table-ckd";
+	var pager_selector_ckd = "#grid-pager-ckd";
+	
+	var form_search = "#form-search";
+	var editurl = "<c:url value='/order/orderProductNew/editPage'/>";
+	var viewurl = "<c:url value='/order/orderProductNew/viewPage'/>";
+	var changeurl = "<c:url value='/order/orderProductNew/change'/>";
+	var cancelurl = "<c:url value='/order/orderProductNew/cancel'/>";
+	var getbackurl = "<c:url value='/order/orderProductNew/getback'/>";
+	var changeEditurl = "<c:url value='/order/orderProductNew/changeEditPage'/>";
+	var pauseurl = "<c:url value='/order/orderProductNew/pause'/>";
+	var pauseEditurl = "<c:url value='/order/orderProductNew/pauseEditPage'/>";
+	/* 修改交货日期 */
+	var changeJhrqurl = "<c:url value='/order/orderProductNew/changeJhrq'/>";
+	var isEdit = false;
+	var isChdelete = false;
+	<shiro:hasPermission name="order:orderProductNew:chdelete">isChdelete=true;</shiro:hasPermission>
+	<shiro:hasPermission name="order:orderProductNew:edit">isEdit=true;</shiro:hasPermission>
+	
+	$(function($) {
+		
+		$("#consoleForm-jhrq [name=jhrq]").bindDate()
+		// 配备注
+		$("#consoleDlg").dialog({
+			autoOpen : false, // 是否自动弹出窗口
+			modal : true, // 设置为模态对话框
+			resizable : true,
+			width : 600,
+			height : 220,
+			position : "center" // 窗口显示的位置
+		});
+		
+		// 配置交货日期
+		$("#consoleDlg-jhrq").dialog({
+			autoOpen : false, // 是否自动弹出窗口
+			modal : true, // 设置为模态对话框
+			resizable : true,
+			width : 300,
+			height : 150,
+			position : "center" // 窗口显示的位置
+		});
+		
+		
+		$(".skyselect").select2();
+		$("#form-search [name=zdsj]").bindDateRange({startElement:$("#beginZdsj"),endElement:$("#endZdsj")});
+		$("#form-search [name=jhrq]").bindDateRange({startElement:$("#beginJhrq"),endElement:$("#endJhrq")});
+		$(grid_selector).bindTable({
+			caption: "",
+			url: "<c:url value='/order/orderProductNew/search'/>",
+			pager: pager_selector,
+			gridParent: "#grid-parent",
+			formSearch: "#form-search",
+			sortname:'zdsj',
+			sortorder:'desc',
+			shrinkToFit: false,
+			autoScroll: false,
+			rowNum:20,
+			autoheight:true,
+			extraheight:$('#search-box').height(),
+			colModel: [
+				{name:'id', label:'ID', hidden: true, width:60, frozen:true},
+				{name:'sfBg', label:'sfBg', hidden: true, width:60, frozen:true},
+				{name:'sfCh', label:'sfCh', hidden: true, width:60, frozen:true},
+				{name:'sfZt', label:'sfZt', hidden: true, width:60, frozen:true},
+				{name:'sjc', label:'SJC', hidden: true, width:60, frozen:true},
+				{name:'processId', label:'processId', hidden: true, width:60, frozen:true},
+				{name:'taskId', label:'taskId', hidden: true, width:60, frozen:true},
+				{name:'scjdmc', index:'scjdmc', label:'生产基地', width:110, frozen:true},
+				{name:'ddid', index:'ddid', label:'订单号', width:110, frozen:true},
+				{name:'bbh', index:'bbh', label:'版本号', hidden: true, width:60, frozen:true},
+				{name:'zt', index:'zt',label:'订单状态', hidden:true, frozen:true},
+				{name:'ztmc', index:'ztmc', label:'订单状态',width:80, frozen:true},
+				{name:'ddlbmc', index:'ddlbmc', label:'订单类别', width:60},
+				{name:'pid', index:'pid', label:'PID', width:150},
+				{name:'jixin', index:'jixin', label:'机芯', width:80},
+				{name:'wsxh', index:'wsxh', label:'机型', width:80},
+				{name:'wlmc', index:'wlmc', label:'网络', width:100},
+				{name:'jhrq', index:'jhrq', label:'交货日期', width:80, formatter:'date', formatoptions:{newformat:'Y-m-d'}},
+				{name:'sl', index:'sl', label:'大货数量', align:'right',width:80, formatter:'integer',formatoptions:{thousandsSeparator: ','}},
+				{name:'yjsl', index:'yjsl', label:'收费样机数量', align:'right',width:80, formatter:'integer',formatoptions:{thousandsSeparator: ','}},
+				{name:'fkbzzt', index:'fkbzzt', label:'付款保障状态', width:85, formatter:fkbzCellAddHref},
+				{name:'tssapzt', index:'tssapzt', label:'推送SAP状态', width:105, formatter:tsSAPCellAddHref},
+				<shiro:hasPermission name="order:orderProductNew:price">
+				{name:'zje', index:'zje', label:'订单金额',align:'right', width:80, formatter:'number',formatoptions:{thousandsSeparator: ','}},
+				{name:'yzhje', index:'yzhje', label:'已走货金额',align:'right', width:80, formatter:'number',formatoptions:{thousandsSeparator: ','}},
+				</shiro:hasPermission>
+				{name:'zdrmc', index:'zdrmc', label:'制单人',width:80, frozen:true},
+				{name:'zdsj', index:'zdsj', label:'制单时间', width:80, formatter:'date', formatoptions:{newformat:'Y-m-d'}, frozen:true},
+				{name:'xszzmc', index:'xszzmc', label:'销售组织', width:80},
+				{name:'ywzmc', index:'ywzmc', label:'业务组', width:80},
+				{name:'xsymc', index:'xsymc', label:'销售员', width:80},
+				{name:'gsbm', index:'gsbm', label:'公司', width:60},
+				{name:'khbm', index:'khbm', label:'客户编码', width:70},
+				{name:'khmc', index:'khmc', label:'客户名称', width:150},
+				{name:'fktjmc', index:'fktjmc', label:'付款条件', width:120},
+				{name:'yddid', index:'yddid', label:'原订单号', width:110},
+				{name:'glddh', index:'glddh', label:'关联订单号', width:110},
+				{name:'sfFjelbg', index:'sfFjelbg', label:'辅助变更状态', width:80, formatter:getFzbgMC},
+				{name:'sfMzckd',index:'sfMzckd',label:'是否模组CKD',width:100, edittype:"select", formatter: "select", editoptions:{value:"${fns:loadDictEditOption('SF')}"}},
+				{name:'mgrwdh', index:'mgrwdh', label:'美工任务单号', width:220}	
+			]
+		},{
+			add:isEdit,
+			edit:isEdit,
+			del:isEdit,
+			view:isEdit,
+			addfunc:addfunc,
+			editfunc:editfunc,
+			delfunc: delfunc,
+			viewfunc:viewfunc
+		}).jqGrid('setFrozenColumns');
+		<shiro:hasPermission name="order:orderProductNew:edit">
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"变更", 
+				buttonicon:"fa-pencil-square grey", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 5){
+							swal("","请选择一行已生效数据！","warning");
+							return;
+						} else {
+							$("body").bindSweetAlert({
+								title:"确定要变更吗?"
+							},{
+								callback:function(){
+									$.bindAjax({
+										url:changeurl,
+										data:{id:id, sjc:rowData.sjc},
+										action:"edit"
+									},function(response){
+										$(grid_selector).trigger("reloadGrid");
+									});
+								}
+							});
+						}
+					}
+				},
+				position:"last"
+			});
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"取回", 
+				buttonicon:"fa-pencil-square grey", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt == 2 || rowData.zt == 4 || rowData.zt == 3 || rowData.zt == 6){
+							if(rowData.sfQx == 1){
+								swal("","订单取消审批中，无法取回!","warning");
+								return ;
+							}
+							$("body").bindSweetAlert({
+								title:"确定要取回吗?"
+							},{
+								callback:function(){
+									$.bindAjax({
+										url:getbackurl,
+										data:{id:id, sjc:rowData.sjc, processId:rowData.processId},
+										action:"edit"
+									},function(response){
+										$(grid_selector).trigger("reloadGrid");
+									});
+								}
+							});
+							
+						} else{
+							swal("","请选择一行审批中或审批通过的单据！","warning");
+						}
+					}
+				},
+				position:"last"
+			});
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"撤回", 
+				buttonicon:"fa-pencil-square grey", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 5){
+							swal("","请选择一行已生效数据！","warning");
+							return;
+						} else {
+							$("body").bindSweetAlert({
+								title:"确定要撤回吗?"
+							},{
+								callback:function(){
+									$.bindAjax({
+										url:cancelurl,
+										data:{id:id, sjc:rowData.sjc, type:2},
+										action:"edit"
+									},function(response){
+										$(grid_selector).trigger("reloadGrid");
+									});
+								}
+							});
+						}
+					}
+				},
+				position:"last"
+			});
+			/* $(grid_selector).navButtonAdd(pager_selector,{
+				caption:"付款保障检查", 
+				buttonicon:"fa-pencil-square grey", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 4 && rowData.tssapzt != "已通过"){
+							swal("","请选择一行审批通过且未推送sap的数据！","warning");
+							return;
+						}
+						$.bindAjax({
+							url:"<c:url value='/payment/payValidate/checkOrder'/>",
+							data:{id:id, ddlx:1},
+							action:"edit"
+						},function(response){
+							var result = JSON.parse(response);
+							alert(result.resultMsg);
+							$(grid_selector).trigger("reloadGrid");
+						});
+					}
+				},
+				position:"last"
+			}); */
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"推送SAP", 
+				buttonicon:"fa-pencil-square grey", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 4 || rowData.fkbzzt != "已通过" || rowData.tssapzt == "已通过"){
+							swal("","请选择一行审批通过且付款保障状态通过且未推送sap的数据！","warning");
+							return;
+						}
+						$.bindAjax({
+							url:"<c:url value='/order/orderProductNew/pushSAP'/>",
+							//data:{ ddid : rowData.ddid, id : id, sjc : rowData.sjc,tssapzt : tsSAPCellToNumber(rowData.tssapzt) },
+							data:{id : id},
+							action:"save"
+						},function(response){
+							$(grid_selector).trigger("reloadGrid");
+						});
+					}
+				},
+				position:"last"
+			});
+			
+			/* $(grid_selector).navButtonAdd(pager_selector,{
+				caption:"CKD明细导出", 
+				buttonicon:"fa-download blue", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						$(grid_selector_ckd).exportExcelNoData({url: "<c:url value='/order/orderProductNew/ckdExport'/>"+"?id="+rowData.id});
+					}
+				},
+				position:"last"
+			}); */
+			//暂停
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"暂停", 
+				buttonicon:"fa-minus-square-o red", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 5){
+							swal("","请选择一行已生效数据！","warning");
+							return;
+						} else if(rowData.sfZt == 1){
+							swal("","请选择一行未暂停的数据！","warning");
+							return;
+						} else {
+							$("body").bindSweetAlert({
+								title:"确定要暂停吗?"
+							},{
+								callback:function(){
+									$.bindAjax({
+										url:pauseurl,
+										data:{id:id, sjc:rowData.sjc, type:1},
+										action:"edit"
+									},function(response){
+										$(grid_selector).trigger("reloadGrid");
+									});
+								}
+							});
+						}
+					}
+				},
+				position:"last"
+			});
+			//启用
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"启用", 
+				buttonicon:"fa-check-square-o green", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 5 || rowData.sfZt != 1){
+							swal("","请选择一行已生效的暂停数据！","warning");
+							return;
+						} else {
+							$('#consoleForm-jhrq [name=id]').val(id);
+							$('#consoleForm-jhrq [name=sjc]').val(rowData.sjc);
+							$('#consoleForm-jhrq [name=type]').val(2);
+							$('#consoleForm-jhrq [name=jhrq]').val("");
+							$("#consoleDlg-jhrq").dialog("option", "title", "交货日期填写").dialog("open");
+						}
+					}
+				},
+				position:"last"
+			});
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"取消", 
+				buttonicon:"fa-square-o orange", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+						return;
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(rowData.zt != 5){
+							swal("","请选择一行已生效数据！","warning");
+							return;
+						} else{
+							initDlg(rowData,1);
+							/* $("body").bindSweetAlert({
+								title:"确定要取消吗?取消后将不允许恢复！"
+							},{
+								callback:function(){
+									$.bindAjax({
+										url:cancelurl,
+										data:{id:id, sjc:rowData.sjc, type:1},
+										action:"edit"
+									},function(response){
+										$(grid_selector).trigger("reloadGrid");
+									});
+								}
+							}); */
+						}
+					}
+				},
+				position:"last"
+			});
+		</shiro:hasPermission>
+		
+		/* 审批中订单修改交期    魏诚    2018-5-18 */
+		<shiro:hasPermission name="order:orderProductNew:changeJhrq">
+			$(grid_selector).navButtonAdd(pager_selector,{
+				caption:"修改交期", 
+				buttonicon:"fa-pencil-square blue", 
+				onClickButton: function(){
+					var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+					if(id==null || id==""){
+						swal("","请选择一行数据！","warning");
+						return;
+					}else{
+						var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+						if(!(rowData.zt == 2 || rowData.zt == 3)){
+							swal("","请选择一行审批中或驳回的数据！","warning");
+							return;
+						} else{
+							$('#consoleForm-jhrq [name=id]').val(id);
+							$('#consoleForm-jhrq [name=sjc]').val(rowData.sjc);
+							$('#consoleForm-jhrq [name=type]').val(3);
+							$('#consoleForm-jhrq [name=jhrq]').val("");
+							$("#consoleDlg-jhrq").dialog("option", "title", "交货日期填写").dialog("open");
+						}
+					}
+				},
+				position:"last"
+			});
+		</shiro:hasPermission>
+		
+		//查询
+		$("#btn-search").click(function(){
+			$(grid_selector).trigger("reloadGrid");
+	    });
+		 //敲击回车响应查询
+		$("body").keypress(function (e) {
+			var keyCode = e.keyCode ? e.keyCode : e.which ? e.which : e.charCode;
+			if (keyCode == 13){
+				$(grid_selector).trigger("reloadGrid");
+			}
+		}); 
+		//导出
+		$("#btn-export").click(function(){
+		    var curNum=$(grid_selector).getGridParam("records");
+		    if(curNum==0){
+	            swal("结果集为空不能导出","","warning");
+	            return false;
+	        }else{
+	        	$("#export").bindSweetAlert({
+	    			title:"确定要导出吗?",
+	    			closeOnConfirm: true
+	    		},{
+	    			callback:function(){
+	    				$(grid_selector).exportExcel({url: "<c:url value='/order/orderProductNew/export'/>"});
+	    			}
+	    		});
+	        }
+		});
+		//CKD明细导出
+		$("#btn-ckdexport").click(function(){
+			var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+			if(id==null || id==""){
+				swal("","请选择一行数据！","warning");
+				return false;
+			}else{
+				$("#btn-ckdexport").bindSweetAlert({
+	    			title:"确定要导出吗?",
+	    			closeOnConfirm: true
+	    		},{
+	    			callback:function(){
+	    				var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+	    				$(grid_selector_ckd).exportExcelNoData({url: "<c:url value='/order/orderProductNew/ckdExport'/>"+"?id="+rowData.id});
+	    			}
+	    		});
+			}
+		});
+	
+		//ckd明细导出
+		$(grid_selector_ckd).bindTable({
+			caption: "",
+			pager: pager_selector_ckd,
+			gridParent: "#grid-parent-ckd",
+		    multiselect: true,
+		    rowList: [5, 10, 15],
+		    rowNum:5,
+			shrinkToFit: false,
+			autoScroll: false,
+			colModel: [
+				{name:'id', index:'id', label:'ID', },
+				{name:'flag', index:'flag', label:'操作类型(I 新增 ,U 更改 ,D 删除,S 不变)'},
+				{name:'wlbm', index:'wlbm', label:'物料编码'}, 
+				{name:'ms', index:'ms', label:'描述'},
+				{name:'djyl', index:'djyl', label:'单机用量'},
+				{name:'sdjysl', index:'sdjysl', label:'上单结余数量'},
+				{name:'dhsl', index:'dhsl', label:'大货数量'},
+				{name:'mfbssl', index:'mfbssl', label:'免费备损数量'},
+				{name:'ffbssl', index:'ffbssl', label:'付费备损数量'},
+				{name:'moqsl', index:'moqsl', label:'MOQ数量'},
+				{name:'xdsl', index:'xdsl', label:'下单数量'},
+				{name:'sapdhddsl', index:'sapdhsl', label:'SAP大货订单数量'},
+				{name:'bdjysl', index:'sapdhsl', label:'本单结余数量'},
+				{name:'ne', index:'ne', label:'NE'},
+				{name:'po', index:'po', label:'PO'},
+				{name:'ncmcode', index:'NCM CODE', label:'NCM CODE'},
+				{name:'ncm', index:'ncm', label:'NCM'},
+				{name:'bz', index:'bz', label:'币种'},
+				{name:'dw', index:'dw', label:'单位'},
+				{name:'dj', index:'dj', label:'单价'},
+				{name:'jz', index:'jz', label:'净重'},
+				{name:'mz', index:'mz', label:'毛重'},
+				{name:'gysbm', index:'gysbm', label:'供应商编码'},
+				{name:'gysmc', index:'gysmc', label:'供应商名称'},
+				{name:'gysdz', index:'gysdz', label:'供应商地址'},
+				{name:'ycd', index:'ycd', label:'原产地'},
+				{name:'pid', index:'pid', label:'PID'},
+				{name:'sfYc', index:'sfYc', label:'是否移除'}
+			]
+		},{
+			del:isEdit,
+			add:isEdit,
+			edit:isEdit,
+			del:isEdit,
+			view:isEdit
+		});
+	});
+	
+	function fkbzCellAddHref(cellvalue, options, rowData){
+		var html = "<a onclick=\"fkbzCellShowLog('"+ rowData.id +"')\" style='text-decoration:underline;color:blue;cursor:pointer;'>"
+		if(cellvalue == "1"){
+			html = "已通过";
+		} else if(cellvalue == "0"){
+			html += "未通过</a>";
+		}
+		return html;
+	}
+	
+	function fkbzCellShowLog(id){
+		$.bindAjax({
+			url:"<c:url value='/payment/payValidate/search'/>",
+			data:{id:id},
+			action:"search"
+		},function(response){
+			if(response[0]){
+				bootbox.dialog({
+					title : "付款保障检查日志",
+					message : response[0].zy
+				});
+			}
+		});
+	}
+	
+	function tsSAPCellAddHref(cellvalue, options, rowData){
+		var html = "<a onclick=\"tssapCellShowLog('"+ rowData.id +"')\" style='text-decoration:underline;color:blue;cursor:pointer;'>"
+		if(cellvalue == "1"){
+			html = "已通过";
+		} else if(cellvalue == "0"){
+			html += "未通过</a>";
+		} else if(cellvalue == "2"){
+			html += "海外通过,制造失败</a>";
+		} else if(cellvalue == "3"){
+			html += "海外通过,制造不推</a>";
+		}
+		return html;
+	}
+	
+	function tssapCellShowLog(id){
+		$.bindAjax({
+			url:"<c:url value='/log/sapInterfaceLog/search'/>",
+			data:{id:id},
+			action:"search"
+		},function(response){
+			if(response[0]){
+				bootbox.dialog({
+					title : "推送SAP日志",
+					message : response[0].fhxx
+				});
+			}
+		});
+	}
+	
+	function tsSAPCellToNumber(cellvalue){
+		if(cellvalue == "已通过"){
+			return "1";
+		} else if(cellvalue.substring(cellvalue.indexOf('>')+1,cellvalue.lastIndexOf('<')) == "海外通过,制造失败"){
+			return "2";
+		} else if(cellvalue.substring(cellvalue.indexOf('>')+1,cellvalue.lastIndexOf('<')) == "未通过"){
+			return "0";
+		}else 
+			return "-1";
+	}
+	
+	function getFzbgMC(cellvalue){
+		if(cellvalue == 1){
+			return "辅助变更中";
+		}else{
+			return "";
+		}
+	}
+	//新增
+	function addfunc(){
+		location.href = editurl;
+	}
+	
+	//删除
+	function delfunc(){
+		var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+		var rowData = jQuery(grid_selector).jqGrid('getRowData',selr);
+		var zt = rowData.zt;
+		var processId = rowData.processId;
+		if(selr == null || selr == ""){
+			swal("", "请选择一行数据！", "warning");
+			return;
+		}else{
+			if(!isChdelete){
+				if(rowData.sfCh == 1 ){
+					swal("", "已生效再撤回的草稿不能删除!", "warning");
+					return;
+				}
+			}
+			if (zt != 1 && zt != 3 ) {
+				swal("", "只能删除草稿或驳回的单据!", "warning");
+				return;
+			}else{
+				$("body").bindSweetAlert({
+					title:"确定要删除吗?"
+				},{
+					callback:function(){
+						$.bindAjax({
+							url:"<c:url value='/order/orderProductNew/delete'/>",
+							data:{id:rowData.id,sjc :rowData.sjc, zt: zt, processId: processId},
+							action:"edit"
+						},function(response){
+							$(grid_selector).trigger("reloadGrid");
+						});
+					}
+				});
+			}
+		}
+	}
+	
+	//编辑
+	function editfunc(){
+		var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+		var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+		var zt = rowData.zt;
+		var sfBg = rowData.sfBg;
+		var sfCh = rowData.sfCh;
+		var sfZt = rowData.sfZt;
+		if(zt == 1){
+			if((sfBg == 1 || sfCh == 1) && (sfZt == null || sfZt == "")){
+				location.href = changeEditurl + "?id=" + id;
+			}else if(sfZt != null && sfZt != ""){
+				location.href = pauseEditurl + "?id=" + id + "&type=" + sfZt;
+			}else{
+				location.href = editurl + "?id=" + id;
+			}
+		}else if (zt == 2) {
+			swal("", "审批中的单据不可修改！", "warning");
+			return;
+		}else if (zt == 3){
+			swal("","驳回的单据请从待办页面进行编辑","warning");
+			return;
+		}else if (zt == 4 || zt == 5) {
+			swal("", "审批通过或已生效的单据不可修改！", "warning");
+			return;
+		}
+	}
+	
+	//查看
+	function viewfunc(){
+		var id = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+		var rowData = jQuery(grid_selector).jqGrid('getRowData',id);
+		//location.href = viewurl + "?id=" + id + "&processId=" + rowData.processId;
+		window.open(viewurl + "?id=" + id + "&processId=" + rowData.processId);
+	}
+	//初始化对话框数据
+	function initDlg(rowData,type){
+		$('#consoleDlg [name=type]').val(type);
+		$('#consoleDlg [name=id]').val(rowData.id);
+		$('#consoleDlg [name=sjc]').val(rowData.sjc);
+		$("#consoleDlg").dialog("option", "title", "订单取消").dialog("open");
+	}
+	//返回
+    function back(){
+    	$("#consoleDlg input").attr("value","");
+    	$('#consoleDlg [name=qxbz]').val("");
+    	$("#consoleDlg").dialog("close")
+	}
+    //取消
+	function cancel(){
+	    var param = $("#consoleForm").getFormData();
+	    back();
+		$("body").bindSweetAlert({
+			title:"确定要取消吗?取消后将不允许恢复！"
+		}, {
+			callback : function() {
+				$.bindAjax({
+					url:cancelurl,
+					data : param,
+					action:"edit"
+				},function(response){
+					$(grid_selector).trigger("reloadGrid");
+				});
+			}
+	   });
+	}
+    //交货日期确认
+    function confirmJhrq(){
+    	var title = "";
+    	var requestUrl = "";
+    	var param = $('#consoleForm-jhrq').getFormData();
+    	if(param.jhrq ==""){
+    		swal("","请填写交货日期","warning");
+    		return ;
+    	}
+    	if(param.type == 2){
+    		title = "确定要启用吗？";
+    		requestUrl = pauseurl;
+    	} else if(param.type == 3){
+    		title = "确定要修改订单交货日期吗？";
+    		requestUrl = changeJhrqurl;
+    	}
+    	$("body").bindSweetAlert({
+			title:title
+		},{
+			callback:function(){
+				$.bindAjax({
+					url:requestUrl,
+					data:param,
+					action:"edit"
+				},function(response){
+					$(grid_selector).trigger("reloadGrid");
+					cancelJhrq();
+				});
+			}
+		});
+    }
+    //取消交货日期
+    function cancelJhrq(){
+  	   $("#consoleDlg-jhrq input").attr("value","");
+  	   $("#consoleDlg-jhrq").dialog("close");
+    }
+</script>
+</html>

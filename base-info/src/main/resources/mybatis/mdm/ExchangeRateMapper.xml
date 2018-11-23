@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.ExchangeRateDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.ExchangeRateVo" >
+			<id column="id" property="id" jdbcType="VARCHAR" />
+
+			<result column="yxqks" property="yxqks" jdbcType="TIMESTAMP" />
+		<result column="yxqjs" property="yxqjs" jdbcType="TIMESTAMP" />
+		<result column="cbz" property="cbz" jdbcType="VARCHAR" />
+		<result column="dbz" property="dbz" jdbcType="VARCHAR" />
+		<result column="bl" property="bl" jdbcType="DECIMAL" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.yxqks AS "yxqks",
+		a.yxqjs AS "yxqjs",
+		a.cbz AS "cbz",
+		a.dbz AS "dbz",
+		a.bl AS "bl",
+		substr(a.sjc,0,8) AS "sjc"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_exchange_rate a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_exchange_rate a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="cbz != null and cbz != ''">
+				AND a.cbz = #{cbz}
+			</if>
+			<if test="dbz != null and dbz != ''">
+				AND a.dbz = #{dbz}
+			</if>
+			<if test="rq != null and rq != ''">
+				AND to_date (#{rq},'YYYY-MM-DD') between a.yxqks and a.yxqjs
+			</if>
+		</where>
+		order by a.sjc, a.cbz
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_exchange_rate(
+			id,
+			yxqks,
+			yxqjs,
+			cbz,
+			dbz,
+			bl,
+			sjc
+		) VALUES (
+			#{id},
+			#{yxqks},
+			#{yxqjs},
+			#{cbz},
+			#{dbz},
+			#{bl},
+			<!-- #{sjc} -->
+			to_char(systimestamp, 'yyyymmddhh24missff3')
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_exchange_rate
+		<set>
+            <if test="id != null" >
+				id = #{id},
+			</if>
+            <if test="yxqks != null" >
+				yxqks = #{yxqks},
+			</if>
+            <if test="yxqjs != null" >
+				yxqjs = #{yxqjs},
+			</if>
+            <if test="cbz != null" >
+				cbz = #{cbz},
+			</if>
+            <if test="dbz != null" >
+				dbz = #{dbz},
+			</if>
+            <if test="bl != null" >
+				bl = #{bl},
+			</if>
+            <if test="sjc != null" >
+				sjc = <!-- #{sjc} -->to_char(systimestamp, 'yyyymmddhh24missff3'),
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_exchange_rate
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

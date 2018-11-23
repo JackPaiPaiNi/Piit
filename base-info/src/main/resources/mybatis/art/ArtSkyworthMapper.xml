@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.art.repository.ArtSkyworthDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.art.vo.ArtSkyworthVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="rwdh" property="rwdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="wjbh" property="wjbh" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="wkysbz" property="wkysbz" jdbcType="VARCHAR" />
+		<result column="wkysbzmc" property="wkysbzmc" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="zhfsmc" property="zhfsmc" jdbcType="VARCHAR" />
+		<result column="khpp" property="khpp" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="tmh" property="tmh" jdbcType="VARCHAR" />
+		<result column="rz_cb" property="rzCb" jdbcType="DECIMAL" />
+		<result column="rz_ce" property="rzCe" jdbcType="DECIMAL" />
+		<result column="rz_etl" property="rzEtl" jdbcType="DECIMAL" />
+		<result column="rz_fcc" property="rzFcc" jdbcType="DECIMAL" />
+		<result column="rz_wu" property="rzWu" jdbcType="DECIMAL" />
+		<result column="rz_db" property="rzDb" jdbcType="DECIMAL" />
+		<result column="rz_dts" property="rzDts" jdbcType="DECIMAL" />
+		<result column="rz_hdmi" property="rzHdmi" jdbcType="DECIMAL" />
+		<result column="rz_qt" property="rzQt" jdbcType="DECIMAL" />
+		<result column="mk" property="mk" jdbcType="DECIMAL" />
+		<result column="mk_lx" property="mkLx" jdbcType="DECIMAL" />
+		<result column="ykq" property="ykq" jdbcType="DECIMAL" />
+		<result column="dzgntp" property="dzgntp" jdbcType="DECIMAL" />
+		<result column="ksczzn" property="ksczzn" jdbcType="DECIMAL" />
+		<result column="ksczzn_bz" property="ksczznBz" jdbcType="VARCHAR" />
+		<result column="ksczzn_gwcg" property="ksczznGwcg" jdbcType="DECIMAL" />
+		<result column="ksczzn_sqbh" property="ksczznSqbh" jdbcType="DECIMAL" />
+		<result column="dzazsm" property="dzazsm" jdbcType="DECIMAL" />
+		<result column="dzazsm_bz" property="dzazsmBz" jdbcType="VARCHAR" />
+		<result column="dzazsm_gwcg" property="dzazsmGwcg" jdbcType="DECIMAL" />
+		<result column="dzazsm_sqbh" property="dzazsmSqbh" jdbcType="DECIMAL" />
+		<result column="zx" property="zx" jdbcType="DECIMAL" />
+		<result column="zx_gwcg" property="zxGwcg" jdbcType="DECIMAL" />
+		<result column="zx_sqbh" property="zxSqbh" jdbcType="DECIMAL" />
+		<result column="zxxhtz" property="zxxhtz" jdbcType="DECIMAL" />
+		<result column="zxxhtz_sqbh" property="zxxhtzSqbh" jdbcType="DECIMAL" />
+		<result column="hgtz" property="hgtz" jdbcType="DECIMAL" />
+		<result column="hgtz_sqbh" property="hgtzSqbh" jdbcType="DECIMAL" />
+		<result column="bzk" property="bzk" jdbcType="DECIMAL" />
+		<result column="bzk_sqbh" property="bzkSqbh" jdbcType="DECIMAL" />
+		<result column="wxtz" property="wxtz" jdbcType="DECIMAL" />
+		<result column="wxtz_sqbh" property="wxtzSqbh" jdbcType="DECIMAL" />
+		<result column="zjxhtz" property="zjxhtz" jdbcType="DECIMAL" />
+		<result column="zjxhtz_bzcc" property="zjxhtzBzcc" jdbcType="DECIMAL" />
+		<result column="zjxhtz_yl" property="zjxhtzYl" jdbcType="DECIMAL" />
+		<result column="zjxhtz_yl_bz" property="zjxhtzYlBz" jdbcType="VARCHAR" />
+		<result column="mgqtyq" property="mgqtyq" jdbcType="CLOB" />
+		<result column="fj" property="fj" jdbcType="CLOB" />
+		<result column="mgzjh" property="mgzjh" jdbcType="VARCHAR" />
+		<result column="sxsj" property="sxsj" jdbcType="TIMESTAMP" />
+		<result column="sf_bg" property="sfBg" jdbcType="DECIMAL" />
+		<result column="bg_sflc" property="bgSflc" jdbcType="DECIMAL" />
+		<result column="bg_sflc_value" property="bgSflcValue" jdbcType="DECIMAL" />
+		<result column="bg_lcksddh" property="bgLcksddh" jdbcType="VARCHAR" />
+		<result column="bg_sjddsl" property="bgSjddsl" jdbcType="DECIMAL" />
+		<result column="bg_nr" property="bgNr" jdbcType="CLOB" />
+		<result column="bg_yy" property="bgYy" jdbcType="CLOB" />
+		<result column="nxtz" property="nxtz" jdbcType="DECIMAL" />
+		<result column="nxtz_sqbh" property="nxtzSqbh" jdbcType="DECIMAL" />
+		<result column="mbbs" property="mbbs" jdbcType="DECIMAL" />
+		<result column="ywz" property="ywz" jdbcType="VARCHAR" />
+		<result column="ywzmc" property="ywzmc" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="xszzmc" property="xszzmc" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="rz_qt_bz" property="rzQtBz" jdbcType="VARCHAR" />
+		<result column="khxh" property="khxh" jdbcType="VARCHAR" />
+		<result column="vbbh" property="vbbh" jdbcType="VARCHAR" />
+		<result column="zxxhtz_gwcg" property="zxxhtzGwcg" jdbcType="DECIMAL" />
+		<result column="bzk_gwcg" property="bzkGwcg" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="logResultMap" type="com.ey.piit.sdo.art.vo.ArtLogVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="rwdh" property="rwdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="VARCHAR" />
+		<result column="czlx" property="czlx" jdbcType="VARCHAR" />
+		<result column="czzw" property="czzw" jdbcType="VARCHAR" />
+		<result column="czr" property="czr" jdbcType="VARCHAR" />
+		<result column="czrmc" property="czrmc" jdbcType="VARCHAR" />
+		<result column="czrj" property="czrj" jdbcType="TIMESTAMP" />
+		<result column="nr" property="nr" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="emailResultMap" type="com.ey.piit.sdo.art.entity.ArtCancelReceiver" >
+	    <result column="sjr" property="sjr" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.baseResultMap},
+			#{htylist,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.logResultMap})
+		}
+	</select>
+	
+	<select id="callSelectHtyByRwdh" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_QRY_BY_RWDH(
+			#{rwdh,jdbcType=VARCHAR,mode=IN},
+			#{bbh,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.logResultMap})
+		}
+	</select>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_QRY(
+			#{vo.rwdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{vo.khpp,jdbcType=VARCHAR,mode=IN},
+			#{vo.mbbs,jdbcType=INTEGER,mode=IN},
+			#{vo.sfmgzjh,jdbcType=INTEGER,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+		    #{userId,jdbcType=VARCHAR,mode=IN},
+			<!-- #{bmIds,jdbcType=VARCHAR,mode=IN}, -->
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.baseResultMap})
+		}
+	</select>
+
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_ART_SKYWORTH.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.rwdh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.bbh,jdbcType=INTEGER,mode=INOUT},
+			#{vo.vbbh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.wjbh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.zdsj,jdbcType=DATE,mode=IN}, -->
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{vo.wkysbz,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.wkysbzmc,jdbcType=VARCHAR,mode=IN}, -->
+			#{vo.zhfs,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.zhfsmc,jdbcType=VARCHAR,mode=IN}, -->
+			#{vo.khpp,jdbcType=VARCHAR,mode=IN},
+			#{vo.xwgj,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.xwgjmc,jdbcType=VARCHAR,mode=IN}, -->
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.tmh,jdbcType=VARCHAR,mode=IN},
+			#{vo.rzCb,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzCe,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzEtl,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzFcc,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzWu,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzDb,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzDts,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzHdmi,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzQt,jdbcType=DECIMAL,mode=IN},
+			#{vo.rzQtBz,jdbcType=VARCHAR,mode=IN},
+			#{vo.mk,jdbcType=DECIMAL,mode=IN},
+			#{vo.mkLx,jdbcType=DECIMAL,mode=IN},
+			#{vo.ykq,jdbcType=DECIMAL,mode=IN},
+			#{vo.dzgntp,jdbcType=DECIMAL,mode=IN},
+			#{vo.ksczzn,jdbcType=DECIMAL,mode=IN},
+			#{vo.ksczznBz,jdbcType=VARCHAR,mode=IN},
+			#{vo.ksczznGwcg,jdbcType=DECIMAL,mode=IN},
+			#{vo.ksczznSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.dzazsm,jdbcType=DECIMAL,mode=IN},
+			#{vo.dzazsmBz,jdbcType=VARCHAR,mode=IN},
+			#{vo.dzazsmGwcg,jdbcType=DECIMAL,mode=IN},
+			#{vo.dzazsmSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.zx,jdbcType=DECIMAL,mode=IN},
+			#{vo.zxGwcg,jdbcType=DECIMAL,mode=IN},
+			#{vo.zxSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.zxxhtz,jdbcType=DECIMAL,mode=IN},
+			#{vo.zxxhtzSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.zxxhtzGwcg,jdbcType=DECIMAL,mode=IN},
+			#{vo.hgtz,jdbcType=DECIMAL,mode=IN},
+			#{vo.hgtzSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.nxtz,jdbcType=DECIMAL,mode=IN},
+			#{vo.nxtzSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.bzk,jdbcType=DECIMAL,mode=IN},
+			#{vo.bzkSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.bzkGwcg,jdbcType=DECIMAL,mode=IN},
+			#{vo.wxtz,jdbcType=DECIMAL,mode=IN},
+			#{vo.wxtzSqbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.zjxhtz,jdbcType=DECIMAL,mode=IN},
+			#{vo.zjxhtzBzcc,jdbcType=DECIMAL,mode=IN},
+			#{vo.zjxhtzYl,jdbcType=DECIMAL,mode=IN},
+			#{vo.zjxhtzYlBz,jdbcType=VARCHAR,mode=IN},
+			#{vo.mgqtyq,jdbcType=CLOB,mode=IN},
+			#{vo.fj,jdbcType=CLOB,mode=IN},
+			<!-- #{vo.mgzjh,jdbcType=VARCHAR,mode=IN}, -->
+			#{vo.sfBg,jdbcType=DECIMAL,mode=IN},
+			#{vo.bgSflc,jdbcType=DECIMAL,mode=IN},
+			#{vo.bgSflcValue,jdbcType=DECIMAL,mode=IN},
+			#{vo.bgLcksddh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bgSjddsl,jdbcType=DECIMAL,mode=IN},
+			#{vo.bgNr,jdbcType=CLOB,mode=IN},
+			#{vo.bgYy,jdbcType=CLOB,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszzmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.ywz,jdbcType=VARCHAR,mode=IN},
+			#{vo.ywzmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khxh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_APPROVE(
+			#{vo.approveType,jdbcType=INTEGER,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			<!-- #{vo.mgzjh,jdbcType=VARCHAR,mode=IN}, -->
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callActive" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_ACTIVE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callChange" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_CHANGE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callGetback" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_GETBACK(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callBc" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_BC(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.mgzjh,jdbcType=VARCHAR,mode=IN},
+			#{vo.mbbs,jdbcType=INTEGER,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 取消 -->
+	<update id="callCancel" parameterType="Map" statementType="CALLABLE">
+		{call PKG_ART_SKYWORTH.P_CANCEL(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!-- 查询美工任务单邮件内容 -->
+	<select id="callSelectEmail" parameterType="Map" statementType="CALLABLE">
+		{call PKG_EMAIL.P_QRY_ART(
+	     	#{recevierList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.art.repository.ArtSkyworthDao.emailResultMap}
+	    )}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

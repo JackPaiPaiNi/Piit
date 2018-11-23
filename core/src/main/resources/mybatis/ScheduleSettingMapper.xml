@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ey.piit.core.repository.SchedulerSettingDao">
+	<select id="findScheduleSettingById" resultType="com.ey.piit.core.entity.SchedulerSetting" parameterType="java.lang.String" >
+	    select id, scheduler_id as schedulerId, group_id as groupId, scheduler_war as schedulerWar, 
+	      TRIGGER_NAME as triggerName, JOB_NAME as jobName, description, type, job_class as jobClass, misfire_handling as misfireHandling,
+	      enable, cron_express as cronExpress, simple_start_time as simpleStartTime, 
+	      simple_end_time as simpleEndTime, simple_repeat_count as simpleRepeatCount, simple_repeat_intervel as simpleRepeatIntervel, 
+	      param1, param2 from t_scheduler_setting
+	    	where id = #{id,jdbcType=VARCHAR}
+	 </select>
+	 <select id="findSchedulerSettingByName" resultType="com.ey.piit.core.entity.SchedulerSetting" parameterType="com.ey.piit.core.entity.SchedulerSetting" >
+	    select id, scheduler_id as schedulerId, group_id as groupId, scheduler_war as schedulerWar, 
+	      TRIGGER_NAME as triggerName, JOB_NAME as jobName, description, type, job_class as jobClass, misfire_handling as misfireHandling,
+	      enable, cron_express as cronExpress, simple_start_time as simpleStartTime, 
+	      simple_end_time as simpleEndTime, simple_repeat_count as simpleRepeatCount, simple_repeat_intervel as simpleRepeatIntervel, 
+	      param1, param2 from t_scheduler_setting
+	    	where name = #{name,jdbcType=VARCHAR}
+	 </select>
+     <insert id="saveScheduleSetting" parameterType="com.ey.piit.core.entity.SchedulerSetting">
+	    insert into t_scheduler_setting (id, scheduler_id, group_id, scheduler_war, 
+	      TRIGGER_NAME, JOB_NAME, description, type, job_class, misfire_handling
+	      enable, cron_express, simple_start_time, 
+	      simple_end_time, simple_repeat_count, simple_repeat_intervel, 
+	      param1, param2)
+	    values (#{id,jdbcType=VARCHAR}, #{schedulerId,jdbcType=VARCHAR}, #{groupId,jdbcType=VARCHAR},#{schedulerWar,jdbcType=VARCHAR}, 
+	      #{triggerName,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{jobClass,jdbcType=VARCHAR}, #{misfireHandling,jdbcType=INTEGER}, 
+	      #{enable,jdbcType=BIT}, #{cronExpress,jdbcType=VARCHAR}, #{simpleStartTime,jdbcType=TIMESTAMP}, 
+	      #{simpleEndTime,jdbcType=TIMESTAMP}, #{simpleRepeatCount,jdbcType=INTEGER}, #{simpleRepeatIntervel,jdbcType=INTEGER}, 
+	      #{param1,jdbcType=VARCHAR}, #{param2,jdbcType=VARCHAR})
+	 </insert>
+	 <update id="updateScheduleSetting" parameterType="com.ey.piit.core.entity.SchedulerSetting" >
+	    update t_scheduler_setting
+	    <set >
+	      <if test="schedulerId != null" >
+	        scheduler_id = #{schedulerId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="group_id != null" >
+	        group_id = #{groupId,jdbcType=VARCHAR},
+	      </if>
+	      <if test="schedulerWar != null" >
+	        scheduler_war = #{schedulerWar,jdbcType=VARCHAR},
+	      </if>
+	      <if test="triggerName != null" >
+	        TRIGGER_NAME = #{triggerName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="jobName != null" >
+	        JOB_NAME = #{jobName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="description != null" >
+	        description = #{description,jdbcType=VARCHAR},
+	      </if>
+	      <if test="type != null" >
+	        type = #{type,jdbcType=VARCHAR},
+	      </if>
+	      <if test="job_class != null" >
+	        job_class = #{jobClass,jdbcType=VARCHAR},
+	      </if>
+	      <if test="misfire_handling != null" >
+	        misfire_handling = #{misfireHandling,jdbcType=VARCHAR},
+	      </if>
+	      <if test="enable != null" >
+	        enable = #{enable,jdbcType=BIT},
+	      </if>
+	      <if test="cronExpress != null" >
+	        cron_express = #{cronExpress,jdbcType=VARCHAR},
+	      </if>
+	      <if test="simpleStartTime != null" >
+	        simple_start_time = #{simpleStartTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="simpleEndTime != null" >
+	        simple_end_time = #{simpleEndTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="simpleRepeatCount != null" >
+	        simple_repeat_count = #{simpleRepeatCount,jdbcType=INTEGER},
+	      </if>
+	      <if test="simpleRepeatIntervel != null" >
+	        simple_repeat_intervel = #{simpleRepeatIntervel,jdbcType=INTEGER},
+	      </if>
+	      <if test="param1 != null" >
+	        param1 = #{param1,jdbcType=VARCHAR},
+	      </if>
+	      <if test="param2 != null" >
+	        param2 = #{param2,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where id = #{id,jdbcType=VARCHAR}
+	 </update>
+	 <select id="findSchedulerSettingBySchedulerWar" resultType="com.ey.piit.core.entity.SchedulerSetting" parameterType="com.ey.piit.core.entity.SchedulerSetting" >
+	    select id, scheduler_id as schedulerId, group_id as groupId, scheduler_war as schedulerWar, 
+	      TRIGGER_NAME as triggerName, JOB_NAME as jobName, description, type, job_class as jobClass, misfire_handling as misfireHandling,
+	      enable, cron_express as cronExpress, simple_start_time as simpleStartTime, 
+	      simple_end_time as simpleEndTime, simple_repeat_count as simpleRepeatCount, simple_repeat_intervel as simpleRepeatIntervel, 
+	      param1, param2 from t_scheduler_setting
+	    	where scheduler_war = #{schedulerWar,jdbcType=VARCHAR}
+	 </select>
+	 <select id="findSchedulerSettingBySchedulerId" resultType="com.ey.piit.core.entity.SchedulerSetting" parameterType="com.ey.piit.core.entity.SchedulerSetting" >
+	    select id, scheduler_id as schedulerId, group_id as groupId, scheduler_war as schedulerWar, 
+	      TRIGGER_NAME as triggerName, JOB_NAME as jobName, description, type, job_class as jobClass, misfire_handling as misfireHandling,
+	      enable, cron_express as cronExpress, simple_start_time as simpleStartTime, 
+	      simple_end_time as simpleEndTime, simple_repeat_count as simpleRepeatCount, simple_repeat_intervel as simpleRepeatIntervel, 
+	      param1, param2 from t_scheduler_setting
+	    	where scheduler_id = #{schedulerId,jdbcType=VARCHAR}
+	 </select>
+	 <select id="findSchedulerSettingList" resultType="com.ey.piit.core.entity.SchedulerSetting">
+	    select id, scheduler_id as schedulerId, group_id as groupId, scheduler_war as schedulerWar, 
+	      TRIGGER_NAME as triggerName, JOB_NAME as jobName, description, type, job_class as jobClass, misfire_handling as misfireHandling,
+	      enable, cron_express as cronExpress, simple_start_time as simpleStartTime, 
+	      simple_end_time as simpleEndTime, simple_repeat_count as simpleRepeatCount, simple_repeat_intervel as simpleRepeatIntervel, 
+	      param1, param2 from t_scheduler_setting
+	      <!-- where scheduler_id = #{schedulerId,jdbcType=VARCHAR}
+	        and group_id = #{groupId,jdbcType=VARCHAR} -->
+	      
+	 </select>
+</mapper> 

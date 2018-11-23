@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.payment.repository.PaySpecialDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.payment.vo.PaySpecialVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="tpdh" property="tpdh" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="djlx" property="djlx" jdbcType="VARCHAR" />
+		<result column="djlxmc" property="djlxmc" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="tpjd" property="tpjd" jdbcType="VARCHAR" />
+		<result column="tpjdmc" property="tpjdmc" jdbcType="VARCHAR" />
+		<result column="tplb" property="tplb" jdbcType="VARCHAR" />
+		<result column="tplbmc" property="tplbmc" jdbcType="VARCHAR" />
+		<result column="tpsj" property="tpsj" jdbcType="TIMESTAMP" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="fj" property="fj" jdbcType="VARCHAR" />
+		<result column="sfYsy" property="sfYsy" jdbcType="DECIMAL" />
+		<result column="sfYxc" property="sfYxc" jdbcType="DECIMAL" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="sf_ysc" property="sfYsc" jdbcType="DECIMAL" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="itemResultMap" type="com.ey.piit.sdo.payment.vo.PaySpecialItemVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="tpdh" property="tpdh" jdbcType="VARCHAR" />
+		<result column="tplx" property="tplx" jdbcType="VARCHAR" />
+		<result column="tplxmc" property="tplxmc" jdbcType="VARCHAR" />
+		<result column="lc_kzh" property="lcKzh" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="tpje" property="tpje" jdbcType="DECIMAL" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="edbz" property="edbz" jdbcType="VARCHAR" />
+		<result column="edje" property="edje" jdbcType="DECIMAL" />
+		<result column="yd_ed_hl" property="ydEdHl" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_QRY(
+			#{vo.tpdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.tpjd,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.sfYxc,jdbcType=INTEGER,mode=IN},
+			#{vo.stpsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.etpsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.piid,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PaySpecialDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PaySpecialDao.baseResultMap},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PaySpecialDao.itemResultMap})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_PAY_SPECIAL.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.djlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.djlxmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.tpdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.tpjd,jdbcType=VARCHAR,mode=IN},
+			#{vo.tplb,jdbcType=VARCHAR,mode=IN},
+			#{vo.tpsj,jdbcType=DATE,mode=IN},
+			#{vo.bzxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.fj,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdsj,jdbcType=DATE,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_DELETE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callXc" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_XC(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<select id="callSelectOrder" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_QRY_ORDER(
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.gsbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PaySpecialDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectYzh" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_QRY_YZH(
+			#{vo.tpjd,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.gsbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PaySpecialDao.baseResultMap})
+		}
+	</select>
+	
+	<!-- 查询是否存在应收超期特批 -->
+	<update id="callQueryYscqtp" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_SPECIAL.P_CHECK_YZH_YSCQTP(
+			#{yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

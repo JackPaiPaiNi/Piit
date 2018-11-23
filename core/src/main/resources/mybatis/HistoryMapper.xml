@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.history.repository.HistoryDao" >
+
+    <insert id="insert" parameterType="java.util.Map" >
+        insert into ${tableName} (${tableColumn}) values (${columnValue})
+    </insert>
+    
+    <select id="selectTempById" parameterType="com.ey.piit.basesys.history.entity.History" resultType="java.util.Map" >
+    	select ${tableColumnCamel} from ${tableNameTemp} where ID = #{id}
+    </select>
+    
+    <delete id="deleteTempById" parameterType="com.ey.piit.basesys.history.entity.History" >
+    	delete from ${tableNameTemp} where ID = #{id}
+    </delete>
+
+</mapper>

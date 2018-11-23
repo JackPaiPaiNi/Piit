@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.track.repository.TrackStepDayDeadlineDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.track.vo.TrackStepDayDeadlineVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="ddlxmc" property="ddlxmc" jdbcType="VARCHAR" />
+		<result column="ddlb" property="ddlb" jdbcType="VARCHAR" />
+		<result column="ddlbmc" property="ddlbmc" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="zhfsmc" property="zhfsmc" jdbcType="VARCHAR" />
+		<result column="khlx" property="khlx" jdbcType="VARCHAR" />
+		<result column="ddzgd" property="ddzgd" jdbcType="DECIMAL" />
+		<result column="rjqr" property="rjqr" jdbcType="DECIMAL" />
+		<result column="scjhwc" property="scjhwc" jdbcType="DECIMAL" />
+		<result column="khlxmc" property="khlxmc" jdbcType="VARCHAR" />
+		<result column="xd" property="xd" jdbcType="DECIMAL" />
+		<result column="ddsp" property="ddsp" jdbcType="DECIMAL" />
+		<result column="scddxd" property="scddxd" jdbcType="DECIMAL" />
+		<result column="ycps" property="ycps" jdbcType="DECIMAL" />
+		<result column="mgqr" property="mgqr" jdbcType="DECIMAL" />
+		<result column="yzhcj" property="yzhcj" jdbcType="DECIMAL" />
+		<result column="yzhwc" property="yzhwc" jdbcType="DECIMAL" />
+		<result column="rk" property="rk" jdbcType="DECIMAL" />
+		<result column="ck" property="ck" jdbcType="DECIMAL" />
+		<result column="bg" property="bg" jdbcType="DECIMAL" />
+		<result column="cy" property="cy" jdbcType="DECIMAL" />
+		<result column="sjsh" property="sjsh" jdbcType="DECIMAL" />
+		<result column="zjsh" property="zjsh" jdbcType="DECIMAL" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="sfxp" property="sfxp" jdbcType="DECIMAL" />
+		
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.ddlx AS "ddlx",
+		a.ddlxmc AS "ddlxmc",
+		a.ddlb AS "ddlb",
+		a.ddlbmc AS "ddlbmc",
+		a.zhfs AS "zhfs",
+		a.zhfsmc AS "zhfsmc",
+		a.khlx AS "khlx",
+		a.ddzgd AS "ddzgd",
+		a.rjqr AS "rjqr",
+		a.scjhwc AS "scjhwc",
+		a.khlxmc AS "khlxmc",
+		a.xd AS "xd",
+		a.ddsp AS "ddsp",
+		a.scddxd AS "scddxd",
+		a.ycps AS "ycps",
+		a.mgqr AS "mgqr",
+		a.yzhcj AS "yzhcj",
+		a.yzhwc AS "yzhwc",
+		a.rk AS "rk",
+		a.ck AS "ck",
+		a.bg AS "bg",
+		a.cy AS "cy",
+		a.sjsh AS "sjsh",
+		a.zjsh AS "zjsh",
+		a.xwgj AS "xwgj",
+		a.xwgjmc AS "xwgjmc",
+		a.sfxp   AS "sfxp"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_track_step_day_deadline a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_track_step_day_deadline a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="ddlx != null and ddlx != ''">
+				AND a.ddlx = #{ddlx}
+			</if>
+			<if test="ddlb != null and ddlb != ''">
+				AND a.ddlb = #{ddlb}
+			</if>
+			<if test="zhfs != null and zhfs != ''">
+				AND a.zhfs = #{zhfs}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_track_step_day_deadline(
+			id,
+			ddlx,
+			ddlxmc,
+			ddlb,
+			ddlbmc,
+			zhfs,
+			zhfsmc,
+			khlx,
+			ddzgd,
+			rjqr,
+			scjhwc,
+			khlxmc,
+			xd,
+			ddsp,
+			scddxd,
+			ycps,
+			mgqr,
+			yzhcj,
+			yzhwc,
+			rk,
+			ck,
+			bg,
+			cy,
+			sjsh,
+			zjsh,
+			xwgj,
+			xwgjmc,
+			sfxp
+		) VALUES (
+			#{id},
+			#{ddlx},
+			#{ddlxmc},
+			#{ddlb},
+			#{ddlbmc},
+			#{zhfs},
+			#{zhfsmc},
+			#{khlx},
+			#{ddzgd},
+			#{rjqr},
+			#{scjhwc},
+			#{khlxmc},
+			#{xd},
+			#{ddsp},
+			#{scddxd},
+			#{ycps},
+			#{mgqr},
+			#{yzhcj},
+			#{yzhwc},
+			#{rk},
+			#{ck},
+			#{bg},
+			#{cy},
+			#{sjsh},
+			#{zjsh},
+			#{xwgj},
+			#{xwgjmc},
+			#{sfxp},
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_track_step_day_deadline
+		<set>
+          <!--   <if test="ddlx != null" >
+				ddlx = #{ddlx},
+			</if>
+            <if test="ddlxmc != null" >
+				ddlxmc = #{ddlxmc},
+			</if>
+            <if test="ddlb != null" >
+				ddlb = #{ddlb},
+			</if>
+            <if test="ddlbmc != null" >
+				ddlbmc = #{ddlbmc},
+			</if>
+            <if test="zhfs != null" >
+				zhfs = #{zhfs},
+			</if>
+            <if test="zhfsmc != null" >
+				zhfsmc = #{zhfsmc},
+			</if>
+            <if test="khlx != null" >
+				khlx = #{khlx},
+			</if>
+			<if test="khlxmc != null" >
+				khlxmc = #{khlxmc},
+			</if>
+			<if test="sfxp != null" >
+				sfxp = #{sfxp},
+			</if>
+			<if test="xwgj != null" >
+				xwgj = #{xwgj},
+			</if>
+			<if test="xwgjmc != null" >
+				xwgjmc = #{xwgjmc},
+			</if> -->
+			
+            <if test="ddzgd != null" >
+				ddzgd = #{ddzgd},
+			</if>
+            <if test="rjqr != null" >
+				rjqr = #{rjqr},
+			</if>
+            <if test="scjhwc != null" >
+				scjhwc = #{scjhwc},
+			</if>
+            <if test="xd != null" >
+				xd = #{xd},
+			</if>
+            <if test="ddsp != null" >
+				ddsp = #{ddsp},
+			</if>
+            <if test="scddxd != null" >
+				scddxd = #{scddxd},
+			</if>
+            <if test="ycps != null" >
+				ycps = #{ycps},
+			</if>
+            <if test="mgqr != null" >
+				mgqr = #{mgqr},
+			</if>
+            <if test="yzhcj != null" >
+				yzhcj = #{yzhcj},
+			</if>
+            <if test="yzhwc != null" >
+				yzhwc = #{yzhwc},
+			</if>
+            <if test="rk != null" >
+				rk = #{rk},
+			</if>
+            <if test="ck != null" >
+				ck = #{ck},
+			</if>
+            <if test="bg != null" >
+				bg = #{bg},
+			</if>
+            <if test="cy != null" >
+				cy = #{cy},
+			</if>
+            <if test="sjsh != null" >
+				sjsh = #{sjsh},
+			</if>
+            <if test="zjsh != null" >
+				zjsh = #{zjsh},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_track_step_day_deadline
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	<update id="updateDictName">
+	   update T_TRACK_STEP_DAY_DEADLINE a
+	     <set>
+	        ddlxmc = (select b.name from t_dict b where b.code = a.ddlx and b.parent_type = 'DDLX'),
+	        ddlbmc = (select b.name from t_dict b where b.code = a.ddlb and b.parent_type = 'DDLB_DH'),
+	        zhfsmc = (select b.name from t_dict b where b.code = a.zhfs and b.parent_type = 'ZHFS'),
+	        khlxmc = (select b.name from t_dict b where b.code = a.khlx and b.parent_type = 'KHLX'),
+	        xwgjmc = (select b.cn_name from t_area b where b.code = a.xwgj)
+	     </set> 
+	   WHERE id = #{id}
+	</update>
+</mapper>

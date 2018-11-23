@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.SizeSegmentDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.SizeSegmentVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ccdbh" property="ccdbh" jdbcType="VARCHAR" />
+		<result column="ccdmc" property="ccdmc" jdbcType="VARCHAR" />
+		<result column="kscc" property="kscc" jdbcType="DECIMAL" />
+		<result column="jscc" property="jscc" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.ccdbh AS "ccdbh",
+		a.ccdmc AS "ccdmc",
+		a.kscc AS "kscc",
+		a.jscc AS "jscc"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_size_segment a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_size_segment a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="ccdbh != null and ccdbh != ''">
+				AND a.ccdbh = #{ccdbh}
+			</if>
+			<if test="ccdmc != null and ccdmc != ''">
+				AND a.ccdmc LIKE '%'||#{ccdmc}||'%'
+			</if>
+			<if test="kscc != null and kscc != ''">
+				AND a.kscc &gt;= #{kscc}
+			</if>
+			<if test="jscc != null and jscc != ''">
+				AND a.jscc &lt;= #{jscc}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_size_segment(
+			id,
+			ccdbh,
+			ccdmc,
+			kscc,
+			jscc
+		) VALUES (
+			#{id},
+			#{ccdbh},
+			#{ccdmc},
+			#{kscc},
+			#{jscc}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_size_segment
+		<set>
+            <if test="ccdbh != null" >
+				ccdbh = #{ccdbh},
+			</if>
+            <if test="ccdmc != null" >
+				ccdmc = #{ccdmc},
+			</if>
+            <if test="kscc != null" >
+				kscc = #{kscc},
+			</if>
+            <if test="jscc != null" >
+				jscc = #{jscc},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_size_segment
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

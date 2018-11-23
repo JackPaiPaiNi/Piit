@@ -1,0 +1,30 @@
+.modal-dialog{
+	width:750px;
+	max-height:450px;
+}
+.contentMian{
+	border:1px solid #ddd;
+	height:400px;
+	margin:0px;
+}
+.leftdiv{
+	margin:0;
+	border:none;
+	padding:5px;
+	color:#333;
+	height:100%;
+	overflow: auto;
+}
+.rightdiv{
+	padding:4px;
+	overflow:auto;
+	max-width:100%;
+	height:100%;
+	border-left:1px solid #ddd;
+}
+.modalClearBtn{
+	float:left;
+}
+.choiceRecord{
+	background:rgb(172, 216, 174) !important;
+}

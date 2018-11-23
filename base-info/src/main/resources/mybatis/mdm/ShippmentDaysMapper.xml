@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.ShippmentDaysDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.ShippmentDaysVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="gj" property="gj" jdbcType="VARCHAR" />
+		<result column="gjmc" property="gjmc" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="zhfsmc" property="zhfsmc" jdbcType="VARCHAR" />
+		<result column="bgts" property="bgts" jdbcType="DECIMAL" />
+		<result column="hsts" property="hsts" jdbcType="DECIMAL" />
+		<result column="qgts" property="qgts" jdbcType="DECIMAL" />
+		<result column="wxgcts" property="wxgcts" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.gj AS "gj",
+		a.gjmc AS "gjmc",
+		a.zhfs AS "zhfs",
+		a.zhfsmc AS "zhfsmc",
+		a.bgts AS "bgts",
+		a.hsts AS "hsts",
+		a.qgts AS "qgts",
+		a.wxgcts AS "wxgcts"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_shippment_days a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_shippment_days a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="gj != null and gj != ''">
+				AND a.gj = #{gj}
+			</if>
+			<if test="zhfs != null and zhfs != ''">
+				AND a.zhfs = #{zhfs}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_shippment_days(
+			id,
+			gj,
+			gjmc,
+			zhfs,
+			zhfsmc,
+			bgts,
+			hsts,
+			qgts,
+			wxgcts
+		) VALUES (
+			#{id},
+			#{gj},
+			#{gjmc},
+			#{zhfs},
+			#{zhfsmc},
+			#{bgts},
+			#{hsts},
+			#{qgts},
+			#{wxgcts}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_shippment_days
+		<set>
+            <if test="gj != null" >
+				gj = #{gj},
+			</if>
+            <if test="gjmc != null" >
+				gjmc = #{gjmc},
+			</if>
+            <if test="zhfs != null" >
+				zhfs = #{zhfs},
+			</if>
+            <if test="zhfsmc != null" >
+				zhfsmc = #{zhfsmc},
+			</if>
+            <if test="bgts != null" >
+				bgts = #{bgts},
+			</if>
+            <if test="hsts != null" >
+				hsts = #{hsts},
+			</if>
+            <if test="qgts != null" >
+				qgts = #{qgts},
+			</if>
+            <if test="wxgcts != null" >
+				wxgcts = #{wxgcts},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_shippment_days
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

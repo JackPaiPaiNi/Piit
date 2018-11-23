@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.pidinfo.dao.IPidInfoDao">
+
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.pidinfo.dto.PidInfoMsgResponse" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="cc" property="cc" jdbcType="VARCHAR" />
+		<result column="fbl" property="fbl" jdbcType="VARCHAR" />
+		<result column="pp" property="pp" jdbcType="VARCHAR" />
+		<result column="cpfl" property="cpfl" jdbcType="VARCHAR" />
+		<result column="cpxl" property="cpxl" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="msg" property="msg" jdbcType="VARCHAR" />
+	</resultMap>
+    
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_PIDINFO_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.pidinfo.dao.IPidInfoDao.bodyResultMap})
+		}
+	</select>
+	
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

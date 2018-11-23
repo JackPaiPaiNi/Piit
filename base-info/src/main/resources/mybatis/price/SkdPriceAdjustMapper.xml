@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.price.repository.SkdPriceAdjustDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.price.vo.SkdPriceAdjustVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="tjdid" property="tjdid" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="ddzje" property="ddzje" jdbcType="DECIMAL" />
+		<result column="zje" property="zje" jdbcType="DECIMAL" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	    <result column="zt" property="zt" jdbcType="DECIMAL" />
+	    <result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+	    <result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+	    <result column="ce" property="ce" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_QRY(
+		    #{vo.tjdid,jdbcType=VARCHAR,mode=IN},
+			#{vo.chdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+	        #{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.SkdPriceAdjustDao.baseResultMap})
+		}
+	</select>
+	
+	    
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.SkdPriceAdjustDao.baseResultMap},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.SkdPriceAdjustItemDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callQryDdxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_QRY_DDXX(
+			#{ddid,jdbcType=VARCHAR,mode=IN},
+			#{chdh,jdbcType=VARCHAR,mode=IN},
+			#{khmc,jdbcType=VARCHAR,mode=IN},
+		    #{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.SkdPriceAdjustDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callQryJhd" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_QRY_JHD(
+		    #{ddid,jdbcType=VARCHAR,mode=IN},
+			#{chdh,jdbcType=VARCHAR,mode=IN},
+			#{msg,jdbcType=VARCHAR,mode=OUT},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.SkdPriceAdjustItemDao.baseResultMap})
+		}
+	</select>
+
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_SKD_PRICE_ADJUST.P_SAVE(
+			#{vo.id   	, jdbcType=VARCHAR , mode=INOUT} , 
+		    #{vo.tjdid 	, jdbcType=VARCHAR , mode=INOUT} , 
+			#{vo.ddid 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.chdh 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.ddzje 	, jdbcType=DECIMAL , mode=IN} , 
+			#{vo.zdrid 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.zdrmc 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.sjc 	, jdbcType=VARCHAR , mode=INOUT} , 
+			#{vo.bz 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.khbm 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.khmc   , jdbcType=VARCHAR , mode=IN} , 
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SKD_PRICE_ADJUST.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.EmployeeDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.EmployeeVo" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="login_acct" property="loginAcct" jdbcType="VARCHAR" />
+		<result column="emp_code" property="empCode" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+		<result column="post" property="post" jdbcType="VARCHAR" />
+		<result column="certificate_type" property="certificateType" jdbcType="VARCHAR" />
+		<result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+		<result column="post_type" property="postType" jdbcType="VARCHAR" />
+		<result column="main_post" property="mainPost" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="creator" property="creator.id" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="last_updater" property="lastUpdater.id" jdbcType="VARCHAR" />
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+		<result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="xszzmc" property="xszzmc" jdbcType="VARCHAR" />
+		<result column="ywz" property="ywz" jdbcType="VARCHAR" />
+		<result column="ywzmc" property="ywzmc" jdbcType="VARCHAR" />
+		<result column="ywmc" property="ywmc" jdbcType="VARCHAR" />
+		<result column="xsy" property="xsy" jdbcType="VARCHAR" />
+		<result column="xsz" property="xsz" jdbcType="VARCHAR" />
+		<result column="xsy_zz" property="xsyZz" jdbcType="VARCHAR" />
+		<result column="xsz_zz" property="xszZz" jdbcType="VARCHAR" />
+		<result column="ywjc" property="ywjc" jdbcType="VARCHAR" />
+		<result column="xszzbm" property="xszzbm" jdbcType="VARCHAR" />
+		<result column="dept_name" property="deptName" jdbcType="VARCHAR" />
+		<result column="adzt" property="adzt" jdbcType="VARCHAR" />
+		
+		
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.login_acct AS "loginAcct",
+		a.emp_code AS "empCode",
+		a.email AS "email",
+		a.name AS "name",
+		a.company_code AS "companyCode",
+		a.post AS "post",
+		a.certificate_type AS "certificateType",
+		a.certificate_no AS "certificateNo",
+		a.post_type AS "postType",
+		a.main_post AS "mainPost",
+		a.sex AS "sex",
+		a.status AS "status",
+		a.description AS "description",
+		a.creator AS "creator.id",
+		a.create_time AS "createTime",
+		a.last_updater AS "lastUpdater.id",
+		a.last_update_time AS "lastUpdateTime",
+		a.dept_code AS "deptCode",
+		a.group_code AS "groupCode",
+		a.phone AS "phone",
+		a.fax AS "fax",
+		b.description AS "deptName",
+		c.code AS "xszz",
+		c.name AS "xszzmc",
+		d.code AS "ywz",
+		d.name AS "ywzmc",
+		a.ywmc AS "ywmc",
+		a.xsy  AS "xsy",
+		a.xsz  AS "xsz",
+		a.xsy_zz AS  "xsyZz",
+		a.xsz_zz AS  "xszZz",
+		a.ywjc AS ywjc,
+		xszzbm AS xszzbm  
+	</sql>
+	
+	<sql id="columnJoins">
+		left join t_organization b
+		on a.dept_code = b.code
+		left join t_organization c
+		on substr(a.dept_code,1,4) = c.code
+		left join t_organization d
+		on substr(a.dept_code,1,6) = d.code
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_employee a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="selectByXsyid" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_employee a
+		<include refid="columnJoins"/>
+		WHERE a.login_acct = #{loginAcct}
+	</select>
+	
+	<select id="selectAdInfoById" resultMap="baseResultMap">
+	SELECT A.ID,A.LOGIN_ACCT,A.EMP_CODE,A.EMAIL,A.NAME,A.DEPT_CODE,
+		   (SELECT TO_CHAR(WM_CONCAT(NAME))||',OU=创维集团,' 
+			   FROM
+			     (
+				  SELECT T.CODE,'OU='||T.NAME NAME
+				    FROM T_ORGANIZATION T
+				   START WITH T.CODE = (SELECT DEPT_CODE FROM T_EMPLOYEE WHERE LOGIN_ACCT=#{loginAcct})
+				 CONNECT BY NOCYCLE PRIOR T.BASE_PARENT_ORG_CODE= T.CODE
+				   ORDER BY T.CODE DESC
+				  )
+		    ) DEPT_NAME
+		  FROM t_employee A 
+		 INNER JOIN T_ORGANIZATION B ON A.DEPT_CODE=B.CODE
+		 WHERE A.STATUS = 1 AND A.LOGIN_ACCT=#{loginAcct}
+	</select>
+	
+
+	<select id="selectAdInfo" parameterType="Map" statementType="CALLABLE">
+		{call PKG_EMPLOYEE.P_QRY_ADINFO(
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.EmployeeDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_employee a
+		<include refid="columnJoins"/>
+		<where>
+		    <if test="sfsap == null or sfsap == ''">
+				AND a.xsy is not null
+			</if> 	
+			<if test="name != null and name != ''">
+				AND a.name LIKE '%'||#{name}||'%'
+			</if>
+			<if test="empCode != null and empCode != ''">
+				AND a.emp_code LIKE '%'||#{empCode}||'%'
+			</if>
+			<!-- <if test="deptCode != null and deptCode != ''">
+				AND a.dept_code = #{deptCode}
+			</if> -->
+ 			<if test="deptCode != null and deptCode != '' and  (name == null or name == '') and (empCode == null or empCode == '')">
+				AND a.dept_code LIKE #{deptCode}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_employee(
+			id,
+			login_acct,
+			emp_code,
+			email,
+			name,
+			company_code,
+			post,
+			certificate_type,
+			certificate_no,
+			post_type,
+			main_post,
+			sex,
+			status,
+			description,
+			creator,
+			create_time,
+			last_updater,
+			last_update_time,
+			dept_code,
+			group_code,
+			phone,
+			fax,
+			ywmc,
+			xsy,
+			xsz,
+			xsy_zz,
+			xsz_zz,
+			ywjc,
+			xszzbm
+			
+		) VALUES (
+			#{id},
+			#{loginAcct},
+			#{empCode},
+			#{email},
+			#{name},
+			#{companyCode},
+			#{post},
+			#{certificateType},
+			#{certificateNo},
+			#{postType},
+			#{mainPost},
+			#{sex},
+			#{status},
+			#{description},
+			#{creator.id},
+			#{createTime},
+			#{lastUpdater.id},
+			#{lastUpdateTime},
+			#{deptCode},
+			#{groupCode},
+			#{phone},
+			#{fax},
+			#{ywmc},
+			#{xsy},
+			#{xsz},
+			#{xsyZz},
+			#{xszZz},
+			#{ywjc},
+			#{xszzbm}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_employee
+		<set>
+            <if test="loginAcct != null" >
+				login_acct = #{loginAcct},
+			</if>
+            <if test="empCode != null" >
+				emp_code = #{empCode},
+			</if>
+            <if test="email != null" >
+				email = #{email},
+			</if>
+            <if test="name != null" >
+				name = #{name},
+			</if>
+            <if test="companyCode != null" >
+				company_code = #{companyCode},
+			</if>
+            <if test="post != null" >
+				post = #{post},
+			</if>
+            <if test="certificateType != null" >
+				certificate_type = #{certificateType},
+			</if>
+            <if test="certificateNo != null" >
+				certificate_no = #{certificateNo},
+			</if>
+            <if test="postType != null" >
+				post_type = #{postType},
+			</if>
+            <if test="mainPost != null" >
+				main_post = #{mainPost},
+			</if>
+            <if test="sex != null" >
+				sex = #{sex},
+			</if>
+            <if test="status != null" >
+				status = #{status},
+			</if>
+            <if test="description != null" >
+				description = #{description},
+			</if>
+            <if test="lastUpdater != null" >
+				last_updater = #{lastUpdater.id},
+			</if>
+            <if test="lastUpdateTime != null" >
+				last_update_time = #{lastUpdateTime},
+			</if>
+            <if test="deptCode != null" >
+				dept_code = #{deptCode},
+			</if>
+            <if test="groupCode != null" >
+				group_code = #{groupCode},
+			</if>
+			<if test="phone != null" >
+				phone = #{phone},
+			</if>
+            <if test="fax != null" >
+				fax = #{fax},
+			</if>
+			 <if test="ywmc != null" >
+				ywmc = #{ywmc},
+			</if>
+			 <if test="xsy != null" >
+				xsy = #{xsy},
+			</if>
+			 <if test="xsz != null" >
+				xsz = #{xsz},
+			</if>
+			<if test="xsyZz != null" >
+				xsy_zz = #{xsyZz},
+			</if>
+			<if test="xszZz != null" >
+				xsz_zz = #{xszZz},
+			</if>
+			<if test="ywjc != null" >
+				ywjc = #{ywjc},
+			</if>
+			<if test="xszzbm != null" >
+				xszzbm = #{xszzbm},
+			</if>
+			
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateAdInfo">
+		UPDATE t_employee set ADZT=#{adzt} WHERE login_acct = #{loginAcct}
+	</update>
+	
+	
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

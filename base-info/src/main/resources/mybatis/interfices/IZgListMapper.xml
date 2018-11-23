@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.invoice.dao.IZgListDao">
+
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.invoice.dto.ZgListBodyDto" >
+		<result column="chdno" property="chdno" jdbcType="VARCHAR" />
+	</resultMap> 
+    
+ 	 <select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_ZGLIST_CHDNO(
+			#{vo.chdno,jdbcType=VARCHAR,mode=IN},
+			#{vo.vbeln,jdbcType=VARCHAR,mode=IN},
+			#{vo.dcno,jdbcType=VARCHAR,mode=IN},
+			#{vo.guino,jdbcType=VARCHAR,mode=IN}, 
+			#{vo.ftno,jdbcType=VARCHAR,mode=IN},
+			#{vo.matnr,jdbcType=VARCHAR,mode=IN},
+			#{vo.polote,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.invoice.dao.IZgListDao.bodyResultMap})
+		}
+	</select> 
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

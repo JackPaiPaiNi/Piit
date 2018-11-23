@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.custinv.dao.MatterPriceDao">
+	
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.custinv.vo.MatterPriceVo" >
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	</resultMap>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MATTER_PRICE.P_QRY(
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.MatterPriceDao.baseResultMap}
+		)}
+	</select>
+	
+	<update id="callSave" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_MATTER_PRICE.P_SAVE(
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.dj,jdbcType=DECIMAL,mode=IN},
+			#{vo.dw,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlms,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

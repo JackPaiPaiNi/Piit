@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.pso.repository.PsoPiDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.pso.vo.PsoPiVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="ddlxmc" property="ddlxmc" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="pilx" property="pilx" jdbcType="VARCHAR" />
+		<result column="pilxmc" property="pilxmc" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+	</resultMap>
+	
+    <insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_PSO.P_SAVE_PI(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=DECIMAL,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.piid,jdbcType=VARCHAR,mode=IN},
+			#{vo.pilx,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.je,jdbcType=DECIMAL,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

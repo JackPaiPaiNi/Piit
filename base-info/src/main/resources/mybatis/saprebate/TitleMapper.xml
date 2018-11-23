@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.saprebate.repository.TitleDao">
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.saprebate.vo.TitleVo">
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="splsh" property="splsh" jdbcType="VARCHAR" />
+		<result column="bukrs" property="bukrs" jdbcType="VARCHAR" />
+		<result column="gsmc" property="gsmc" jdbcType="VARCHAR" />
+		<result column="zdjlx" property="zdjlx" jdbcType="VARCHAR" />
+		<result column="cpudt" property="cpudt" jdbcType="TIMESTAMP" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+	    <result column="zt" property="zt" jdbcType="VARCHAR" />
+	    <result column="tssapzt" property="tssapzt" jdbcType="DECIMAL" />
+	    <result column="sffgs" property="sfFgs" jdbcType="VARCHAR" />
+	    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+	    
+	</resultMap>
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_REBATE(
+			#{vo.bukrs,jdbcType=VARCHAR,mode=IN},
+			#{vo.deptCode,jdbcType=VARCHAR,mode=IN},
+			#{vo.splsh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+			#{vo.zdjlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.userid,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.splsh,jdbcType=VARCHAR,mode=IN},
+			#{vo.flsbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.flzch,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.TitleDao.baseResultMap}
+		)}
+	</select>
+	
+	<select id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_SUBMIT(
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdjlx,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	
+	<select id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_APPROVE(
+		#{vo.approveType,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+	    #{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{vo.nr,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<select id="callComplete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_COMPLETE(
+		#{vo.tssapzt,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{sjc,jdbcType=VARCHAR,mode=INOUT},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+	    #{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{vo.nr,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+
+</mapper>

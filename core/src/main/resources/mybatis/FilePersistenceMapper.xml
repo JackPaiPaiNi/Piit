@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.data.repository.FilePersistenceDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basesys.data.vo.FilePersistenceVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="VARCHAR" />
+        <result column="PHYSICAL_NAME" property="physicalName" jdbcType="VARCHAR" />
+        <result column="OPERATOR_ID" property="operatorId" jdbcType="VARCHAR" />
+        <result column="OWNER_MODULE" property="ownerModule" jdbcType="VARCHAR" />
+        <result column="LOG_DATE" property="logDate" jdbcType="TIMESTAMP" />
+        <result column="CONTENT_TYPE" property="contentType" jdbcType="VARCHAR" />
+        <result column="CONTENT_LENGTH" property="contentLength" jdbcType="DECIMAL" />
+        <result column="DOWNLOAD_PATH" property="downloadPath" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, FILE_NAME, PHYSICAL_NAME, OPERATOR_ID, OWNER_MODULE, LOG_DATE, CONTENT_TYPE, 
+        CONTENT_LENGTH, DOWNLOAD_PATH
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_FILE_PERSISTENCE
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basesys.data.entity.FilePersistence" >
+        insert into T_FILE_PERSISTENCE (ID, FILE_NAME, PHYSICAL_NAME, 
+            OPERATOR_ID, OWNER_MODULE, LOG_DATE, 
+            CONTENT_TYPE, CONTENT_LENGTH, DOWNLOAD_PATH
+            )
+        values (#{id,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{physicalName,jdbcType=VARCHAR}, 
+            #{operatorId,jdbcType=VARCHAR}, #{ownerModule,jdbcType=VARCHAR}, #{logDate,jdbcType=TIMESTAMP}, 
+            #{contentType,jdbcType=VARCHAR}, #{contentLength,jdbcType=DECIMAL}, #{downloadPath,jdbcType=VARCHAR}
+            )
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basesys.data.entity.FilePersistence" >
+        update T_FILE_PERSISTENCE
+        <set >
+            <if test="fileName != null and fileName != ''" >
+                FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            </if>
+            <if test="physicalName != null and physicalName != ''" >
+                PHYSICAL_NAME = #{physicalName,jdbcType=VARCHAR},
+            </if>
+            <if test="operatorId != null and operatorId != ''" >
+                OPERATOR_ID = #{operatorId,jdbcType=VARCHAR},
+            </if>
+            <if test="ownerModule != null and ownerModule != ''" >
+                OWNER_MODULE = #{ownerModule,jdbcType=VARCHAR},
+            </if>
+            <if test="logDate != null" >
+                LOG_DATE = #{logDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contentType != null and contentType != ''" >
+                CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+            </if>
+            <if test="contentLength != null" >
+                CONTENT_LENGTH = #{contentLength,jdbcType=DECIMAL},
+            </if>
+            <if test="downloadPath != null and downloadPath != ''" >
+                DOWNLOAD_PATH = #{downloadPath,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basesys.data.entity.FilePersistence" >
+        update T_FILE_PERSISTENCE
+        set FILE_NAME = #{fileName,jdbcType=VARCHAR},
+            PHYSICAL_NAME = #{physicalName,jdbcType=VARCHAR},
+            OPERATOR_ID = #{operatorId,jdbcType=VARCHAR},
+            OWNER_MODULE = #{ownerModule,jdbcType=VARCHAR},
+            LOG_DATE = #{logDate,jdbcType=TIMESTAMP},
+            CONTENT_TYPE = #{contentType,jdbcType=VARCHAR},
+            CONTENT_LENGTH = #{contentLength,jdbcType=DECIMAL},
+            DOWNLOAD_PATH = #{downloadPath,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_FILE_PERSISTENCE
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_FILE_PERSISTENCE
+        <where >
+            <if test="fileName != null and fileName != ''" >
+                and FILE_NAME = #{fileName,jdbcType=VARCHAR}
+            </if>
+            <if test="physicalName != null and physicalName != ''" >
+                and PHYSICAL_NAME = #{physicalName,jdbcType=VARCHAR}
+            </if>
+            <if test="operatorId != null and operatorId != ''" >
+                and OPERATOR_ID = #{operatorId,jdbcType=VARCHAR}
+            </if>
+            <if test="ownerModule != null and ownerModule != ''" >
+                and OWNER_MODULE = #{ownerModule,jdbcType=VARCHAR}
+            </if>
+            <if test="logDate != null and logDate != ''" >
+                and LOG_DATE = #{logDate,jdbcType=TIMESTAMP}
+            </if>
+            <if test="contentType != null and contentType != ''" >
+                and CONTENT_TYPE = #{contentType,jdbcType=VARCHAR}
+            </if>
+            <if test="contentLength != null and contentLength != ''" >
+                and CONTENT_LENGTH = #{contentLength,jdbcType=DECIMAL}
+            </if>
+            <if test="downloadPath != null and downloadPath != ''" >
+                and DOWNLOAD_PATH = #{downloadPath,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+</mapper>

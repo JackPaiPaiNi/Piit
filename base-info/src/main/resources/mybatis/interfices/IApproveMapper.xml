@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.approve.dao.IApproveDao">
+
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.approve.dto.ApproveBodyDto" >
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="dhhxm" property="dhhxm" jdbcType="VARCHAR" />
+		<result column="djlx" property="djlx" jdbcType="VARCHAR" />
+		<result column="spjg" property="spjg" jdbcType="VARCHAR" />
+		<result column="spyj" property="spyj" jdbcType="VARCHAR" />
+	</resultMap>
+    
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_REBATE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{djlx,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.approve.dao.IApproveDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectYtById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_EXPAPPLY_BYID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.approve.dao.IApproveDao.bodyResultMap})
+		}
+	</select>
+	
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

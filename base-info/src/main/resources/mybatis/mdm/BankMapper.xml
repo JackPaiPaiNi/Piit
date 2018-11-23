@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.BankDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.BankVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="zwmc" property="zwmc" jdbcType="VARCHAR" />
+		<result column="ywmc" property="ywmc" jdbcType="VARCHAR" />
+		<result column="zwdz" property="zwdz" jdbcType="VARCHAR" />
+		<result column="ywdz" property="ywdz" jdbcType="VARCHAR" />
+		<result column="swiftdm" property="swiftdm" jdbcType="VARCHAR" />
+		<result column="sf_khkzh" property="sfKhkzh" jdbcType="INTEGER" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.zwmc AS "zwmc",
+		a.ywmc AS "ywmc",
+		a.zwdz AS "zwdz",
+		a.ywdz AS "ywdz",
+		a.swiftdm AS "swiftdm",
+		a.sf_khkzh AS "sfKhkzh",
+		a.bzxx AS "bzxx"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_bank a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}  
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_bank a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="zwmc != null and zwmc != ''">
+				AND a.zwmc LIKE '%'||#{zwmc}||'%'
+			</if>
+			<if test="ywmc != null and ywmc != ''">
+				AND a.ywmc LIKE '%'||#{ywmc}||'%'
+			</if>
+		</where>
+	
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_bank(
+			id,
+			zwmc,
+			ywmc,
+			zwdz,
+			ywdz,
+			swiftdm,
+			sf_khkzh,
+			bzxx
+		) VALUES (
+			#{id},
+			#{zwmc},
+			#{ywmc},
+			#{zwdz},
+			#{ywdz},
+			#{swiftdm},
+			#{sfKhkzh},
+			#{bzxx}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_bank
+		<set>
+            <if test="zwmc != null" >
+				zwmc = #{zwmc},
+			</if>
+            <if test="ywmc != null" >
+				ywmc = #{ywmc},
+			</if>
+            <if test="zwdz != null" >
+				zwdz = #{zwdz},
+			</if>
+            <if test="ywdz != null" >
+				ywdz = #{ywdz},
+			</if>
+            <if test="swiftdm != null" >
+				swiftdm = #{swiftdm},
+			</if>
+			<if test="sfKhkzh != null" >
+				sf_khkzh = #{sfKhkzh},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_bank
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

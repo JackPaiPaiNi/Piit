@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+	<service name="eamilSapService"><!-- 指定服务名,随便定义 -->
+		<description>sap发送邮件调用接口</description><!-- 服务的作用说明，可写可不写 -->
+	    <!-- 指定要发布的类路径 -->
+	    <parameter name="ServiceClass">com.ey.piit.webservice.email.EamilServiceImpl</parameter>
+	 	<!-- 类里面的方法，有其他方法就在写个operation标签 -->
+	   	<operation name="sendEmail"><!-- 类里面的方法名 -->
+	        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />  
+	    </operation>
+	</service>
+	<!-- http://localhost:8080/base-web/services/eamilSapService?wsdl -->
+
+	<service name="shipPlanService"><!-- 指定服务名,随便定义 -->
+		<description>创维外销产品信息调度平台出货计划查询接口</description><!-- 服务的作用说明，可写可不写 -->
+	    <!-- 指定要发布的类路径 -->
+	    <parameter name="ServiceClass">com.ey.piit.webservice.shipplan.ShipPlanService</parameter>
+	 	<!-- 类里面的方法，有其他方法就在写个operation标签 -->
+	   	<operation name="queryShipPlan"><!-- 类里面的方法名 -->
+	        <messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />  
+	    </operation>
+	</service>
+	<!-- http://localhost:8080/base-web/services/shipPlanService?wsdl -->
+</serviceGroup>

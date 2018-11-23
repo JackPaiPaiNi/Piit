@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.fcst.repository.FcstNoticeDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.fcst.vo.FcstNoticeVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="nr" property="nr" jdbcType="CLOB" />
+		<result column="zc" property="zc" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.nr AS "nr",
+		a.zdrid AS "zdrid",
+		a.zdrmc AS "zdrmc",
+		a.zdsj AS "zdsj"
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_fcst_notice a
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			  <include refid="baseColumnList"/>
+		 FROM t_fcst_notice a
+	    WHERE ROWNUM = 1
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_fcst_notice(
+			id,
+			nr,
+			zdrid,
+			zdrmc,
+			zdsj
+		) VALUES (
+			#{id},
+			#{nr},
+			#{zdrid},
+			#{zdrmc},
+			#{zdsj}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_fcst_notice
+		<set>
+            <if test="nr != null" >
+				nr = #{nr},
+			</if>
+            <if test="zdrid != null" >
+				zdrid = #{zdrid},
+			</if>
+            <if test="zdrmc != null" >
+				zdrmc = #{zdrmc},
+			</if>
+            <if test="zdsj != null" >
+				zdsj = #{zdsj},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_fcst_notice
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

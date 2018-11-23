@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.ProductBomDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.ProductBomVo" >
+	
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="wlbm" property="wlbm" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="djyl" property="djyl" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.pid AS "pid",
+		a.wlbm AS "wlbm",
+		a.wlms AS "wlms",
+		a.djyl AS "djyl",
+		a.dw AS "dw"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_product_bom a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_product_bom a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="pid != null and pid != ''">
+				AND a.pid LIKE '%'||#{pid}||'%'
+			</if>
+			<if test="wlbm != null and wlbm != ''">
+				AND a.wlbm LIKE '%'||#{wlbm}||'%'
+			</if>
+			<if test="wlms != null and wlms != ''">
+				AND a.wlms LIKE '%'||#{wlms}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_product_bom(
+			id,
+			pid,
+			wlbm,
+			wlms,
+			djyl,
+			dw
+		) VALUES (
+			#{id},
+			#{pid},
+			#{wlbm},
+			#{wlms},
+			#{djyl},
+			#{dw}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_product_bom
+		<set>
+            <if test="pid != null" >
+				pid = #{pid},
+			</if>
+            <if test="wlbm != null" >
+				wlbm = #{wlbm},
+			</if>
+            <if test="wlms != null" >
+				wlms = #{wlms},
+			</if>
+            <if test="djyl != null" >
+				djyl = #{djyl},
+			</if>
+            <if test="dw != null" >
+				dw = #{dw},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_product_bom
+		WHERE id = #{id}
+	</delete>
+	
+	<delete id="deleteByPid">
+		DELETE FROM t_product_bom
+		WHERE pid = #{pid}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

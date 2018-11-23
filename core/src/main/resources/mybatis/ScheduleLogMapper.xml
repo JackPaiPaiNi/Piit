@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.ey.piit.core.repository.ScheduleLogDao">
+	<insert id="saveScheduleLog" parameterType="com.ey.piit.core.entity.SchedulerLog" >
+	    insert into t_scheduler_log (id, scheduler_id, job_name, 
+	      job_desc, host_name, host_address, 
+	      prev_start_time, prev_result, 
+	      prev_end_time)
+	    values (#{id,jdbcType=VARCHAR}, #{schedulerId,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR}, 
+	      #{jobDesc,jdbcType=VARCHAR}, #{hostName,jdbcType=VARCHAR}, #{hostAddress,jdbcType=VARCHAR}, 
+	      #{prevStartTime,jdbcType=TIMESTAMP}, #{prevResult,jdbcType=VARCHAR}, 
+	      #{prevEndTime,jdbcType=TIMESTAMP})
+	 </insert>
+	 <update id="updateSchduleLog" parameterType="com.ey.piit.core.entity.SchedulerLog" >
+	    update t_scheduler_log set 
+	       prev_result = #{prevResult,jdbcType=VARCHAR},
+	       prev_end_time = #{prevEndTime,jdbcType=TIMESTAMP}
+	    where id = #{id,jdbcType=VARCHAR}
+	 </update>
+	 <select id="findScheduleInfoById" resultType="com.ey.piit.core.entity.SchedulerLog" parameterType="java.lang.String" >
+	    select id, scheduler_id as schedulerId, job_name as jobName, 
+	      job_desc as jobDesc, host_name as hostName, host_address as hostAddress, 
+	      prev_start_time as prevStartTime, prev_result as prevResult, 
+	      prev_end_time as prevEndTime from t_scheduler_log
+	    	where id = #{id,jdbcType=VARCHAR}
+	 </select>
+	 <select id="findScheduleInfoByScheduleId" resultType="com.ey.piit.core.entity.SchedulerLog" parameterType="java.lang.String" >
+	    select id, scheduler_id as schedulerId, job_name as jobName, 
+	      job_desc as jobDesc, host_name as hostName, host_address as hostAddress, 
+	      prev_start_time as prevStartTime, prev_result as prevResult, 
+	      prev_end_time as prevEndTime from t_scheduler_log
+	    	where scheduler_id = #{schedulerId,jdbcType=VARCHAR}
+	 </select>
+</mapper> 

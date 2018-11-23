@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.report.repository.ShipmentPlanReportDao">
+	
+	<resultMap id="MonthlyCountTableResultMap" type="com.ey.piit.sdo.report.vo.MonthlyCountTableVo" >
+		<result column="zgsjqj"  property="zgsjqj"  jdbcType="VARCHAR" />
+		<result column="xszzmc"  property="xszzmc"  jdbcType="VARCHAR" />
+		<result column="ywzmc"   property="ywzmc"   jdbcType="VARCHAR" />
+		<result column="hwgylsl" property="hwgylsl" jdbcType="DECIMAL" />
+		<result column="zchsl"   property="zchsl"   jdbcType="DECIMAL" />
+		<result column="dykcsl"  property="dykcsl"  jdbcType="DECIMAL" />
+		<result column="dyjzsl"  property="dyjzsl"  jdbcType="DECIMAL" />
+		<result column="zchje"   property="zchje"   jdbcType="DECIMAL" />
+		<result column="dykcje"  property="dykcje"  jdbcType="DECIMAL" />
+		<result column="dyjzje"  property="dyjzje"  jdbcType="DECIMAL" />
+		<result column="zhrmb"   property="zhrmb"   jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="MonthSumTableResultMap" type="com.ey.piit.sdo.report.vo.MonthSumTableVo" >
+		<result column="zgsjqj"  property="zgsjqj"  jdbcType="VARCHAR" />
+		<result column="xszzmc"  property="xszzmc"  jdbcType="VARCHAR" />
+		<result column="syztsl"   property="syztsl"   jdbcType="DECIMAL" />
+		<result column="bykcsl" property="bykcsl" jdbcType="DECIMAL" />
+		<result column="dyxjsl"   property="dyxjsl"   jdbcType="DECIMAL" />
+		<result column="sntqsl"  property="sntqsl"  jdbcType="DECIMAL" />
+		<result column="tbbdsl"  property="tbbdsl"  jdbcType="DECIMAL" />
+		<result column="syztje"   property="syztje"   jdbcType="DECIMAL" />
+		<result column="bykcje"  property="bykcje"  jdbcType="DECIMAL" />
+		<result column="dyxjje"  property="dyxjje"  jdbcType="DECIMAL" />
+		<result column="sntqje"   property="sntqje"   jdbcType="DECIMAL" />
+		<result column="tbbdje"   property="tbbdje"   jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="ShipplanCountTableResultMap" type="com.ey.piit.sdo.report.vo.ShipplanCountTableVo" >
+		<result column="zgsjqj" property="zgsjqj" jdbcType="VARCHAR" />
+		<result column="hwgylmc" property="hwgylmc" jdbcType="VARCHAR" />
+		<result column="xszzmc" property="xszzmc" jdbcType="VARCHAR" />
+		<result column="ywzmc" property="ywzmc" jdbcType="VARCHAR" />
+		<result column="zchsl" property="zchsl" jdbcType="DECIMAL" />
+		<result column="dykcsl" property="dykcsl" jdbcType="DECIMAL" />
+		<result column="dyjzsl" property="dyjzsl" jdbcType="DECIMAL" />
+		<result column="zchje" property="zchje" jdbcType="DECIMAL" />
+		<result column="dykcje" property="dykcje" jdbcType="DECIMAL" />
+		<result column="dyjzje" property="dyjzje" jdbcType="DECIMAL" />
+		<result column="zhrmb" property="zhrmb" jdbcType="DECIMAL" />
+
+	</resultMap>
+	
+	<select id="callSelectMonthlyCount" parameterType="Map" statementType="CALLABLE">
+		{call PKG_REPORT.P_QRY_SHIPMENT_PLAN_YDTJ(
+			#{vo.szgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ezgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+			#{vo.hwgyl,jdbcType=VARCHAR,mode=IN},
+			#{vo.hkdtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.usdtormb,jdbcType=DECIMAL,mode=IN},
+			#{vo.rmbtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.eurtousd,jdbcType=DECIMAL,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.report.repository.ShipmentPlanReportDao.MonthlyCountTableResultMap})
+		}
+	</select>
+	
+	<select id="callSelectMonthSum" parameterType="Map" statementType="CALLABLE">
+		{call PKG_REPORT.P_QRY_SHIPMENT_PLAN_YDHZ(
+			#{vo.szgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ezgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+			#{vo.hwgyl,jdbcType=VARCHAR,mode=IN},
+			#{vo.hkdtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.usdtormb,jdbcType=DECIMAL,mode=IN},
+			#{vo.rmbtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.eurtousd,jdbcType=DECIMAL,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.report.repository.ShipmentPlanReportDao.MonthSumTableResultMap})
+		}
+	</select>
+	
+	<select id="callSelectShipplanCount" parameterType="Map" statementType="CALLABLE">
+		{call PKG_REPORT.P_QRY_SHIPMENT_PLAN_HWGYLYDTJ(
+			#{vo.szgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ezgsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xszz,jdbcType=VARCHAR,mode=IN},
+			#{vo.hwgyl,jdbcType=VARCHAR,mode=IN},
+			#{vo.hkdtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.usdtormb,jdbcType=DECIMAL,mode=IN},
+			#{vo.rmbtousd,jdbcType=DECIMAL,mode=IN},
+			#{vo.eurtousd,jdbcType=DECIMAL,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.report.repository.ShipmentPlanReportDao.ShipplanCountTableResultMap})
+		}
+	</select>	
+	
+</mapper>

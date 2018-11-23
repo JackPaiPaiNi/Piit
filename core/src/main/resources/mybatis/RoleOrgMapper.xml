@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.core.repository.RoleOrgDao" >
+
+	<delete id="deleteByParam" parameterType="java.util.Map" >
+        delete from T_ROLE_ORG
+        <where >
+            <if test="id != null and id != ''" >
+                and ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="roleId != null and roleId != ''" >
+                and ROLE_ID = #{roleId,jdbcType=VARCHAR}
+            </if>
+            <if test="orgId != null and orgId != ''" >
+                and ORG_ID = #{orgId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </delete>
+    
+    <insert id="insert" parameterType="com.ey.piit.core.entity.RoleOrg" >
+        insert into T_ROLE_ORG (ID, ROLE_ID, ORG_ID, TYPE
+            )
+        values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{orgId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+            )
+    </insert>
+    
+    <update id="update" parameterType="com.ey.piit.core.entity.RoleOrg">
+    	update T_ROLE_ORG
+        set TYPE = #{type,jdbcType=VARCHAR}
+        where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+        	and ORG_ID = #{orgId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

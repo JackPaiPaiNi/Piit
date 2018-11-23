@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CustomerApplyDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CustomerApplyVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sqdh" property="sqdh" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="khjc" property="khjc" jdbcType="VARCHAR" />
+		<result column="gj" property="gj" jdbcType="VARCHAR" />
+		<result column="gwdz" property="gwdz" jdbcType="VARCHAR" />
+		<result column="lxr" property="lxr" jdbcType="VARCHAR" />
+		<result column="lxr2" property="lxr2" jdbcType="VARCHAR" />
+		<result column="lxr3" property="lxr3" jdbcType="VARCHAR" />
+		<result column="sjh" property="sjh" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="cz" property="cz" jdbcType="VARCHAR" />
+		<result column="yx" property="yx" jdbcType="VARCHAR" />
+		<result column="skype" property="skype" jdbcType="VARCHAR" />
+		<result column="whatapp" property="whatapp" jdbcType="VARCHAR" />
+		<result column="xxdz" property="xxdz" jdbcType="VARCHAR" />
+		<result column="pp" property="pp" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="glkhbm" property="glkhbm" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="cjsj" property="cjsj" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+	    <result column="process_id" property="processId" jdbcType="VARCHAR" />
+	    <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	<resultMap id="logResultMap" type="com.ey.piit.sdo.mdm.vo.CustomerApplyLogVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sqdh" property="sqdh" jdbcType="VARCHAR" />
+		<result column="czlx" property="czlx" jdbcType="VARCHAR" />
+		<result column="czzw" property="czzw" jdbcType="VARCHAR" />
+		<result column="czr" property="czr" jdbcType="VARCHAR" />
+		<result column="czrmc" property="czrmc" jdbcType="VARCHAR" />
+		<result column="czrj" property="czrj" jdbcType="TIMESTAMP" />
+		<result column="nr" property="nr" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_APPLY.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.CustomerApplyDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.CustomerApplyDao.logResultMap})
+		}
+	</select>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_APPLY.P_QRY(
+			#{vo.sqdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.CustomerApplyDao.baseResultMap})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_MDM_CUSTOMER_APPLY.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sqdh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.gj,jdbcType=VARCHAR,mode=IN},
+			#{vo.gwdz,jdbcType=VARCHAR,mode=IN},
+			#{vo.lxr,jdbcType=VARCHAR,mode=IN},
+			#{vo.lxr2,jdbcType=VARCHAR,mode=IN},
+			#{vo.lxr3,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjh,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.cz,jdbcType=VARCHAR,mode=IN},
+			#{vo.yx,jdbcType=VARCHAR,mode=IN},
+			#{vo.skype,jdbcType=VARCHAR,mode=IN},
+			#{vo.whatapp,jdbcType=VARCHAR,mode=IN},
+			#{vo.xxdz,jdbcType=VARCHAR,mode=IN},
+			#{vo.pp,jdbcType=VARCHAR,mode=IN},
+			#{vo.fktj,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.glkhbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.bzxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.cjsj,jdbcType=DATE,mode=IN},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_APPLY.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_APPLY.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_APPLY.P_APPROVE(
+		    #{vo.approveType,jdbcType=INTEGER,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

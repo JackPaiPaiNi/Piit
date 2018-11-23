@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.data.repository.ImportInfoDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basesys.data.vo.ImportInfoVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="FILE_ID" property="fileId" jdbcType="VARCHAR" />
+        <result column="EXCEL_ID" property="excelId" jdbcType="VARCHAR" />
+        <result column="IMPORT_TIME" property="importTime" jdbcType="TIMESTAMP" />
+        <result column="DEFAULT_CONFIG" property="defaultConfig" jdbcType="CHAR" />
+        <result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+        <result column="IMPORT_PARAMS" property="importParams" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="ResultMapWithBLOBs" type="com.ey.piit.basesys.data.vo.ImportInfoVo" extends="baseResultMap" >
+        <result column="EXCEL_CONFIG" property="excelConfig" jdbcType="CLOB" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, FILE_ID, EXCEL_ID, IMPORT_TIME, DEFAULT_CONFIG, CLASS_NAME, IMPORT_PARAMS
+    </sql>
+
+    <sql id="Blob_Column_List" >
+        EXCEL_CONFIG
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_IMPORT_INFO
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basesys.data.entity.ImportInfo" >
+        insert into T_IMPORT_INFO (ID, FILE_ID, EXCEL_ID, 
+            IMPORT_TIME, DEFAULT_CONFIG, CLASS_NAME, 
+            IMPORT_PARAMS, EXCEL_CONFIG)
+        values (#{id,jdbcType=VARCHAR}, #{fileId,jdbcType=VARCHAR}, #{excelId,jdbcType=VARCHAR}, 
+            #{importTime,jdbcType=TIMESTAMP}, #{defaultConfig,jdbcType=CHAR}, #{className,jdbcType=VARCHAR}, 
+            #{importParams,jdbcType=VARCHAR}, #{excelConfig,jdbcType=CLOB})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basesys.data.entity.ImportInfo" >
+        update T_IMPORT_INFO
+        <set >
+            <if test="fileId != null and fileId != ''" >
+                FILE_ID = #{fileId,jdbcType=VARCHAR},
+            </if>
+            <if test="excelId != null and excelId != ''" >
+                EXCEL_ID = #{excelId,jdbcType=VARCHAR},
+            </if>
+            <if test="importTime != null" >
+                IMPORT_TIME = #{importTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="defaultConfig != null and defaultConfig != ''" >
+                DEFAULT_CONFIG = #{defaultConfig,jdbcType=CHAR},
+            </if>
+            <if test="className != null and className != ''" >
+                CLASS_NAME = #{className,jdbcType=VARCHAR},
+            </if>
+            <if test="importParams != null and importParams != ''" >
+                IMPORT_PARAMS = #{importParams,jdbcType=VARCHAR},
+            </if>
+            <if test="excelConfig != null" >
+                EXCEL_CONFIG = #{excelConfig,jdbcType=CLOB},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ey.piit.basesys.data.entity.ImportInfo" >
+        update T_IMPORT_INFO
+        set FILE_ID = #{fileId,jdbcType=VARCHAR},
+            EXCEL_ID = #{excelId,jdbcType=VARCHAR},
+            IMPORT_TIME = #{importTime,jdbcType=TIMESTAMP},
+            DEFAULT_CONFIG = #{defaultConfig,jdbcType=CHAR},
+            CLASS_NAME = #{className,jdbcType=VARCHAR},
+            IMPORT_PARAMS = #{importParams,jdbcType=VARCHAR},
+            EXCEL_CONFIG = #{excelConfig,jdbcType=CLOB}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basesys.data.entity.ImportInfo" >
+        update T_IMPORT_INFO
+        set FILE_ID = #{fileId,jdbcType=VARCHAR},
+            EXCEL_ID = #{excelId,jdbcType=VARCHAR},
+            IMPORT_TIME = #{importTime,jdbcType=TIMESTAMP},
+            DEFAULT_CONFIG = #{defaultConfig,jdbcType=CHAR},
+            CLASS_NAME = #{className,jdbcType=VARCHAR},
+            IMPORT_PARAMS = #{importParams,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        ,
+        <include refid="Blob_Column_List" />
+        from T_IMPORT_INFO
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        ,
+        <include refid="Blob_Column_List" />
+        from T_IMPORT_INFO
+        <where >
+            <if test="fileId != null and fileId != ''" >
+                and FILE_ID = #{fileId,jdbcType=VARCHAR}
+            </if>
+            <if test="excelId != null and excelId != ''" >
+                and EXCEL_ID = #{excelId,jdbcType=VARCHAR}
+            </if>
+            <if test="importTime != null and importTime != ''" >
+                and IMPORT_TIME = #{importTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="defaultConfig != null and defaultConfig != ''" >
+                and DEFAULT_CONFIG = #{defaultConfig,jdbcType=CHAR}
+            </if>
+            <if test="className != null and className != ''" >
+                and CLASS_NAME = #{className,jdbcType=VARCHAR}
+            </if>
+            <if test="importParams != null and importParams != ''" >
+                and IMPORT_PARAMS = #{importParams,jdbcType=VARCHAR}
+            </if>
+            <if test="excelConfig != null and excelConfig != ''" >
+                and EXCEL_CONFIG = #{excelConfig,jdbcType=CLOB}
+            </if>
+        </where>
+    </select>
+
+</mapper>

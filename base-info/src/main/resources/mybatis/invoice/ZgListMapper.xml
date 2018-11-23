@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.invoice.repository.ZgListDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.invoice.vo.ZgListVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="guino" property="guino" jdbcType="VARCHAR" />
+		<result column="chdat" property="chdat" jdbcType="VARCHAR" />
+		<result column="cftno" property="cftno" jdbcType="VARCHAR" />
+		<result column="zgdsn" property="zgdsn" jdbcType="VARCHAR" />
+		<result column="bukrs" property="bukrs" jdbcType="VARCHAR" />
+		<result column="dcno" property="dcno" jdbcType="VARCHAR" />
+		<result column="gxnam" property="gxnam" jdbcType="VARCHAR" />
+		<result column="ftno" property="ftno" jdbcType="VARCHAR" />
+		<result column="tare" property="tare" jdbcType="VARCHAR" />
+		<result column="sygs" property="sygs" jdbcType="VARCHAR" />
+		<result column="fhnam" property="fhnam" jdbcType="VARCHAR" />
+		<result column="poter" property="poter" jdbcType="VARCHAR" />
+		<result column="cheno" property="cheno" jdbcType="VARCHAR" />
+		<result column="bynam" property="bynam" jdbcType="VARCHAR" />
+		<result column="jctim" property="jctim" jdbcType="VARCHAR" />
+		<result column="cctim" property="cctim" jdbcType="VARCHAR" />
+		<result column="erdat" property="erdat" jdbcType="VARCHAR" />
+		<result column="ertim" property="ertim" jdbcType="VARCHAR" />
+		<result column="ernam" property="ernam" jdbcType="VARCHAR" />
+		<result column="zflag" property="zflag" jdbcType="VARCHAR" />
+		<result column="chdno" property="chdno" jdbcType="VARCHAR" />
+		<result column="vbeln" property="vbeln" jdbcType="VARCHAR" />
+		<result column="note1" property="note1" jdbcType="VARCHAR" />
+		<result column="cyxno" property="cyxno" jdbcType="DECIMAL" />
+		<result column="cyxsn" property="cyxsn" jdbcType="DECIMAL" />
+		<result column="zgroup" property="zgroup" jdbcType="VARCHAR" />
+		<result column="cmatnr" property="cmatnr" jdbcType="VARCHAR" />
+		<result column="cmaktx" property="cmaktx" jdbcType="VARCHAR" />
+		<result column="cmeins" property="cmeins" jdbcType="VARCHAR" />
+		<result column="aenam" property="aenam" jdbcType="VARCHAR" />
+		<result column="aedat" property="aedat" jdbcType="VARCHAR" />
+		<result column="aetim" property="aetim" jdbcType="VARCHAR" />
+		<result column="kbnum" property="kbnum" jdbcType="DECIMAL" />
+		<result column="kbno" property="kbno" jdbcType="VARCHAR" />
+		<result column="boxno" property="boxno" jdbcType="VARCHAR" />
+		<result column="jgtyp" property="jgtyp" jdbcType="VARCHAR" />
+		<result column="matnr" property="matnr" jdbcType="VARCHAR" />
+		<result column="maktx" property="maktx" jdbcType="VARCHAR" />
+		<result column="perwet" property="perwet" jdbcType="DECIMAL" />
+		<result column="boxqty" property="boxqty" jdbcType="DECIMAL" />
+		<result column="boxnum" property="boxnum" jdbcType="DECIMAL" />
+		<result column="yfqty" property="yfqty" jdbcType="DECIMAL" />
+		<result column="sfqty" property="sfqty" jdbcType="DECIMAL" />
+		<result column="meins" property="meins" jdbcType="VARCHAR" />
+		<result column="boxl" property="boxl" jdbcType="DECIMAL" />
+		<result column="boxw" property="boxw" jdbcType="DECIMAL" />
+		<result column="boxh" property="boxh" jdbcType="DECIMAL" />
+		<result column="mpwet" property="mpwet" jdbcType="DECIMAL" />
+		<result column="mzwet" property="mzwet" jdbcType="DECIMAL" />
+		<result column="bcwet" property="bcwet" jdbcType="DECIMAL" />
+		<result column="jpwet" property="jpwet" jdbcType="DECIMAL" />
+		<result column="jzwet" property="jzwet" jdbcType="DECIMAL" />
+		<result column="cpmna" property="cpmna" jdbcType="VARCHAR" />
+		<result column="ztype" property="ztype" jdbcType="VARCHAR" />
+		<result column="foc01" property="foc01" jdbcType="VARCHAR" />
+		<result column="kbpwet" property="kbpwet" jdbcType="DECIMAL" />
+		<result column="kbzwet" property="kbzwet" jdbcType="DECIMAL" />
+		<result column="kbpjwet" property="kbpjwet" jdbcType="DECIMAL" />
+		<result column="kbqty" property="kbqty" jdbcType="DECIMAL" />
+		<result column="kbl" property="kbl" jdbcType="DECIMAL" />
+		<result column="kbw" property="kbw" jdbcType="DECIMAL" />
+		<result column="kbh" property="kbh" jdbcType="DECIMAL" />
+		<result column="kbpv" property="kbpv" jdbcType="DECIMAL" />
+		<result column="kbzv" property="kbzv" jdbcType="DECIMAL" />
+		<result column="gszjh" property="gszjh" jdbcType="VARCHAR" />
+		<result column="gszjm" property="gszjm" jdbcType="VARCHAR" />
+		<result column="gszjs" property="gszjs" jdbcType="DECIMAL" />
+		<result column="hscode" property="hscode" jdbcType="VARCHAR" />
+		<result column="dutyr" property="dutyr" jdbcType="VARCHAR" />
+		<result column="epmna" property="epmna" jdbcType="VARCHAR" />
+		<result column="htno" property="htno" jdbcType="VARCHAR" />
+		<result column="minbz" property="minbz" jdbcType="DECIMAL" />
+		<result column="kmatnr" property="kmatnr" jdbcType="VARCHAR" />
+		<result column="polote" property="polote" jdbcType="VARCHAR" />
+		<result column="lifnr" property="lifnr" jdbcType="VARCHAR" />
+		<result column="egname" property="egname" jdbcType="VARCHAR" />
+		<result column="egaddr" property="egaddr" jdbcType="VARCHAR" />
+		<result column="ycgj" property="ycgj" jdbcType="VARCHAR" />
+		<result column="pmaktx" property="pmaktx" jdbcType="VARCHAR" />
+		<result column="csmgj" property="csmgj" jdbcType="VARCHAR" />
+		<result column="khfl" property="khfl" jdbcType="VARCHAR" />
+		<result column="jxtyp" property="jxtyp" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="ktype" property="ktype" jdbcType="VARCHAR" />
+		<result column="potype" property="potype" jdbcType="VARCHAR" />
+		<result column="neno" property="neno" jdbcType="VARCHAR" />
+		<result column="ncmno" property="ncmno" jdbcType="VARCHAR" />
+		<result column="ncm" property="ncm" jdbcType="VARCHAR" />
+		<result column="djqty" property="djqty" jdbcType="DECIMAL" />
+		<result column="ddqty" property="ddqty" jdbcType="DECIMAL" />
+		<result column="weihao" property="weihao" jdbcType="VARCHAR" />
+		<result column="pmoney" property="pmoney" jdbcType="DECIMAL" />
+		<result column="zmoney" property="zmoney" jdbcType="DECIMAL" />
+		<result column="ckdno" property="ckdno" jdbcType="VARCHAR" />
+		<result column="boxpv" property="boxpv" jdbcType="DECIMAL" />
+		<result column="bey01" property="bey01" jdbcType="VARCHAR" />
+		<result column="bey02" property="bey02" jdbcType="VARCHAR" />
+		<result column="bey03" property="bey03" jdbcType="VARCHAR" />
+		<result column="bey04" property="bey04" jdbcType="VARCHAR" />
+		<result column="zhlx" property="zhlx" jdbcType="VARCHAR" />
+		<result column="dgmz" property="dgmz" jdbcType="DECIMAL" />
+		<result column="kbzjz" property="kbzjz" jdbcType="DECIMAL" />
+	</resultMap>
+	
+    <select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_INVOICE_NEW.P_ZGLIST_QRY(
+			#{vo.chdno,jdbcType=VARCHAR,mode=IN},
+			#{vo.vbeln,jdbcType=VARCHAR,mode=IN},
+			#{vo.dcno,jdbcType=VARCHAR,mode=IN},
+			#{vo.guino,jdbcType=VARCHAR,mode=IN}, 
+			#{vo.ftno,jdbcType=VARCHAR,mode=IN},
+			#{vo.matnr,jdbcType=VARCHAR,mode=IN},
+			#{vo.polote,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ZgListDao.baseResultMap})
+		}
+	</select>
+	
+	<update id="callSaveChdTssapzt" parameterType="Map" statementType="CALLABLE">
+		{call PKG_INVOICE_NEW.P_SAVE_ZGLIST_TSSAPZT(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{chdno,jdbcType=VARCHAR,mode=IN},
+			#{result,jdbcType=VARCHAR,mode=IN},
+			#{msg,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

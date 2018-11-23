@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.order.dao.IOrderDao">
+
+	<resultMap id="headerResultMap" type="com.ey.piit.interfaces.order.dto.OrderHeaderDto" >
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="xsddh" property="xsddh" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="fxqd" property="fxqd" jdbcType="VARCHAR" />
+		<result column="cpz" property="cpz" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xsy" property="xsy" jdbcType="VARCHAR" />
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="gjmytk" property="gjmytk" jdbcType="VARCHAR" />
+		<result column="gjmytkbz" property="gjmytkbz" jdbcType="VARCHAR" />
+		<result column="ddbm" property="ddbm" jdbcType="VARCHAR" />
+		<result column="rz" property="rz" jdbcType="VARCHAR" />
+		<result column="jhrq" property="jhrq" jdbcType="VARCHAR" />
+		<result column="mjxh" property="mjxh" jdbcType="VARCHAR" />
+		<result column="ddlb" property="ddlb" jdbcType="VARCHAR" />
+		<result column="pp"   property="pp" jdbcType="VARCHAR" />
+		<result column="sfwx" property="sfwx" jdbcType="VARCHAR" />
+		<result column="pdddlb" property="pdddlb" jdbcType="VARCHAR" />
+		<result column="sf_czz" property="sfCzz" jdbcType="DECIMAL" />
+		<result column="tsddfl" property="tsddfl" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="headerZZResultMap" type="com.ey.piit.interfaces.order.dto.OrderZZHeaderDto" >
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="xszzdm" property="xszzdm" jdbcType="VARCHAR" />
+		<result column="ywz" property="ywz" jdbcType="VARCHAR" />
+		<result column="xsddh" property="xsddh" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="fxqd" property="fxqd" jdbcType="VARCHAR" />
+		<result column="cpz" property="cpz" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xsy" property="xsy" jdbcType="VARCHAR" />
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="gjmytk" property="gjmytk" jdbcType="VARCHAR" />
+		<result column="gjmytkbz" property="gjmytkbz" jdbcType="VARCHAR" />
+		<result column="ddbm" property="ddbm" jdbcType="VARCHAR" />
+		<result column="rz" property="rz" jdbcType="VARCHAR" />
+		<result column="jhrq" property="jhrq" jdbcType="VARCHAR" />
+		<result column="mjxh" property="mjxh" jdbcType="VARCHAR" />
+		<result column="ddlb" property="ddlb" jdbcType="VARCHAR" />
+		<result column="pp"   property="pp" jdbcType="VARCHAR" />
+		<result column="hwkh"   property="hwkh" jdbcType="VARCHAR" />
+		<result column="bz"   property="bz" jdbcType="VARCHAR" />
+		<result column="tsddfl" property="tsddfl" jdbcType="VARCHAR" />
+		<result column="glddh" property="glddh" jdbcType="VARCHAR" />
+		<result column="mgrwd" property="mgrwd" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="dhsl" property="dhsl" jdbcType="DECIMAL" />
+		<result column="jgfs" property="jgfs" jdbcType="VARCHAR" />
+		<result column="zbb1" property="zbb1" jdbcType="VARCHAR" />
+		<result column="zbb2" property="zbb2" jdbcType="VARCHAR" />
+		<result column="pbm" property="pbm" jdbcType="VARCHAR" />
+		<result column="pbzyq" property="pbzyq" jdbcType="VARCHAR" />
+		<result column="pbzyqbz" property="pbzyqbz" jdbcType="VARCHAR" />
+		<result column="pldxx" property="pldxx" jdbcType="VARCHAR" />
+		<result column="bhm" property="bhm" jdbcType="VARCHAR" />
+		<result column="hfbs" property="hfbs" jdbcType="VARCHAR" />
+		<result column="mfbs" property="mfbs" jdbcType="VARCHAR" />
+		<result column="mfbsbl" property="mfbsbl" jdbcType="VARCHAR" />
+		<result column="bsbz" property="bsbz" jdbcType="VARCHAR" />
+		<result column="bsbzbz" property="bsbzbz" jdbcType="VARCHAR" />
+		<result column="gdbszg" property="gdbszg" jdbcType="VARCHAR" />
+		<result column="bstx" property="bstx" jdbcType="VARCHAR" />
+		<result column="sfwx" property="sfwx" jdbcType="VARCHAR" />
+		<result column="pdddlb" property="pdddlb" jdbcType="VARCHAR" />
+		<result column="sf_czz" property="sfCzz" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.order.dto.OrderBodyDto" >
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="rowid" property="rowid" jdbcType="VARCHAR" />
+		<result column="wlbm" property="wlbm" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="VARCHAR" />
+		<result column="xmlb" property="xmlb" jdbcType="VARCHAR" />
+		<result column="gc" property="gc" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="jjyy" property="jjyy" jdbcType="VARCHAR" />
+		<result column="jgtj" property="jgtj" jdbcType="VARCHAR" />
+		<result column="jgdw" property="jgdw" jdbcType="VARCHAR" />
+		<result column="xsdw" property="xsdw" jdbcType="VARCHAR" />
+	</resultMap>
+    <!-- 推送海外SAP取数 -->
+ 	<select id="callSelectProductByIdHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ORDER_PRODUCT_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSpoByIdHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ORDER_SPO_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSimpleByIdHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ORDER_SAMPLE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectDiversityByIdHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ORDER_DIVERSITY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectFyByIdHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ORDER_FY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	
+    <!-- 推送制造SAP取数 -->
+	<select id="callSelectProductByIdZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ZZ_ORDER_PRODUCT_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSpoByIdZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ZZ_ORDER_SPO_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSimpleByIdZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ZZ_ORDER_SAMPLE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectDiversityByIdZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ZZ_ORDER_DIVERSITY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectFyByIdZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_ZZ_ORDER_FY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	
+    <!-- 变更推送海外SAP取数 -->
+ 	<select id="callSelectProductBgHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_PRODUCT_HW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSpoBgHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_SPO_HW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSimpleBgHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_SAMPLE_HW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectDiversityBgHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_DIVERSITY_HW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectFyBgHw" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_FY_HW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	
+	
+    <!-- 变更推送制造SAP取数 -->
+	<select id="callSelectProductBgZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_PRODUCT_ZZ(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSpoBgZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_SPO_ZZ(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectSimpleBgZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_SAMPLE_ZZ(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectDiversityBgZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_DIVERSITY_ZZ(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<select id="callSelectFyBgZz" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BG_ORDER_FY_ZZ(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tsfs,jdbcType=INTEGER,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.headerZZResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.order.dao.IOrderDao.bodyResultMap})
+		}
+	</select>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

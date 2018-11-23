@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.core.repository.ResourceDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.core.vo.ResourceVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="URL" property="url" jdbcType="VARCHAR" />
+        <result column="PERMISSION" property="permission" jdbcType="VARCHAR" />
+        <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="ICON" property="icon" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <resultMap id="treeResultMap" type="com.ey.piit.core.entity.TreeNode" >
+    	<result property="checked" column="checked" javaType="Boolean" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, NAME, TYPE, URL, PERMISSION, PARENT_ID, SORT, STATUS, ICON, DESCRIPTION, CREATOR, 
+        CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_RESOURCE
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.core.entity.Resource" >
+        insert into T_RESOURCE (ID, NAME, TYPE, 
+            URL, PERMISSION, PARENT_ID, 
+            SORT, STATUS, ICON, 
+            DESCRIPTION, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+            #{url,jdbcType=VARCHAR}, #{permission,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+            #{sort,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+            #{description,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.core.entity.Resource" >
+        update T_RESOURCE
+        <set >
+            <if test="name != null and name != ''" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null and url != ''" >
+                URL = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="permission != null and permission != ''" >
+                PERMISSION = #{permission,jdbcType=VARCHAR},
+            </if>
+            <if test="parentId != null and parentId != ''" >
+                PARENT_ID = #{parentId,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="icon != null and icon != ''" >
+                ICON = #{icon,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.core.entity.Resource" >
+        update T_RESOURCE
+        set NAME = #{name,jdbcType=VARCHAR},
+            TYPE = #{type,jdbcType=VARCHAR},
+            URL = #{url,jdbcType=VARCHAR},
+            PERMISSION = #{permission,jdbcType=VARCHAR},
+            PARENT_ID = #{parentId,jdbcType=VARCHAR},
+            SORT = #{sort,jdbcType=DECIMAL},
+            STATUS = #{status,jdbcType=VARCHAR},
+            ICON = #{icon,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_RESOURCE
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_RESOURCE
+        <where >
+            <if test="name != null and name != ''" >
+                and NAME = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null and type != ''" >
+                and TYPE = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="url != null and url != ''" >
+                and URL = #{url,jdbcType=VARCHAR}
+            </if>
+            <if test="permission != null and permission != ''" >
+                and PERMISSION = #{permission,jdbcType=VARCHAR}
+            </if>
+            <if test="parentId != null and parentId != ''" >
+                and PARENT_ID = #{parentId,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null and sort != ''" >
+                and SORT = #{sort,jdbcType=DECIMAL}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="icon != null and icon != ''" >
+                and ICON = #{icon,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+    
+    <select id="selectPermissionByRoleIds" resultType="java.lang.String" parameterType="java.util.List" >
+	    select r.PERMISSION
+	    from T_ROLE_RESOURCE rr,
+	    	T_RESOURCE r
+	    <where>
+	    	rr.RESOURCE_ID = r.ID
+			and rr.ROLE_ID in
+			<foreach item="item" collection="list" separator="," open="(" close=")" index="">
+		    	#{item,jdbcType=VARCHAR}
+			</foreach>
+			and r.STATUS = '1'
+			and r.PERMISSION is not null
+		</where>
+    </select>
+    
+    <select id="selectMenuByUserId" resultMap="baseResultMap" parameterType="java.lang.String" >
+		select distinct re.*
+		from T_RESOURCE re,
+			T_ROLE_RESOURCE rr,
+			T_USER_ROLE ur,
+			T_ROLE r
+		where re.ID = rr.RESOURCE_ID
+			and ur.ROLE_ID = rr.ROLE_ID
+			and r.ID = ur.ROLE_ID
+			and r.STATUS = '1'
+			and re.STATUS = '1'
+			and (re.TYPE = '01' or re.TYPE = '03')<!-- 01：菜单 -->
+			and ur.USER_ID = #{id,jdbcType=VARCHAR}
+		order by re.SORT
+    </select>
+    
+    <select id="selectTree" resultMap="treeResultMap" >
+    	select ID, NAME, TYPE, PARENT_ID "PID"
+    	from T_RESOURCE
+    	order by SORT
+    </select>
+    
+    <select id="selectTreeCheckedByRoleId" resultMap="treeResultMap" >
+    	select r.ID, r.NAME, r.TYPE, r.PARENT_ID "PID", decode(rr.ID,null,'N','Y') "CHECKED"
+    	from T_RESOURCE r, T_ROLE_RESOURCE rr
+    	where r.ID = rr.RESOURCE_ID(+)
+    		and rr.ROLE_ID(+) = #{id,jdbcType=VARCHAR}
+    	order by r.SORT
+    </select>
+
+</mapper>

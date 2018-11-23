@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.price.repository.ShippingsheetDao">
+	
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.price.vo.ShippingsheetVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="drdh" property="drdh" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="itemResultMap" type="com.ey.piit.sdo.price.vo.ShippingsheetItemVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="drdh" property="drdh" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_SHEET.P_QRY(
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.ShippingsheetDao.baseResultMap}
+		)}
+	</select>
+	
+	<select id="callSelectDtlByPage" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_SHEET.P_QRY_DTL_BY_PAGE(
+			#{drdh,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.ShippingsheetDao.itemResultMap}
+		)}
+	</select>
+	
+	<update id="callSaveMain" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_SHIPPING_SHEET.P_SAVE_MAIN(
+			#{vo.id,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.drdh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.zt,jdbcType=DECIMAL,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callSaveDtl" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_SHIPPING_SHEET.P_SAVE_DTL(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.drdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.dj,jdbcType=DECIMAL,mode=IN},
+			#{vo.dw,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.flag,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<delete id="callDeleteDtl" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_SHEET.P_DELETE_DTL(
+			#{drdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_SHEET.P_SUBMIT(
+			#{vo.drdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

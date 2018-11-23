@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.baseinfo.dict.repository.DictDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.baseinfo.dict.vo.DictVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PARENT_TYPE" property="parentType" jdbcType="VARCHAR" />
+        <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+        <result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, CODE, NAME, PARENT_TYPE, PARENT_CODE, SORT, EXT1, EXT2, STATUS, REMARK, CREATOR, 
+        CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_DICT
+        where ID = #{id,jdbcType=VARCHAR}  AND   STATUS='1' 
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.baseinfo.dict.entity.Dict" >
+        insert into T_DICT (ID, CODE, NAME, 
+            PARENT_TYPE, PARENT_CODE, SORT, 
+            EXT1, EXT2, STATUS, 
+            REMARK, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME)
+        values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+            #{parentType,jdbcType=VARCHAR}, #{parentCode,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, 
+            #{ext1,jdbcType=VARCHAR}, #{ext2,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+            #{remark,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.baseinfo.dict.entity.Dict" >
+        update T_DICT
+        <set >
+            <if test="code != null and code != ''" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null and name != ''" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="parentType != null and parentType != ''" >
+                PARENT_TYPE = #{parentType,jdbcType=VARCHAR},
+            </if>
+            <if test="parentCode != null and parentCode != ''" >
+                PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=DECIMAL},
+            </if>
+            <if test="ext1 != null and ext1 != ''" >
+                EXT1 = #{ext1,jdbcType=VARCHAR},
+            </if>
+            <if test="ext2 != null and ext2 != ''" >
+                EXT2 = #{ext2,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null and remark != ''" >
+                REMARK = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.baseinfo.dict.entity.Dict" >
+        update T_DICT
+        set CODE = #{code,jdbcType=VARCHAR},
+            NAME = #{name,jdbcType=VARCHAR},
+            PARENT_TYPE = #{parentType,jdbcType=VARCHAR},
+            PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+            SORT = #{sort,jdbcType=DECIMAL},
+            EXT1 = #{ext1,jdbcType=VARCHAR},
+            EXT2 = #{ext2,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            REMARK = #{remark,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_DICT
+        where ID = #{id,jdbcType=VARCHAR} AND   STATUS='1'  
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_DICT
+        <where >
+            <if test="code != null and code != ''" >
+                and CODE = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null and name != ''" >
+                and NAME like '%'||#{name,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="parentType != null and parentType != ''" >
+                and PARENT_TYPE = #{parentType,jdbcType=VARCHAR}
+            </if>
+            <if test="parentCode != null and parentCode != ''" >
+                and PARENT_CODE = #{parentCode,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null and sort != ''" >
+                and SORT = #{sort,jdbcType=DECIMAL}
+            </if>
+            <if test="ext1 != null and ext1 != ''" >
+                and EXT1 = #{ext1,jdbcType=VARCHAR}
+            </if>
+            <if test="ext2 != null and ext2 != ''" >
+                and EXT2 = #{ext2,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null and remark != ''" >
+                and REMARK = #{remark,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+                AND   STATUS='1'
+        </where>
+        <if test="order != null and order != ''" >
+            order by ${order}
+        </if>
+    </select>
+    
+    <select id="selectByType" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_DICT
+        where PARENT_TYPE = #{parentType,jdbcType=VARCHAR} AND  STATUS='1'
+        order by SORT
+    </select>
+    
+    <select id="selectCountByType" resultMap="baseResultMap">
+        select PARENT_TYPE,count(1) "EXT1"
+        from T_DICT  WHERE  STATUS='1' 
+        group by PARENT_TYPE
+    </select>
+
+</mapper>

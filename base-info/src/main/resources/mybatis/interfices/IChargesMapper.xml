@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.charges.dao.IchargesDao">
+
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.charges.dto.ChargesMsgResponse" >
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="fprq" property="fprq" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="VARCHAR" />
+		<result column="lx" property="lx" jdbcType="VARCHAR" />
+		<result column="pzh" property="pzh" jdbcType="VARCHAR" />
+		<result column="msg" property="msg" jdbcType="VARCHAR" />
+	</resultMap>
+    
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_CHARGE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.charges.dao.IchargesDao.bodyResultMap})
+		}
+	</select>
+	
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

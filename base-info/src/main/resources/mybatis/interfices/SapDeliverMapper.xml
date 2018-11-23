@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.delivery.dao.SapDeliverDao">
+	<resultMap id="headerResultMap" type="com.ey.piit.interfaces.delivery.dto.DeliverHeaderDto" >
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="fhr" property="fhr" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="zdrq" property="zdrq" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.delivery.dto.DeliverBodyDto" >
+		<result column="update" property="update" jdbcType="VARCHAR" />
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="spmc" property="spmc" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="khxh" property="khxh" jdbcType="VARCHAR" />
+		<result column="pp" property="pp" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="mfjsl" property="mfjsl" jdbcType="DECIMAL" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+	</resultMap>
+ 	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_DELIVER_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{tssaplx,jdbcType=VARCHAR,mode=IN},	
+			#{headerList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.delivery.dao.SapDeliverDao.headerResultMap},
+			#{bodyList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.delivery.dao.SapDeliverDao.bodyResultMap})
+		}
+	</select>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

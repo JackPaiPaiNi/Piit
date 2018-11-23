@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.sdo.pub.repository.Select2Dao" >
+
+    <resultMap id="baseResultMap" type="com.ey.piit.baseinfo.area.vo.AreaVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="EXT_CODE" property="extCode" jdbcType="VARCHAR" />
+        <result column="CN_NAME" property="cnName" jdbcType="VARCHAR" />
+        <result column="EN_NAME" property="enName" jdbcType="VARCHAR" />
+        <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+        <result column="FULL_PATH_CODE" property="fullPathCode" jdbcType="VARCHAR" />
+        <result column="CHILD_COUNT" property="childCount" jdbcType="DECIMAL" />
+        <result column="LEVELS" property="levels" jdbcType="DECIMAL" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="CN_FULL_NAME" property="cnFullName" jdbcType="VARCHAR" />
+        <result column="EN_FULL_NAME" property="enFullName" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="SDSQ" property="sdsq" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="userResultMap" type="com.ey.piit.core.vo.UserVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="LOGIN_ACCT" property="loginAcct" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="EMP_CODE" property="empCode" jdbcType="VARCHAR" />
+        <result column="COMP_CODE" property="compCode" jdbcType="VARCHAR" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="DEFAUT_ROLE" property="defautRole" jdbcType="VARCHAR" />
+        <result column="ROLES" property="roles" jdbcType="VARCHAR" />
+        <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+        <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+        <result column="GROUP_CODE" property="groupCode" jdbcType="VARCHAR" />
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+        <result column="SFXGMM" property="sfxgmm" jdbcType="DECIMAL" />
+        
+    </resultMap>
+    
+    <resultMap id="dictResultMap" type="com.ey.piit.baseinfo.dict.vo.DictVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="PARENT_TYPE" property="parentType" jdbcType="VARCHAR" />
+        <result column="PARENT_CODE" property="parentCode" jdbcType="VARCHAR" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="EXT1" property="ext1" jdbcType="VARCHAR" />
+        <result column="EXT2" property="ext2" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    
+    <resultMap id="companyCodeResultMap" type="com.ey.piit.sdo.pub.entity.CompanyCode" >
+        <result column="NAME_CN" property="nameCn" jdbcType="VARCHAR" />
+        <result column="NAME_EN" property="nameEn" jdbcType="VARCHAR" />
+        <result column="COUNTRY_CODE" property="countryCode" jdbcType="VARCHAR" />
+        <result column="COMPANY_CODE" property="companyCode" jdbcType="VARCHAR" />
+    </resultMap>
+
+    
+    <sql id="baseColumnList" >
+        ID, CODE, EXT_CODE, CN_NAME, EN_NAME, PARENT_CODE, FULL_PATH_CODE, CHILD_COUNT, LEVELS, 
+        SORT, CN_FULL_NAME, EN_FULL_NAME, STATUS, CREATOR, CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME, SDSQ
+    </sql>
+
+    <select id="selectAllCountry" resultMap="baseResultMap">
+    	select 
+		<include refid="baseColumnList" />
+    	from T_AREA
+    	where LEVELS = 1 and status = 1
+    	order by FULL_PATH_CODE
+    </select>
+   
+   <select id="callSelectSjsByRole" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PUB.P_QRY_SJS(
+			#{code,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.pub.repository.Select2Dao.userResultMap})
+		}
+	</select>
+   
+   <select id="callSelectJgfs" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PUB.P_QRY_JGFS(
+			#{zhfs,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.pub.repository.Select2Dao.dictResultMap})
+		}
+	</select>
+	
+	<select id="callSelectShfdm" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PUB.P_QRY_SHFDM(
+			#{xwgj,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.pub.repository.Select2Dao.companyCodeResultMap})
+		}
+	</select>
+</mapper>

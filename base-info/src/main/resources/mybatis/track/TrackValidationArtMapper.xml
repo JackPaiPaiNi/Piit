@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.track.repository.TrackValidationArtDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.track.vo.TrackValidationArtVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="mgzl" property="mgzl" jdbcType="VARCHAR" />
+		<result column="qrfj" property="qrfj" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.ddid AS "ddid",
+		a.mgzl AS "mgzl",
+		a.qrfj AS "qrfj",
+		a.bzxx AS "bzxx",
+		a.zdrid AS "zdrid",
+		a.zdrmc AS "zdrmc",
+		a.zdsj AS "zdsj"
+	</sql>
+	
+	
+	<insert id="insert">
+		INSERT INTO t_track_validation_art(
+			id,
+			ddid,
+			mgzl,
+			qrfj,
+			bzxx,
+			zdrid,
+			zdrmc,
+			zdsj
+		) VALUES (
+			#{id},	
+		    #{ddid},
+			#{mgzl},
+			#{qrfj},
+			#{bzxx},
+		    #{zdrid},
+		    #{zdrmc},
+			#{zdsj}
+		)
+	</insert>
+	
+	
+	<update id="update">
+		UPDATE t_track_validation_art
+		<set>
+            <if test="mgzl != null" >
+				mgzl = #{mgzl},
+			</if>
+            <if test="qrfj != null" >
+				qrfj = #{qrfj},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="zdrid != null" >
+				zdrid = #{zdrid},
+			</if>
+            <if test="zdrmc != null" >
+				zdrmc = #{zdrmc},
+			</if>
+            <if test="zdsj != null" >
+				zdsj = #{zdsj},
+			</if>
+        </set>
+		WHERE id = #{id} AND ddid=#{ddid}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+	<update id="updateMgqrzt" parameterType="Map" statementType="CALLABLE">
+		{call PKG_TRACK.P_UPDATE_MGZT(
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<select id="selectByDdid" parameterType="Map" statementType="CALLABLE">
+		{call PKG_TRACK.P_QRY_MGZL_BY_DDID(
+			#{ddid,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.track.repository.TrackValidationArtDao.baseResultMap})
+		}
+	</select>
+	
+</mapper>

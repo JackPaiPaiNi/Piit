@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.ContractDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.ContractVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="htbh" property="htbh" jdbcType="VARCHAR" />
+		<result column="htmc" property="htmc" jdbcType="VARCHAR" />
+		<result column="fqrid" property="fqrid" jdbcType="VARCHAR" />
+		<result column="fqrmc" property="fqrmc" jdbcType="VARCHAR" />
+		<result column="fqrq" property="fqrq" jdbcType="TIMESTAMP" />
+		<result column="htlx" property="htlx" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="khdz" property="khdz" jdbcType="VARCHAR" />
+		<result column="qyf" property="qyf" jdbcType="VARCHAR" />
+		<result column="qyf2" property="qyf2" jdbcType="VARCHAR" />
+		<result column="qyf3" property="qyf3" jdbcType="VARCHAR" />
+		<result column="sfk" property="sfk" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="htje" property="htje" jdbcType="DECIMAL" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="yxqks" property="yxqks" jdbcType="TIMESTAMP" />
+		<result column="yxqjs" property="yxqjs" jdbcType="TIMESTAMP" />
+		<result column="zt" property="zt" jdbcType="VARCHAR" />
+		<result column="htjk" property="htjk" jdbcType="VARCHAR" />
+		<result column="htfs" property="htfs" jdbcType="DECIMAL" />
+		<result column="gdzt" property="gdzt" jdbcType="VARCHAR" />
+		<result column="gdrq" property="gdrq" jdbcType="TIMESTAMP" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="htlxmc" property="htlxmc" jdbcType="VARCHAR" />
+		<result column="fktjmc" property="fktjmc" jdbcType="VARCHAR" />
+		<result column="gdztmc" property="gdztmc" jdbcType="VARCHAR" />
+		<result column="fj" property="fj" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.htbh AS "htbh",
+		a.htmc AS "htmc",
+		a.fqrid AS "fqrid",
+		a.fqrmc AS "fqrmc",
+		a.fqrq AS "fqrq",
+		a.htlx AS "htlx",
+		a.khbm AS "khbm",
+		a.khmc AS "khmc",
+		a.khdz AS "khdz",
+		a.qyf AS "qyf",
+		a.qyf2 AS "qyf2",
+		a.qyf3 AS "qyf3",
+		a.sfk AS "sfk",
+		a.bz AS "bz",
+		a.htje AS "htje",
+		a.fktj AS "fktj",
+		a.yxqks AS "yxqks",
+		a.yxqjs AS "yxqjs",
+		a.zt AS "zt",
+		a.htjk AS "htjk",
+		a.htfs AS "htfs",
+		a.gdzt AS "gdzt",
+		a.gdrq AS "gdrq",
+		a.bzxx AS "bzxx",
+		a.fj AS "fj",
+	    (SELECT B.NAME FROM T_DICT B WHERE B.CODE = a.htlx AND B.PARENT_TYPE = 'HTLX') AS "htlxmc",
+	    (SELECT B.NAME FROM T_DICT B WHERE B.CODE = a.gdzt AND B.PARENT_TYPE = 'GDZT') AS "gdztmc",
+        (SELECT C.FKTJMS FROM T_PAY_TERM C WHERE C.FKTJDM = a.fktj) AS "fktjmc"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_contract a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_contract a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="fqrmc != null and fqrmc != ''">
+				AND a.fqrmc LIKE '%'||#{fqrmc}||'%'
+			</if>
+			<if test="beginFqrq != null and endFqrq != null and beginFqrq != '' and endFqrq != ''">
+				AND a.fqrq BETWEEN #{beginFqrq} AND #{endFqrq}
+			</if>
+			<if test="htlx != null and htlx != ''">
+				AND a.htlx = #{htlx}
+			</if>
+			<if test="khmc != null and khmc != ''">
+				AND a.khmc LIKE '%'||#{khmc}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_contract(
+			id,
+			htbh,
+			htmc,
+			fqrid,
+			fqrmc,
+			fqrq,
+			htlx,
+			khbm,
+			khmc,
+			khdz,
+			qyf,
+			qyf2,
+			qyf3,
+			sfk,
+			bz,
+			htje,
+			fktj,
+			yxqks,
+			yxqjs,
+			zt,
+			htjk,
+			htfs,
+			gdzt,
+			gdrq,
+			bzxx,
+			fj
+		) VALUES (
+			#{id},
+			#{htbh},
+			#{htmc},
+			#{fqrid},
+			#{fqrmc},
+			#{fqrq},
+			#{htlx},
+			#{khbm},
+			#{khmc},
+			#{khdz},
+			#{qyf},
+			#{qyf2},
+			#{qyf3},
+			#{sfk},
+			#{bz},
+			#{htje},
+			#{fktj},
+			#{yxqks},
+			#{yxqjs},
+			#{zt},
+			#{htjk},
+			#{htfs},
+			#{gdzt},
+			#{gdrq},
+			#{bzxx},
+			#{fj}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_contract
+		<set>
+            <if test="htbh != null" >
+				htbh = #{htbh},
+			</if>
+            <if test="htmc != null" >
+				htmc = #{htmc},
+			</if>
+            <if test="fqrid != null" >
+				fqrid = #{fqrid},
+			</if>
+            <if test="fqrmc != null" >
+				fqrmc = #{fqrmc},
+			</if>
+            <if test="fqrq != null" >
+				fqrq = #{fqrq},
+			</if>
+            <if test="htlx != null" >
+				htlx = #{htlx},
+			</if>
+            <if test="khbm != null" >
+				khbm = #{khbm},
+			</if>
+            <if test="khmc != null" >
+				khmc = #{khmc},
+			</if>
+            <if test="khdz != null" >
+				khdz = #{khdz},
+			</if>
+            <if test="qyf != null" >
+				qyf = #{qyf},
+			</if>
+            <if test="qyf2 != null" >
+				qyf2 = #{qyf2},
+			</if>
+            <if test="qyf3 != null" >
+				qyf3 = #{qyf3},
+			</if>
+            <if test="sfk != null" >
+				sfk = #{sfk},
+			</if>
+            <if test="bz != null" >
+				bz = #{bz},
+			</if>
+            <if test="htje != null" >
+				htje = #{htje},
+			</if>
+            <if test="fktj != null" >
+				fktj = #{fktj},
+			</if>
+            <if test="yxqks != null" >
+				yxqks = #{yxqks},
+			</if>
+            <if test="yxqjs != null" >
+				yxqjs = #{yxqjs},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+            <if test="htjk != null" >
+				htjk = #{htjk},
+			</if>
+            <if test="htfs != null" >
+				htfs = #{htfs},
+			</if>
+            <if test="gdzt != null" >
+				gdzt = #{gdzt},
+			</if>
+            <if test="gdrq != null" >
+				gdrq = #{gdrq},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+			<if test="fj != null" >
+				fj = #{fj},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_contract
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

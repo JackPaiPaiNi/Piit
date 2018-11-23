@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.price.repository.BranchPriceDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.price.vo.BranchPriceVo" >
+	
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="ts" property="ts" jdbcType="DECIMAL" />
+		<result column="bfl" property="bfl" jdbcType="DECIMAL" />
+		<result column="pp" property="pp" jdbcType="VARCHAR" />
+		<result column="qy" property="qy" jdbcType="VARCHAR" />
+		<result column="jgfs" property="jgfs" jdbcType="VARCHAR" />
+		<result column="pid" property="pid" jdbcType="VARCHAR" />
+		<result column="zxppbm" property="zxppbm" jdbcType="VARCHAR" />
+		<result column="cc" property="cc" jdbcType="DECIMAL" />
+		<result column="cplb" property="cplb" jdbcType="VARCHAR" />
+		<result column="sf3d" property="sf3d" jdbcType="VARCHAR" />
+		<result column="paneltype" property="paneltype" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="ks" property="ks" jdbcType="VARCHAR" />
+		<result column="pm" property="pm" jdbcType="VARCHAR" />
+		<result column="zx" property="zx" jdbcType="VARCHAR" />
+		<result column="ch" property="ch" jdbcType="VARCHAR" />
+		<result column="gj" property="gj" jdbcType="VARCHAR" />
+		<result column="pbc" property="pbc" jdbcType="VARCHAR" />
+		<result column="bsbhp" property="bsbhp" jdbcType="VARCHAR" />
+		<result column="qttsyq" property="qttsyq" jdbcType="VARCHAR" />
+		<result column="fob_p" property="fobP" jdbcType="DECIMAL" />
+		<result column="fob_sj" property="fobSj" jdbcType="DECIMAL" />
+		<result column="fob_zj" property="fobZj" jdbcType="DECIMAL" />
+		<result column="fob_zb" property="fobZb" jdbcType="DECIMAL" />
+		<result column="cif_p" property="cifP" jdbcType="DECIMAL" />
+		<result column="cif_sj" property="cifSj" jdbcType="DECIMAL" />
+		<result column="cif_zj" property="cifZj" jdbcType="DECIMAL" />
+		<result column="cif_zb" property="cifZb" jdbcType="DECIMAL" />
+		<result column="yxqks" property="yxqks" jdbcType="TIMESTAMP" />
+		<result column="yxqjs" property="yxqjs" jdbcType="TIMESTAMP" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	
+    
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BRANCH_PRICE.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.BranchPriceDao.baseResultMap})
+		}
+	</select>
+	
+	
+	
+   <select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BRANCH_PRICE.P_QRY(
+		    #{vo.id,jdbcType=VARCHAR,mode=IN},
+		    #{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.ks,jdbcType=VARCHAR,mode=IN},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.BranchPriceDao.baseResultMap})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_BRANCH_PRICE.P_SAVE(
+			#{vo.type,jdbcType=INTEGER,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.fktj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ts,jdbcType=INTEGER,mode=IN},
+			#{vo.bfl,jdbcType=DECIMAL,mode=IN},
+			#{vo.pp,jdbcType=VARCHAR,mode=IN},
+			#{vo.qy,jdbcType=VARCHAR,mode=IN},
+			#{vo.jgfs,jdbcType=VARCHAR,mode=IN},
+			#{vo.pid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zxppbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.cc,jdbcType=VARCHAR,mode=IN},
+			#{vo.cplb,jdbcType=VARCHAR,mode=IN},
+			#{vo.sf3d,jdbcType=VARCHAR,mode=IN},
+			#{vo.paneltype,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.ks,jdbcType=VARCHAR,mode=IN},
+			#{vo.pm,jdbcType=VARCHAR,mode=IN},
+			#{vo.zx,jdbcType=VARCHAR,mode=IN},
+			#{vo.ch,jdbcType=VARCHAR,mode=IN},
+			#{vo.gj,jdbcType=VARCHAR,mode=IN},
+			#{vo.pbc,jdbcType=VARCHAR,mode=IN},
+			#{vo.bsbhp,jdbcType=VARCHAR,mode=IN},
+			#{vo.qttsyq,jdbcType=VARCHAR,mode=IN},
+			#{vo.fobP,jdbcType=DECIMAL,mode=IN},
+			#{vo.fobSj,jdbcType=DECIMAL,mode=IN},
+			#{vo.fobZj,jdbcType=DECIMAL,mode=IN},
+			#{vo.fobZb,jdbcType=DECIMAL,mode=IN},
+			#{vo.cifP,jdbcType=DECIMAL,mode=IN},
+			#{vo.cifSj,jdbcType=DECIMAL,mode=IN},
+			#{vo.cifZj,jdbcType=DECIMAL,mode=IN},
+			#{vo.cifZb,jdbcType=DECIMAL,mode=IN},
+			#{vo.yxqks,jdbcType=VARCHAR,mode=IN},
+			#{vo.yxqjs,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<select id="getPrice" parameterType="Map" statementType="CALLABLE">
+		{call PKG_BRANCH_PRICE.P_QRY_GETPRICE(
+			#{mxlx,jdbcType=VARCHAR,mode=IN},
+			#{gjmytk,jdbcType=VARCHAR,mode=IN},
+			#{khbm,jdbcType=VARCHAR,mode=IN},
+			#{zhfs,jdbcType=VARCHAR,mode=IN},
+			#{pid,jdbcType=VARCHAR,mode=IN},
+			#{ks,jdbcType=VARCHAR,mode=IN},
+			#{jixin,jdbcType=VARCHAR,mode=IN},
+			#{jixing,jdbcType=VARCHAR,mode=IN},
+			#{pizdsj,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.price.repository.BranchPriceDao.baseResultMap})
+		}
+	</select>
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

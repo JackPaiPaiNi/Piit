@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.basesys.resource.repository.ProcessNodeDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.basesys.resource.vo.ProcessNodeVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NODE_CODE" property="nodeCode" jdbcType="VARCHAR" />
+        <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+        <result column="MODULE" property="module" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, NODE_CODE, NODE_NAME, MODULE, STATUS, DESCRIPTION, CREATOR, CREATE_TIME, LAST_UPDATER, 
+        LAST_UPDATE_TIME
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_PROCESS_NODE
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.basesys.resource.entity.ProcessNode" >
+        insert into T_PROCESS_NODE (ID, NODE_CODE, NODE_NAME, 
+            MODULE, STATUS, DESCRIPTION, 
+            CREATOR, CREATE_TIME, LAST_UPDATER, 
+            LAST_UPDATE_TIME)
+        values (#{id,jdbcType=VARCHAR}, #{nodeCode,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, 
+            #{module,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+            #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{lastUpdater,jdbcType=VARCHAR}, 
+            #{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.basesys.resource.entity.ProcessNode" >
+        update T_PROCESS_NODE
+        <set >
+            <if test="nodeCode != null and nodeCode != ''" >
+                NODE_CODE = #{nodeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="nodeName != null and nodeName != ''" >
+                NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+            </if>
+            <if test="module != null and module != ''" >
+                MODULE = #{module,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.basesys.resource.entity.ProcessNode" >
+        update T_PROCESS_NODE
+        set NODE_CODE = #{nodeCode,jdbcType=VARCHAR},
+            NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+            MODULE = #{module,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />,
+        NODE_NAME "NODE_NAME_V"
+        from T_PROCESS_NODE
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />,
+        NODE_NAME "NODE_NAME_V"
+        from T_PROCESS_NODE
+        <where >
+            <if test="nodeCode != null and nodeCode != ''" >
+                and NODE_CODE = #{nodeCode,jdbcType=VARCHAR}
+            </if>
+            <if test="nodeName != null and nodeName != ''" >
+                and NODE_NAME = #{nodeName,jdbcType=VARCHAR}
+            </if>
+            <if test="module != null and module != ''" >
+                and MODULE = #{module,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.deliverplan.repository.DeliverPlanDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.deliverplan.vo.DeliverPlanVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="zhjhdh" property="zhjhdh" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	    <result column="zt" property="zt" jdbcType="DECIMAL" />
+	    <result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="zgkssj" property="zgkssj" jdbcType="TIMESTAMP" />
+		<result column="zgjssj" property="zgjssj" jdbcType="TIMESTAMP" />
+		<result column="lx" property="lx" jdbcType="VARCHAR" />
+		<result column="lxmc" property="lxmc" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="zhjhmxResultMap" type="com.ey.piit.sdo.deliverplan.vo.DeliverPlanItemVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="zhjhdh" property="zhjhdh" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="VARCHAR" />
+		<result column="xszzmc" property="xszzmc" jdbcType="VARCHAR" />
+		<result column="xszz" property="xszz" jdbcType="VARCHAR" />
+		<result column="ywzmc" property="ywzmc" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="zhfsmc" property="zhfsmc" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="mytkmc" property="mytkmc" jdbcType="VARCHAR" />
+		<result column="mytk" property="mytk" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="yjyhrq" property="yjyhrq" jdbcType="VARCHAR" />
+		<result column="zgkssj" property="zgkssj" jdbcType="VARCHAR" />
+		<result column="zgjssj" property="zgjssj" jdbcType="VARCHAR" />
+		<result column="jgq" property="jgq" jdbcType="VARCHAR" />
+		<result column="yjkcq" property="yjkcq" jdbcType="VARCHAR" />
+		<result column="kcy" property="kcy" jdbcType="VARCHAR" />
+		<result column="qygmc" property="qygmc" jdbcType="VARCHAR" />
+		<result column="qyg" property="qyg" jdbcType="VARCHAR" />
+		<result column="chzt" property="chzt" jdbcType="DECIMAL" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="yzhlxmc" property="yzhlxmc" jdbcType="VARCHAR" />
+		<result column="yzhlx" property="yzhlx" jdbcType="VARCHAR" />
+		<result column="yg_zgs" property="ygZgs" jdbcType="DECIMAL" />
+		<result column="yg_20gp" property="yg20gp" jdbcType="DECIMAL" />
+		<result column="yg_40gp" property="yg40gp" jdbcType="DECIMAL" />
+		<result column="yg_40hq" property="yg40hq" jdbcType="DECIMAL" />
+		<result column="yg_gsbz" property="ygGsbz" jdbcType="VARCHAR" />
+		<result column="dc_zcs" property="dcZcs" jdbcType="DECIMAL" />
+		<result column="dc_3d" property="dc3d" jdbcType="DECIMAL" />
+		<result column="dc_5d" property="dc5d" jdbcType="DECIMAL" />
+		<result column="dc_8d" property="dc8d" jdbcType="DECIMAL" />
+		<result column="dc_10d" property="dc10d" jdbcType="DECIMAL" />
+		<result column="dc_12d" property="dc12d" jdbcType="DECIMAL" />
+		<result column="dc_dcbz" property="dcDcbz" jdbcType="VARCHAR" />
+		<result column="cdgsmc" property="cdgsmc" jdbcType="VARCHAR" />
+		<result column="cdgsbm" property="cdgsbm" jdbcType="VARCHAR" />
+		<result column="yzhsj" property="yzhsj" jdbcType="VARCHAR" />
+		<result column="dcdh" property="dcdh" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_QRY(
+		    #{vo.zhjhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+		    #{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+			#{vo.lx,jdbcType=VARCHAR,mode=IN},
+			#{vo.szgkssj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ezgjssj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectZhjh" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_QRY_ZHJHMX(
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+		    #{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanDao.zhjhmxResultMap})
+		}
+	</select>
+	
+	<select id="callSelectWhb" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_QRY_WHB(
+		    #{vo.zhjhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+		    #{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+			#{vo.lx,jdbcType=VARCHAR,mode=IN},
+			#{vo.szgkssj,jdbcType=VARCHAR,mode=IN},
+			#{vo.ezgjssj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanDao.baseResultMap})
+		}
+	</select>
+	    
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanDao.baseResultMap},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanItemDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callQryZhmx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_QRY_ZHMX(
+			#{khbm,jdbcType=VARCHAR,mode=IN},
+			#{zgkssj,jdbcType=DATE,mode=IN},
+			#{zgjssj,jdbcType=DATE,mode=IN},
+			#{yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.deliverplan.repository.DeliverPlanItemDao.baseResultMap})
+		}
+	</select>
+	
+
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_DELIVER_PLAN.P_SAVE(
+			#{vo.id   	, jdbcType=VARCHAR , mode=INOUT} , 
+		    #{vo.zhjhdh 	, jdbcType=VARCHAR , mode=INOUT} , 
+		    #{vo.lx 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.zdrid 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.zdrmc 	, jdbcType=VARCHAR , mode=IN} , 
+			#{vo.sjc 	, jdbcType=VARCHAR , mode=INOUT} , 
+			#{vo.zgkssj 	, jdbcType=DATE , mode=IN} , 
+			#{vo.zgjssj 	, jdbcType=DATE , mode=IN} , 
+				
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</delete>
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!-- 合并走货计划单 -->
+	<update id="callCombine" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_COMBINE(
+			#{vo.zhjhdhs,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN}, 
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!-- 取消走货计划单 -->
+	<update id="callCancel" parameterType="Map" statementType="CALLABLE">
+		{call PKG_DELIVER_PLAN.P_CANCEL(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{sjc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

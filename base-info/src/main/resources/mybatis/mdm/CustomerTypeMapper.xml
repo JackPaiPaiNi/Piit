@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CustomerTypeDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CustomerTypeVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="khfl" property="khfl" jdbcType="VARCHAR" />
+		<result column="khflmc" property="khflmc" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+		<result column="kh" property="kh" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.khbm AS "khbm",
+		a.khbm AS "kh",
+		a.khmc AS "khmc",
+		a.khfl AS "khfl",
+		a.khflmc AS "khflmc",
+		a.bzxx AS "bzxx",
+		a.zt AS "zt",
+		a.zdrid AS "zdrid",
+		a.zdrmc AS "zdrmc",
+		a.zdsj AS "zdsj"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_customer_type a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_customer_type a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="khbm != null and khbm != ''">
+				AND a.khbm = #{khbm}
+			</if>
+			<if test="khmc != null and khmc != ''">
+				AND a.khmc LIKE '%'||#{khmc}||'%'
+			</if>
+			<if test="khfl != null and khfl != ''">
+				AND a.khfl = #{khfl}
+			</if>
+			<if test="khflmc != null and khflmc != ''">
+				AND a.khflmc = #{khflmc}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_customer_type(
+			id,
+			khbm,
+			khmc,
+			khfl,
+			khflmc,
+			bzxx,
+			zt,
+			zdrid,
+			zdrmc,
+			zdsj
+		) VALUES (
+			#{id},
+			#{khbm},
+			#{khmc},
+			#{khfl},
+			#{khflmc},
+			#{bzxx},
+			#{zt},
+			#{zdrid},
+			#{zdrmc},
+			#{zdsj}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_customer_type
+		<set>
+            <if test="khbm != null" >
+				khbm = #{khbm},
+			</if>
+            <if test="khmc != null" >
+				khmc = #{khmc},
+			</if>
+            <if test="khfl != null" >
+				khfl = #{khfl},
+			</if>
+            <if test="khflmc != null" >
+				khflmc = #{khflmc},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+            <if test="zdrid != null" >
+				zdrid = #{zdrid},
+			</if>
+            <if test="zdrmc != null" >
+				zdrmc = #{zdrmc},
+			</if>
+            <if test="zdsj != null" >
+				zdsj = #{zdsj},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_customer_type
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

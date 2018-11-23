@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.booking.repository.BookingItemDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.booking.vo.BookingItemVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dcdh" property="dcdh" jdbcType="VARCHAR" />
+		<result column="yzhlx" property="yzhlx" jdbcType="VARCHAR" />
+		<result column="yzhlxmc" property="yzhlxmc" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="sfkt" property="sfkt" jdbcType="VARCHAR" />
+		<result column="zgsj" property="zgsj" jdbcType="TIMESTAMP" />
+		<result column="yg_40hq" property="yg_40hq" jdbcType="DECIMAL" />
+		<result column="yg_20gp" property="yg_20gp" jdbcType="DECIMAL" />
+		<result column="yg_40gp" property="yg_40gp" jdbcType="DECIMAL" />
+	    <result column="yg_gsbz" property="yg_gsbz" jdbcType="VARCHAR" />
+		<result column="dc_3d" property="dc_3d" jdbcType="DECIMAL" />
+		<result column="dc_5d" property="dc_5d" jdbcType="DECIMAL" />
+		<result column="dc_8d" property="dc_8d" jdbcType="DECIMAL" />
+		<result column="dc_10d" property="dc_10d" jdbcType="DECIMAL" />
+		<result column="dc_12d" property="dc_12d" jdbcType="DECIMAL" />
+		<result column="dc_dcbz" property="dc_dcbz" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_BOOKING.P_SAVE_ITEM(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.dcdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhlx,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM t_booking_item
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

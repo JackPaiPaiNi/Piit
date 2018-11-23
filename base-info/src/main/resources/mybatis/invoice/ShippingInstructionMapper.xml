@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.invoice.repository.ShippingInstructionDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.invoice.vo.ShippingInstructionVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="bldh" property="bldh" jdbcType="VARCHAR" />
+		<result column="cdgs" property="cdgs" jdbcType="VARCHAR" />
+		<result column="cdgslxr" property="cdgslxr" jdbcType="VARCHAR" />
+		<result column="cwzy" property="cwzy" jdbcType="VARCHAR" />
+		<result column="cwzymc" property="cwzymc" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="cz" property="cz" jdbcType="VARCHAR" />
+		<result column="yx" property="yx" jdbcType="VARCHAR" />
+		<result column="gsxx" property="gsxx" jdbcType="CLOB" />
+		<result column="shrxx" property="shrxx" jdbcType="CLOB" />
+		<result column="tzrxx" property="tzrxx" jdbcType="CLOB" />
+		<result column="qyg" property="qyg" jdbcType="VARCHAR" />
+		<result column="xhg" property="xhg" jdbcType="VARCHAR" />
+		<result column="mdg" property="mdg" jdbcType="VARCHAR" />
+		<result column="cmhchbh" property="cmhchbh" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="CLOB" />
+		<result column="mytk" property="mytk" jdbcType="CLOB" />
+		<result column="mtxx" property="mtxx" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="DATE" />
+		<result column="chxx" property="chxx" jdbcType="CLOB" />
+		<result column="sum_kbtj" property="sumKbtj" jdbcType="DECIMAL" />
+		<result column="sum_xs" property="sumXs" jdbcType="DECIMAL" />
+		<result column="sum_zsl" property="sumZsl" jdbcType="DECIMAL" />
+		<result column="sum_pz" property="sumPz" jdbcType="DECIMAL" />
+		<result column="sum_gmz" property="sumGmz" jdbcType="DECIMAL" />
+		<result column="sum_zmz" property="sumZmz" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<resultMap id="referResultMap" type="com.ey.piit.sdo.invoice.vo.ShippingReferDeliverVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="ddlx" property="ddlx" jdbcType="VARCHAR" />
+		<result column="ddlxmc" property="ddlxmc" jdbcType="VARCHAR" />
+		<result column="zhfs" property="zhfs" jdbcType="VARCHAR" />
+		<result column="zhfsmc" property="zhfsmc" jdbcType="VARCHAR" />
+		<result column="zgrq" property="zgrq" jdbcType="VARCHAR" />
+		<result column="qyg" property="qyg" jdbcType="VARCHAR" />
+		<result column="qygmc" property="qygmc" jdbcType="VARCHAR" />
+		<result column="qygbz" property="qygbz" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="mdg" property="mdg" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="cwzyid" property="cwzyid" jdbcType="VARCHAR" />
+		<result column="cwzymc" property="cwzymc" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionDao.baseResultMap},
+			#{jzxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionItemDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_QRY(
+			#{vo.bldh,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgs,jdbcType=VARCHAR,mode=IN},
+			#{vo.cwzymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginZdsj,jdbcType=VARCHAR,mode=IN},
+			#{vo.endZdsj,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionDao.baseResultMap})
+		}
+	</select>
+	
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_SHIPPING_INSTRUCTION.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.bldh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.cdgs,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdgslxr,jdbcType=VARCHAR,mode=IN},
+			#{vo.cwzy,jdbcType=VARCHAR,mode=IN},
+			#{vo.cwzymc,jdbcType=VARCHAR,mode=IN},
+			#{vo.dh,jdbcType=VARCHAR,mode=IN},
+			#{vo.cz,jdbcType=VARCHAR,mode=IN},
+			#{vo.yx,jdbcType=VARCHAR,mode=IN},
+			#{vo.gsxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.shrxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.tzrxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.qyg,jdbcType=VARCHAR,mode=IN},
+			#{vo.xhg,jdbcType=VARCHAR,mode=IN},
+			#{vo.mdg,jdbcType=VARCHAR,mode=IN},
+			#{vo.cmhchbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlms,jdbcType=VARCHAR,mode=IN},
+			#{vo.mytk,jdbcType=VARCHAR,mode=IN},
+			#{vo.mtxx,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdsj,jdbcType=DATE,mode=IN},
+			#{vo.chxx,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<update id="callDelete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_DELETE(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+	<select id="callSelectChxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_QRY_CHXX(
+			#{vo.chdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginChcjrq,jdbcType=VARCHAR,mode=IN},
+			#{vo.endChcjrq,jdbcType=VARCHAR,mode=IN},
+			#{vo.beginDdcjrq,jdbcType=VARCHAR,mode=IN},
+			#{vo.endDdcjrq,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionDao.referResultMap})
+		}
+	</select>
+	
+	<select id="callSelectBlxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SHIPPING_INSTRUCTION.P_QRY_BLXX(
+			#{chxx,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionDao.baseResultMap},
+			#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.invoice.repository.ShippingInstructionItemDao.baseResultMap})
+		}
+	</select>
+	
+</mapper>

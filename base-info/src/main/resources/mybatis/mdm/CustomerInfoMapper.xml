@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.CustomerInfoDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.CustomerInfoVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="khlx" property="khlx" jdbcType="VARCHAR" />
+		<result column="khlxmc" property="khlxmc" jdbcType="VARCHAR" />
+		<result column="khjc" property="khjc" jdbcType="VARCHAR" />
+		<result column="pp" property="pp" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="dz" property="dz" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="wz" property="wz" jdbcType="VARCHAR" />
+		<result column="lxr" property="lxr" jdbcType="VARCHAR" />
+		<result column="sjh" property="sjh" jdbcType="VARCHAR" />
+		<result column="yx" property="yx" jdbcType="VARCHAR" />
+		<result column="skype" property="skype" jdbcType="VARCHAR" />
+		<result column="whatapp" property="whatapp" jdbcType="VARCHAR" />
+		<result column="xsyid" property="xsyid" jdbcType="VARCHAR" />
+		<result column="xsymc" property="xsymc" jdbcType="VARCHAR" />
+		<result column="xwgj" property="xwgj" jdbcType="VARCHAR" />
+		<result column="xwgjmc" property="xwgjmc" jdbcType="VARCHAR" />
+		<result column="glkhbm" property="glkhbm" jdbcType="VARCHAR" />
+		<result column="zxbmfdm" property="zxbmfdm" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.khbm AS "khbm",
+		a.khmc AS "khmc",
+		a.khlx AS "khlx",
+		a.khlxmc AS "khlxmc",
+		a.khjc AS "khjc",
+		a.pp AS "pp",
+		a.fktj AS "fktj",
+		a.dz AS "dz",
+		a.bz AS "bz",
+		a.dh AS "dh",
+		a.wz AS "wz",
+		a.lxr AS "lxr",
+		a.sjh AS "sjh",
+		a.yx AS "yx",
+		a.skype AS "skype",
+		a.whatapp AS "whatapp",
+		a.xsyid AS "xsyid",
+		a.xsymc AS "xsymc",
+		a.xwgj AS "xwgj",
+		a.xwgjmc AS "xwgjmc",
+		a.glkhbm AS "glkhbm",
+		a.zxbmfdm AS "zxbmfdm",
+		a.bzxx AS "bzxx",
+		a.zt AS "zt"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_XSY.P_QRY(
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.mdm.repository.CustomerInfoDao.baseResultMap}
+		)}
+	</select>
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_customer_info a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_customer_info a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="khbm != null and khbm != ''">
+				AND a.khbm LIKE '%'||#{khbm}||'%'
+			</if>
+			<if test="khmc != null and khmc != ''">
+				AND a.khmc LIKE '%'||#{khmc}||'%'
+			</if>
+			<if test="khjc != null and khjc != ''">
+				AND a.khjc LIKE '%'||#{khjc}||'%'
+			</if>
+			<if test="dz != null and dz != ''">
+				AND a.dz = #{dz}
+			</if>
+			<if test="dh != null and dh != ''">
+				AND a.dh = #{dh}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_customer_info(
+			id,
+			khbm,
+			khmc,
+			khjc,
+			pp,
+			fktj,
+			dz,
+			bz,
+			dh,
+			wz,
+			lxr,
+			sjh,
+			yx,
+			skype,
+			whatapp,
+			xsyid,
+			xsymc,
+			xwgj,
+			xwgjmc,
+			glkhbm,
+			zxbmfdm,
+			bzxx,
+			zt
+		) VALUES (
+			#{id},
+			#{khbm},
+			#{khmc},
+			#{khjc},
+			#{pp},
+			#{fktj},
+			#{dz},
+			#{bz},
+			#{dh},
+			#{wz},
+			#{lxr},
+			#{sjh},
+			#{yx},
+			#{skype},
+			#{whatapp},
+			#{xsyid},
+			#{xsymc},
+			#{xwgj},
+			#{xwgjmc},
+			#{glkhbm},
+			#{zxbmfdm},
+			#{bzxx},
+			#{zt}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_customer_info
+		<set>
+            <if test="khbm != null" >
+				khbm = #{khbm},
+			</if>
+            <if test="khmc != null" >
+				khmc = #{khmc},
+			</if>
+            <if test="khjc != null" >
+				khjc = #{khjc},
+			</if>
+            <if test="pp != null" >
+				pp = #{pp},
+			</if>
+            <if test="fktj != null" >
+				fktj = #{fktj},
+			</if>
+            <if test="dz != null" >
+				dz = #{dz},
+			</if>
+            <if test="bz != null" >
+				bz = #{bz},
+			</if>
+            <if test="dh != null" >
+				dh = #{dh},
+			</if>
+            <if test="wz != null" >
+				wz = #{wz},
+			</if>
+            <if test="lxr != null" >
+				lxr = #{lxr},
+			</if>
+            <if test="sjh != null" >
+				sjh = #{sjh},
+			</if>
+            <if test="yx != null" >
+				yx = #{yx},
+			</if>
+            <if test="skype != null" >
+				skype = #{skype},
+			</if>
+            <if test="whatapp != null" >
+				whatapp = #{whatapp},
+			</if>
+            <if test="xsyid != null" >
+				xsyid = #{xsyid},
+			</if>
+            <if test="xsymc != null" >
+				xsymc = #{xsymc},
+			</if>
+            <if test="xwgj != null" >
+				xwgj = #{xwgj},
+			</if>
+            <if test="xwgjmc != null" >
+				xwgjmc = #{xwgjmc},
+			</if>
+            <if test="glkhbm != null" >
+				glkhbm = #{glkhbm},
+			</if>
+            <if test="zxbmfdm != null" >
+				zxbmfdm = #{zxbmfdm},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="zt != null" >
+				zt = #{zt},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	<update id="callUpdate" parameterType="Map" statementType="CALLABLE">
+		{call PKG_MDM_CUSTOMER_XSY.P_UPDATE(
+			#{vo.khbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.xsyid,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<delete id="delete">
+		DELETE FROM t_customer_info
+		WHERE id = #{id}
+	</delete>
+	<!-- 同步客户主数据 -->
+	<update id="callTbkhxx" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP.P_CUSTOMER}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

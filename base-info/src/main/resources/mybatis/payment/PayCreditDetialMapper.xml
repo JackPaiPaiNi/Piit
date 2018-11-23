@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.payment.repository.PayCreditDetialDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.payment.vo.PayCreditDetialVo" >
+	
+			<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="fktj" property="fktj" jdbcType="VARCHAR" />
+		<result column="jd" property="jd" jdbcType="VARCHAR" />
+		<result column="fklx" property="fklx" jdbcType="VARCHAR" />
+		<result column="lc_kzh" property="lcKzh" jdbcType="VARCHAR" />
+		<result column="lc_kzhmc" property="lcKzhmc" jdbcType="VARCHAR" />
+		<result column="pije" property="pije" jdbcType="DECIMAL" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="tpje" property="tpje" jdbcType="DECIMAL" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="sj" property="sj" jdbcType="TIMESTAMP" />
+		<result column="tpdh" property="tpdh" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+		<result column="edbz" property="edbz" jdbcType="VARCHAR" />
+		<result column="edje" property="edje" jdbcType="DECIMAL" />
+		<result column="yd_ed_hl" property="ydEdHl" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.ddid AS "ddid",
+		a.piid AS "piid",
+		a.yzhdh AS "yzhdh",
+		a.khbm AS "khbm",
+		a.khmc AS "khmc",
+		a.fktj AS "fktj",
+		a.jd AS "jd",
+		a.fklx AS "fklx",
+		a.lc_kzh AS "lcKzh",
+		a.lc_kzhmc AS "lcKzhmc",
+		a.pije AS "pije",
+		a.je AS "je",
+		a.tpje AS "tpje",
+		a.bz AS "bz",
+		a.sj AS "sj",
+		a.tpdh AS "tpdh",
+		a.bzxx AS "bzxx",
+		a.edbz AS "edbz",
+		a.edje AS "edje",
+		a.yd_ed_hl AS "ydEdHl"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_pay_credit_detial a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_pay_credit_detial a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="ddid != null and ddid!='' ">
+				AND a.ddid  like '%'|| #{ddid} || '%'
+			</if>
+			<if test="piid != null and piid!=''  ">
+				AND a.piid  like  '%'|| #{piid} ||'%'
+			</if>
+			<if test="yzhdh != null and yzhdh!=''  ">
+				AND a.yzhdh like '%' || #{yzhdh}|| '%'
+			</if>
+			<if test="khbm != null and khbm!='' ">
+				AND a.khbm like '%'|| #{khbm}||'%' or  a.khmc like '%'|| #{khbm}||'%'
+			</if>
+			<if test="fktj != null and fktj!='' ">
+				AND a.fktj like '%' || #{fktj}||'%'
+			</if>
+			<if test="jd != null and jd!='' ">
+				AND a.jd like '%' || #{jd}||'%'
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_pay_credit_detial(
+			id,
+			ddid,
+			piid,
+			yzhdh,
+			khbm,
+			khmc,
+			fktj,
+			jd,
+			fklx,
+			lc_kzh,
+			lc_kzhmc,
+			pije,
+			je,
+			tpje,
+			bz,
+			sj,
+			tpdh,
+			bzxx,
+			edbz,
+			edje,
+			yd_ed_hl
+		) VALUES (
+			#{id},
+			#{ddid},
+			#{piid},
+			#{yzhdh},
+			#{khbm},
+			#{khmc},
+			#{fktj},
+			#{jd},
+			#{fklx},
+			#{lcKzh},
+			#{lcKzhmc},
+			#{pije},
+			#{je},
+			#{tpje},
+			#{bz},
+			#{sj},
+			#{tpdh},
+			#{bzxx},
+			#{edbz},
+			#{edje},
+			#{ydEdHl}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_pay_credit_detial
+		<set>
+            <if test="ddid != null" >
+				ddid = #{ddid},
+			</if>
+            <if test="piid != null" >
+				piid = #{piid},
+			</if>
+            <if test="yzhdh != null" >
+				yzhdh = #{yzhdh},
+			</if>
+            <if test="khbm != null" >
+				khbm = #{khbm},
+			</if>
+            <if test="khmc != null" >
+				khmc = #{khmc},
+			</if>
+            <if test="fktj != null" >
+				fktj = #{fktj},
+			</if>
+            <if test="jd != null" >
+				jd = #{jd},
+			</if>
+            <if test="fklx != null" >
+				fklx = #{fklx},
+			</if>
+            <if test="lcKzh != null" >
+				lc_kzh = #{lcKzh},
+			</if>
+            <if test="lcKzhmc != null" >
+				lc_kzhmc = #{lcKzhmc},
+			</if>
+            <if test="pije != null" >
+				pije = #{pije},
+			</if>
+            <if test="je != null" >
+				je = #{je},
+			</if>
+            <if test="tpje != null" >
+				tpje = #{tpje},
+			</if>
+            <if test="bz != null" >
+				bz = #{bz},
+			</if>
+            <if test="sj != null" >
+				sj = #{sj},
+			</if>
+            <if test="tpdh != null" >
+				tpdh = #{tpdh},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+            <if test="edbz != null" >
+				edbz = #{edbz},
+			</if>
+            <if test="edje != null" >
+				edje = #{edje},
+			</if>
+            <if test="ydEdHl != null" >
+				yd_ed_hl = #{ydEdHl},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_pay_credit_detial
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

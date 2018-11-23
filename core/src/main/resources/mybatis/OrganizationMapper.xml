@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.core.repository.OrganizationDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.core.vo.OrganizationVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="PATH" property="path" jdbcType="VARCHAR" />
+        <result column="SORT" property="sort" jdbcType="DECIMAL" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="BASE_PARENT_ORG_CODE" property="baseParentOrgCode" jdbcType="VARCHAR" />
+        <result column="NC_PARENT_ORG_CODE" property="ncParentOrgCode" jdbcType="VARCHAR" />
+        <result column="ZJ_PARENT_ORG_CODE" property="zjParentOrgCode" jdbcType="VARCHAR" />
+        <result column="SW_PARENT_ORG_CODE" property="swParentOrgCode" jdbcType="VARCHAR" />
+        <result column="YS_PARENT_ORG_CODE" property="ysParentOrgCode" jdbcType="VARCHAR" />
+        <result column="ZC_PARENT_ORG_CODE" property="zcParentOrgCode" jdbcType="VARCHAR" />
+        <result column="EBS_PARENT_ORG_CODE" property="ebsParentOrgCode" jdbcType="VARCHAR" />
+        <result column="CW_PARENT_ORG_CODE" property="cwParentOrgCode" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="OPER_TYPE" property="operType" jdbcType="VARCHAR" />
+    </resultMap>
+    
+    <resultMap id="treeResultMap" type="com.ey.piit.core.entity.TreeNode" >
+    	<result property="checked" column="CHECKED" javaType="Boolean" jdbcType="CHAR"/>
+    	<result property="isParent" column="IS_PARENT" javaType="Boolean" jdbcType="CHAR"/>
+    </resultMap>
+
+    <sql id="baseColumnList" >
+        ID, NAME, CODE, TYPE, PATH, SORT, STATUS, BASE_PARENT_ORG_CODE, NC_PARENT_ORG_CODE, 
+        ZJ_PARENT_ORG_CODE, SW_PARENT_ORG_CODE, YS_PARENT_ORG_CODE, ZC_PARENT_ORG_CODE, EBS_PARENT_ORG_CODE, 
+        CW_PARENT_ORG_CODE, DESCRIPTION, CREATOR, CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_ORGANIZATION
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.core.entity.Organization" >
+        insert into T_ORGANIZATION (ID, NAME, CODE, 
+            TYPE, PATH, SORT, 
+            STATUS, BASE_PARENT_ORG_CODE, NC_PARENT_ORG_CODE, 
+            ZJ_PARENT_ORG_CODE, SW_PARENT_ORG_CODE, YS_PARENT_ORG_CODE, 
+            ZC_PARENT_ORG_CODE, EBS_PARENT_ORG_CODE, CW_PARENT_ORG_CODE, 
+            DESCRIPTION, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+            #{type,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{sort,jdbcType=DECIMAL}, 
+            #{status,jdbcType=VARCHAR}, #{baseParentOrgCode,jdbcType=VARCHAR}, #{ncParentOrgCode,jdbcType=VARCHAR}, 
+            #{zjParentOrgCode,jdbcType=VARCHAR}, #{swParentOrgCode,jdbcType=VARCHAR}, #{ysParentOrgCode,jdbcType=VARCHAR}, 
+            #{zcParentOrgCode,jdbcType=VARCHAR}, #{ebsParentOrgCode,jdbcType=VARCHAR}, #{cwParentOrgCode,jdbcType=VARCHAR}, 
+            #{description,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.core.entity.Organization" >
+        update T_ORGANIZATION
+        <set >
+            <if test="name != null and name != ''" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null and code != ''" >
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null and path != ''" >
+                PATH = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="sort != null" >
+                SORT = #{sort,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="baseParentOrgCode != null and baseParentOrgCode != ''" >
+                BASE_PARENT_ORG_CODE = #{baseParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ncParentOrgCode != null and ncParentOrgCode != ''" >
+                NC_PARENT_ORG_CODE = #{ncParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="zjParentOrgCode != null and zjParentOrgCode != ''" >
+                ZJ_PARENT_ORG_CODE = #{zjParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="swParentOrgCode != null and swParentOrgCode != ''" >
+                SW_PARENT_ORG_CODE = #{swParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ysParentOrgCode != null and ysParentOrgCode != ''" >
+                YS_PARENT_ORG_CODE = #{ysParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="zcParentOrgCode != null and zcParentOrgCode != ''" >
+                ZC_PARENT_ORG_CODE = #{zcParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="ebsParentOrgCode != null and ebsParentOrgCode != ''" >
+                EBS_PARENT_ORG_CODE = #{ebsParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cwParentOrgCode != null and cwParentOrgCode != ''" >
+                CW_PARENT_ORG_CODE = #{cwParentOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.core.entity.Organization" >
+        update T_ORGANIZATION
+        set NAME = #{name,jdbcType=VARCHAR},
+            CODE = #{code,jdbcType=VARCHAR},
+            TYPE = #{type,jdbcType=VARCHAR},
+            PATH = #{path,jdbcType=VARCHAR},
+            SORT = #{sort,jdbcType=DECIMAL},
+            STATUS = #{status,jdbcType=VARCHAR},
+            BASE_PARENT_ORG_CODE = #{baseParentOrgCode,jdbcType=VARCHAR},
+            NC_PARENT_ORG_CODE = #{ncParentOrgCode,jdbcType=VARCHAR},
+            ZJ_PARENT_ORG_CODE = #{zjParentOrgCode,jdbcType=VARCHAR},
+            SW_PARENT_ORG_CODE = #{swParentOrgCode,jdbcType=VARCHAR},
+            YS_PARENT_ORG_CODE = #{ysParentOrgCode,jdbcType=VARCHAR},
+            ZC_PARENT_ORG_CODE = #{zcParentOrgCode,jdbcType=VARCHAR},
+            EBS_PARENT_ORG_CODE = #{ebsParentOrgCode,jdbcType=VARCHAR},
+            CW_PARENT_ORG_CODE = #{cwParentOrgCode,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />
+        from T_ORGANIZATION
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />
+        from T_ORGANIZATION
+        <where >
+            <if test="name != null and name != ''" >
+	    		and NAME like '%' || #{name,jdbcType=VARCHAR} || '%'
+	    	</if>
+            <if test="code != null and code != ''" >
+                and CODE = #{code,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null and type != ''" >
+                and TYPE = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="path != null and path != ''" >
+                and PATH = #{path,jdbcType=VARCHAR}
+            </if>
+            <if test="sort != null and sort != ''" >
+                and SORT = #{sort,jdbcType=DECIMAL}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="baseParentOrgCode != null and baseParentOrgCode != ''" >
+                and BASE_PARENT_ORG_CODE = #{baseParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ncParentOrgCode != null and ncParentOrgCode != ''" >
+                and NC_PARENT_ORG_CODE = #{ncParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="zjParentOrgCode != null and zjParentOrgCode != ''" >
+                and ZJ_PARENT_ORG_CODE = #{zjParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="swParentOrgCode != null and swParentOrgCode != ''" >
+                and SW_PARENT_ORG_CODE = #{swParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ysParentOrgCode != null and ysParentOrgCode != ''" >
+                and YS_PARENT_ORG_CODE = #{ysParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="zcParentOrgCode != null and zcParentOrgCode != ''" >
+                and ZC_PARENT_ORG_CODE = #{zcParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="ebsParentOrgCode != null and ebsParentOrgCode != ''" >
+                and EBS_PARENT_ORG_CODE = #{ebsParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="cwParentOrgCode != null and cwParentOrgCode != ''" >
+                and CW_PARENT_ORG_CODE = #{cwParentOrgCode,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="org != null and org != ''" >
+	    		and (${org})
+	    	</if>
+        </where>
+    </select>
+    
+    <select id="selectChildByCode" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select
+    	<include refid="baseColumnList" />
+    	from T_ORGANIZATION
+    	where PATH like (
+	    	select max(PATH)
+	    	from T_ORGANIZATION
+	    	where CODE = #{code,jdbcType=VARCHAR}
+	    	) || '%'
+	    	and STATUS = '1'
+	    order by SORT
+    </select>
+    
+    <select id="selectTreeByParent" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select CODE "ID", NAME, TYPE, ${parentCodeColumn} "PID", ID "EXT", PATH
+    	from T_ORGANIZATION
+    	<where >
+    		STATUS = '1'
+    		<if test="parentCode != null and parentCode != ''" >
+	    		and ${parentCodeColumn} = #{parentCode,jdbcType=VARCHAR}
+	    	</if>
+    		<if test="codeIn != null and codeIn != ''" >
+	    		and CODE in (${codeIn})
+	    	</if>
+    	</where>
+    	order by SORT
+    </select>
+    
+    <select id="selectTreeBySys" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select CODE "ID", NAME, TYPE, ${parentCodeColumn} "PID", ID "EXT", PATH
+    	from T_ORGANIZATION
+    	<where >
+    		STATUS = '1'
+    		<if test="org != null and org != ''" >
+	    		and (${org})
+	    	</if>
+    		<if test="name != null and name != ''" >
+	    		and NAME like '%' || #{name,jdbcType=VARCHAR} || '%'
+	    	</if>
+	    	<if test="code != null and code != ''">
+    			and CODE = #{code,jdbcType=VARCHAR}
+    		</if>
+    		<if test="codeIn != null and codeIn != ''">
+    			and CODE in (${codeIn})
+    		</if>
+    	</where>
+    	order by SORT
+    </select>
+    
+    <select id="selectTreeBaseInCode" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select CODE "ID", NAME, TYPE, BASE_PARENT_ORG_CODE "PID", ID "EXT", PATH
+    	from T_ORGANIZATION
+    	where CODE in (${codes})
+    		and STATUS = '1'
+    		and (${org})
+    	order by SORT
+    </select>
+    
+    <select id="selectHistoryTreeByParent" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select a.CODE "ID", a.NAME, a.TYPE, a.${parentCodeColumn} "PID", a.ID "EXT", a.HIST_VERSION "EXT2"
+    	from T_ORGANIZATION_HIST a,(
+    		select CODE,max(HIST_VERSION) "HIST_VERSION"
+    		from T_ORGANIZATION_HIST
+    		where 
+    			<choose>
+		           	<when test="parentCode != null and parentCode != ''">
+		    			${parentCodeColumn} = #{parentCode,jdbcType=VARCHAR}
+		    		</when>
+		    		<otherwise>
+		    			${parentCodeColumn} is null
+		    		</otherwise>
+		    	</choose>
+		    	and LAST_UPDATE_TIME <![CDATA[<=]]> #{date,jdbcType=TIMESTAMP}
+		    	group by CODE
+    		) b
+    	where a.CODE = b.CODE
+    		and a.HIST_VERSION = b.HIST_VERSION
+   			<choose>
+	           	<when test="parentCode != null and parentCode != ''">
+	    			and a.${parentCodeColumn} = #{parentCode,jdbcType=VARCHAR}
+	    		</when>
+	    		<otherwise>
+	    			and a.${parentCodeColumn} is null
+	    		</otherwise>
+	    	</choose>
+	    	and a.LAST_UPDATE_TIME <![CDATA[<=]]> #{date,jdbcType=TIMESTAMP}
+    	order by SORT
+    </select>
+    
+    <select id="selectHistoryTreeBySys" resultMap="treeResultMap" parameterType="java.util.Map" >
+    	select a.CODE "ID", a.NAME, a.TYPE, a.${parentCodeColumn} "PID", a.ID "EXT", a.HIST_VERSION "EXT2"
+    	from T_ORGANIZATION_HIST a,(
+    		select CODE,max(HIST_VERSION) "HIST_VERSION"
+    		from T_ORGANIZATION_HIST
+    		<where >
+	    		<if test="name != null and name != ''" >
+		    		and NAME like '%' || #{name,jdbcType=VARCHAR} || '%'
+		    	</if>
+		    	<if test="code != null and code != ''">
+	    			and CODE = #{code,jdbcType=VARCHAR}
+	    		</if>
+	    		<if test="parentCode != null and parentCode != ''">
+	    			and ${parentCodeColumn} is null
+	    		</if>
+		    	and LAST_UPDATE_TIME <![CDATA[<=]]> #{date,jdbcType=TIMESTAMP}
+		    	group by CODE
+	    	</where>
+	    	) b
+    	<where >
+    		a.CODE = b.CODE
+    		and a.HIST_VERSION = b.HIST_VERSION
+    		<if test="name != null and name != ''" >
+	    		and a.NAME like '%' || #{name,jdbcType=VARCHAR} || '%'
+	    	</if>
+	    	<if test="code != null and code != ''">
+    			and a.CODE = #{code,jdbcType=VARCHAR}
+    		</if>
+    		<if test="parentCode != null and parentCode != ''">
+    			and a.${parentCodeColumn} is null
+    		</if>
+	    	and a.LAST_UPDATE_TIME <![CDATA[<=]]> #{date,jdbcType=TIMESTAMP}
+    	</where>
+    	order by SORT
+    </select>
+    
+    <select id="selectByUserId" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select o.*,uo.type "oper_type"
+    	from T_ORGANIZATION o, T_USER_ORG uo
+    	where o.id = uo.ORG_ID
+    	and uo.USER_ID = #{userId}
+    </select>
+    
+    <select id="selectByRoleId" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select o.*,ro.type "oper_type"
+    	from T_ORGANIZATION o, T_ROLE_ORG ro
+    	where o.id = ro.ORG_ID
+    	and ro.ROLE_ID = #{roleId}
+    </select>
+	
+	<select id="selectByCode" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select o.*
+    	from T_ORGANIZATION o
+    	where o.code = #{orgCode}
+    </select>
+    
+</mapper>

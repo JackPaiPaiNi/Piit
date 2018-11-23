@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.saprebate.repository.RebateApplyDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.saprebate.vo.RebateApplyVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="splsh" property="splsh" jdbcType="VARCHAR" />
+		<result column="hhao" property="hhao" jdbcType="VARCHAR" />
+		<result column="bukrs" property="bukrs" jdbcType="VARCHAR" />
+		<result column="zflnm" property="zflnm" jdbcType="VARCHAR" />
+		<result column="zitem" property="zitem" jdbcType="DECIMAL" />
+		<result column="kunnr" property="kunnr" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="zsalm" property="zsalm" jdbcType="VARCHAR" />
+		<result column="zsalmms" property="zsalmms" jdbcType="VARCHAR" />
+		<result column="zrpnm" property="zrpnm" jdbcType="VARCHAR" />
+		<result column="zmodl" property="zmodl" jdbcType="VARCHAR" />
+		<result column="waers" property="waers" jdbcType="VARCHAR" />
+		<result column="xtjyje" property="xtjyje" jdbcType="DECIMAL" />
+		<result column="cyje" property="cyje" jdbcType="DECIMAL" />
+		<result column="zfkim" property="zfkim" jdbcType="DECIMAL" />
+		<result column="meins" property="meins" jdbcType="VARCHAR" />
+		<result column="zfamt" property="zfamt" jdbcType="DECIMAL" />
+		<result column="zyamt" property="zyamt" jdbcType="DECIMAL" />
+		<result column="zybln" property="zybln" jdbcType="VARCHAR" />
+		<result column="zbuze" property="zbuze" jdbcType="DECIMAL" />
+		<result column="zlart" property="zlart" jdbcType="VARCHAR" />
+		<result column="zlartms" property="zlartms" jdbcType="VARCHAR" />
+		<result column="zstau" property="zstau" jdbcType="VARCHAR" />
+		<result column="zwcbz" property="zwcbz" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="cpudt" property="cpudt" jdbcType="TIMESTAMP" />
+		<result column="cputm" property="cputm" jdbcType="TIMESTAMP" />
+		<result column="sbyy" property="sbyy" jdbcType="VARCHAR" />
+		<result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="zrcnm" property="zrcnm" jdbcType="VARCHAR" />
+		<result column="zrcnmms" property="zrcnmms" jdbcType="VARCHAR" />
+		<result column="tssapzt" property="tssapzt" jdbcType="DECIMAL" />
+	</resultMap>
+    
+	<select id="callSelectRebateApplyById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_REBATE_APPLY_BYID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.TitleDao.baseResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.RebateApplyDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+	<select id="callViewRebateApplyById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_VIEW_REBATE_APPLY_BYID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.TitleDao.baseResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.RebateApplyDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+
+	<select id="callRebateApplyItemApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_APPLY_ITEM_APPROVE(
+		#{vo.approveType,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.sFgx,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	
+	<select id="callRebateApplyItemComplete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_APPLY_ITEM_COMPLETE(
+		#{tssapzt,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{hhao,jdbcType=VARCHAR,mode=IN},
+		#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{nr,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

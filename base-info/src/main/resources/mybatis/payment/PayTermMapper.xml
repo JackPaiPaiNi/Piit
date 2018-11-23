@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.payment.repository.PayTermDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.payment.vo.PayTermVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="fktjdm" property="fktjdm" jdbcType="VARCHAR" />
+		<result column="fktjms" property="fktjms" jdbcType="VARCHAR" />
+		<result column="xd_tt" property="xdTt" jdbcType="DECIMAL" />
+		<result column="ck_tt" property="ckTt" jdbcType="DECIMAL" />
+		<result column="xd_lc" property="xdLc" jdbcType="DECIMAL" />
+		<result column="xd_oa" property="xdOa" jdbcType="DECIMAL" />
+		<result column="xd_dp" property="xdDp" jdbcType="DECIMAL" />
+		<result column="zq"    property="zq" jdbcType="DECIMAL" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.fktjdm AS "fktjdm",
+		a.fktjms AS "fktjms",
+		a.xd_tt AS "xdTt",
+		a.ck_tt AS "ckTt",
+		a.xd_lc AS "xdLc",
+		a.xd_oa AS "xdOa",
+		a.xd_dp AS "xdDp",
+		a.zq AS "zq"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_pay_term a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_pay_term a
+		<include refid="columnJoins"/>
+		<where>
+			<if test="fktjdm != null and fktjdm != ''">
+				AND a.fktjdm = #{fktjdm}
+			</if>
+			<if test="fktjms != null and fktjms != ''">
+				AND a.fktjms like '%'||#{fktjms}||'%'
+			</if>
+			<if test="xdLc == 0.01">
+				AND a.xd_lc > #{xdLc}
+			</if>
+			<if test="zt != null">
+				AND a.zt = #{zt}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_pay_term(
+			id,
+			fktjdm,
+			fktjms,
+			xd_tt,
+			ck_tt,
+			xd_lc,
+			xd_oa,
+			xd_dp,
+			zq
+		) VALUES (
+			#{id},
+			#{fktjdm},
+			#{fktjms},
+			#{xdTt},
+			#{ckTt},
+			#{xdLc},
+			#{xdOa},
+			#{xdDp},
+			#{zq}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_pay_term
+		<set>
+			fktjdm = #{fktjdm},
+			fktjms = #{fktjms},
+			xd_tt = #{xdTt},
+			ck_tt = #{ckTt},
+			xd_lc = #{xdLc},
+			xd_oa = #{xdOa},
+			xd_dp = #{xdDp},
+			zq = #{zq}
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_pay_term
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

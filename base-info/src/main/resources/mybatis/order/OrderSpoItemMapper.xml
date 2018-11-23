@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.order.repository.OrderSpoItemDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.order.vo.OrderSpoItemVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="bbh" property="bbh" jdbcType="DECIMAL" />
+		<result column="wllx" property="wllx" jdbcType="VARCHAR" />
+		<result column="wllxmc" property="wllxmc" jdbcType="VARCHAR" />
+		<result column="wlbh" property="wlbh" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="bz" property="bz" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="ckddh" property="ckddh" jdbcType="VARCHAR" />
+		<result column="jixing" property="jixing" jdbcType="VARCHAR" />
+		<result column="jixin" property="jixin" jdbcType="VARCHAR" />
+		<result column="piid" property="piid" jdbcType="VARCHAR" />
+		<result column="piitemid" property="piitemid" jdbcType="VARCHAR" />
+		<result column="yzhsl" property="yzhsl" jdbcType="DECIMAL" />
+		<result column="flag" property="flag" jdbcType="VARCHAR" />
+		<result column="flagmc" property="flagmc" jdbcType="VARCHAR" />
+	</resultMap>
+    
+    <insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=OUT -->
+		{call PKG_ORDER_SPO.P_SAVE_ITEM(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.wllx,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlbh,jdbcType=VARCHAR,mode=IN},
+			#{vo.wlms,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.bz,jdbcType=VARCHAR,mode=IN},
+			#{vo.dw,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.sl,jdbcType=DECIMAL,mode=IN},
+			#{vo.dj,jdbcType=DECIMAL,mode=INOUT},
+			#{vo.ckddh,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixing,jdbcType=VARCHAR,mode=IN},
+			#{vo.jixin,jdbcType=VARCHAR,mode=IN},
+			#{vo.piid,jdbcType=VARCHAR,mode=IN},
+			#{vo.piitemid,jdbcType=VARCHAR,mode=IN},
+			#{vo.bbh,jdbcType=INTEGER,mode=IN},
+			#{vo.flag,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

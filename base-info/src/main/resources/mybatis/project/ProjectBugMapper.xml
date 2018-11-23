@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.project.repository.ProjectBugDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.project.vo.ProjectBugVo" >
+	    <result column="process_id" property="processId" jdbcType="VARCHAR" />
+	    <result column="id" property="id" jdbcType="DECIMAL" />
+		<result column="xmjd" property="xmjd" jdbcType="VARCHAR" />
+		<result column="cdbm" property="cdbm" jdbcType="VARCHAR" />
+		<result column="cdmc" property="cdmc" jdbcType="VARCHAR" />
+		<result column="wtms" property="wtms" jdbcType="VARCHAR" />
+		<result column="tcbm" property="tcbm" jdbcType="VARCHAR" />
+		<result column="tcbmmc" property="tcbmmc" jdbcType="VARCHAR" />
+		<result column="tcr" property="tcr" jdbcType="VARCHAR" />
+		<result column="tcrmc" property="tcrmc" jdbcType="VARCHAR" />
+		<result column="tcsj" property="tcsj" jdbcType="TIMESTAMP" />
+		<result column="yxj" property="yxj" jdbcType="DECIMAL" />
+		<result column="clr" property="clr" jdbcType="VARCHAR" />
+		<result column="clrmc" property="clrmc" jdbcType="VARCHAR" />
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="clsm" property="clsm" jdbcType="VARCHAR" />
+		<result column="sjclsj" property="sjclsj" jdbcType="TIMESTAMP" />
+		<result column="wtfl" property="wtfl" jdbcType="DECIMAL" />
+		<result column="rwfpsj" property="rwfpsj" jdbcType="TIMESTAMP" />
+		<result column="gbsj" property="gbsj" jdbcType="TIMESTAMP" />
+		<result column="yjclsj" property="yjclsj" jdbcType="TIMESTAMP" />
+		<result column="yqclsj" property="yqclsj" jdbcType="TIMESTAMP" />
+		<result column="wtdh" property="wtdh" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="logResultMap" type="com.ey.piit.sdo.project.vo.ProjectBugLogVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="dh" property="dh" jdbcType="VARCHAR" />
+		<result column="czlx" property="czlx" jdbcType="VARCHAR" />
+		<result column="czr" property="czr" jdbcType="VARCHAR" />
+		<result column="czrmc" property="czrmc" jdbcType="VARCHAR" />
+		<result column="czrj" property="czrj" jdbcType="TIMESTAMP" />
+	    <result column="nr" property="nr" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_QRY(
+			#{vo.xmjd,jdbcType=VARCHAR,mode=IN},
+		    #{vo.zt,jdbcType=VARCHAR,mode=IN},
+			#{vo.clr,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.project.repository.ProjectBugDao.baseResultMap})
+		}
+	</select>
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.project.repository.ProjectBugDao.baseResultMap},
+		    #{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.project.repository.ProjectBugDao.logResultMap})
+		}
+	</select>
+	<update id="callInsert" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_SAVE(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.wtdh,jdbcType=VARCHAR,mode=INOUT},
+			#{vo.cdbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.cdmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.wtms,jdbcType=VARCHAR,mode=IN},
+			#{vo.tcbm,jdbcType=VARCHAR,mode=IN},
+			#{vo.tcbmmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.tcr,jdbcType=VARCHAR,mode=IN},
+			#{vo.tcrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT})
+	     }
+	</update>
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_SUBMIT(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT})
+	     }
+	</update>
+	<update id="callApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_APPROVE(
+		    #{vo.approveType,jdbcType=DECIMAL,mode=IN},
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+			#{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT})
+	     }
+	</update>
+	<update id="callSaveXmzg" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_SAVE_XMZG(
+		    #{vo.id,jdbcType=VARCHAR,mode=IN},
+		    #{vo.xmjd,jdbcType=VARCHAR,mode=IN},
+		    #{vo.yxj,jdbcType=VARCHAR,mode=IN},
+		    #{vo.wtfl,jdbcType=VARCHAR,mode=IN},
+		    #{vo.flag,jdbcType=VARCHAR,mode=IN},
+		    #{vo.yqclsj,jdbcType=TIMESTAMP,mode=IN},
+		    #{vo.yjclsj,jdbcType=TIMESTAMP,mode=IN},
+		    #{vo.clr,jdbcType=VARCHAR,mode=IN},
+		    #{vo.clrmc,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT})
+	     }
+	</update>
+	<update id="callSaveKfry" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PROJECT.P_SAVE_KFRY(
+		    #{vo.id,jdbcType=VARCHAR,mode=IN},			
+		    #{vo.spyj,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT})
+	     }
+	</update>
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

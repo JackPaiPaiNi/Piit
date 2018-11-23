@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.saprebate.repository.RebatePolicyDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.saprebate.vo.RebatePolicyVo" >
+	    <result column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="zbid" property="zbid" jdbcType="VARCHAR" />
+		<result column="splsh" property="splsh" jdbcType="VARCHAR" />
+		<result column="hhao" property="hhao" jdbcType="VARCHAR" />
+		<result column="bukrs" property="bukrs" jdbcType="VARCHAR" />
+		<result column="zrpnm" property="zrpnm" jdbcType="VARCHAR" />
+		<result column="zitem" property="zitem" jdbcType="DECIMAL" />
+		<result column="zrcnm" property="zrcnm" jdbcType="VARCHAR" />
+		<result column="zrcnmms" property="zrcnmms" jdbcType="VARCHAR" />
+		<result column="zbran" property="zbran" jdbcType="VARCHAR" />
+		<result column="zprod" property="zprod" jdbcType="VARCHAR" />
+		<result column="kunnr" property="kunnr" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="zmodl" property="zmodl" jdbcType="VARCHAR" />
+		<result column="zpdec" property="zpdec" jdbcType="VARCHAR" />
+		<result column="qdms" property="qdms" jdbcType="VARCHAR" />
+		<result column="zsway" property="zsway" jdbcType="VARCHAR" />
+		<result column="zbvul_f" property="zbvulF" jdbcType="DECIMAL" />
+		<result column="zbvul_u" property="zbvulU" jdbcType="DECIMAL" />
+		<result column="zptyp" property="zptyp" jdbcType="VARCHAR" />
+		<result column="zrnum" property="zrnum" jdbcType="VARCHAR" />
+		<result column="zrbat" property="zrbat" jdbcType="VARCHAR" />
+		<result column="zmult" property="zmult" jdbcType="VARCHAR" />
+		<result column="zvdat_f" property="zvdatF" jdbcType="TIMESTAMP" />
+		<result column="zvdat_u" property="zvdatU" jdbcType="TIMESTAMP" />
+		<result column="zstau" property="zstau" jdbcType="VARCHAR" />
+		<result column="zremk" property="zremk" jdbcType="VARCHAR" />
+		<result column="userid" property="userid" jdbcType="VARCHAR" />
+		<result column="cpudt" property="cpudt" jdbcType="TIMESTAMP" />
+		<result column="cputm" property="cputm" jdbcType="TIMESTAMP" />
+	    <result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+	    <result column="tssapzt" property="tssapzt" jdbcType="DECIMAL" />
+	    <result column="flag" property="flag" jdbcType="VARCHAR" />
+	    <result column="zsalm" property="zsalm" jdbcType="VARCHAR" />
+	    <result column="zsalmms" property="zsalmms" jdbcType="VARCHAR" />
+	    
+
+	</resultMap>
+    
+	<select id="callSelectRebatePolicyById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_QRY_REBATE_POLICY_BYID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.TitleDao.baseResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.RebatePolicyDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+	<select id="callViewRebatePolicyById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_VIEW_REBATE_POLICY_BYID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.TitleDao.baseResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.saprebate.repository.RebatePolicyDao.baseResultMap},
+			#{logList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.sapspecial.repository.SapSpecialOrderDao.logResultMap}
+		)}
+	</select>
+
+	<select id="callRebatePolicyItemApprove" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_POLICY_ITEM_APPROVE(
+		#{vo.approveType,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{sffz,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	
+	<select id="callRebatePolicyItemComplete" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_APPROVE_FLOW.P_REBATE_POLICY_ITEM_COMPLETE(
+		#{vo.tssapzt,jdbcType=VARCHAR,mode=IN},
+		#{vo.id,jdbcType=VARCHAR,mode=IN},
+		#{vo.sjc,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc,jdbcType=VARCHAR,mode=IN},
+		#{nr,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</select>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

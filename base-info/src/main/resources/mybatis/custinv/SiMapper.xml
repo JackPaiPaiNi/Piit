@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.custinv.dao.SiDao">
+
+	<resultMap type="com.ey.piit.sdo.custinv.vo.SiVo" id="siResultMap">
+		<result column="zt" property="zt" jdbcType="DECIMAL" />
+		<result column="sjc" property="sjc" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sino" property="sino" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="DATE" />
+		<result column="chrid" property="chrid" jdbcType="VARCHAR" />
+		<result column="chrmc" property="chrmc" jdbcType="VARCHAR" />
+		<result column="chrdh" property="chrdh" jdbcType="VARCHAR" />
+		<result column="chryx" property="chryx" jdbcType="VARCHAR" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="fhrxx" property="fhrxx" jdbcType="CLOB" />
+		<result column="shrxx" property="shrxx" jdbcType="CLOB" />
+		<result column="tzrxx" property="tzrxx" jdbcType="CLOB" />
+		<result column="qyg" property="qyg" jdbcType="VARCHAR" />
+		<result column="shd" property="shd" jdbcType="VARCHAR" />
+		<result column="mdg" property="mdg" jdbcType="VARCHAR" />
+		<result column="zzmdd" property="zzmdd" jdbcType="VARCHAR" />
+		<result column="cmhc" property="cmhc" jdbcType="VARCHAR" />
+		<result column="ms" property="ms" jdbcType="CLOB" />
+		<result column="marks" property="marks" jdbcType="VARCHAR" />
+		<result column="sum_kbzl" property="sumKbzl" jdbcType="DECIMAL" />
+		<result column="sum_kbtj" property="sumKbtj" jdbcType="DECIMAL" />
+		<result column="sum_vgm" property="sumVgm" jdbcType="DECIMAL" />
+		<result column="sum_zxsl" property="sumZxsl" jdbcType="DECIMAL" />
+		<result column="sum_kbsl" property="sumKbsl" jdbcType="DECIMAL" />
+	</resultMap>
+
+	<resultMap type="com.ey.piit.sdo.custinv.vo.SiItemVo" id="siItemResultMap">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="sino" property="sino" jdbcType="VARCHAR" />
+		<result column="guino" property="guino" jdbcType="VARCHAR" />
+		<result column="ftno" property="ftno" jdbcType="VARCHAR" />
+		<result column="kbzwet" property="kbzwet" jdbcType="DECIMAL" />
+		<result column="kbzv" property="kbzv" jdbcType="DECIMAL" />
+		<result column="vgm" property="vgm" jdbcType="DECIMAL" />
+		<result column="boxsum" property="boxsum" jdbcType="DECIMAL" />
+		<result column="kbsum" property="kbsum" jdbcType="DECIMAL" />
+		<result column="gxnam" property="gxnam" jdbcType="VARCHAR" />
+		<result column="dcno" property="dcno" jdbcType="VARCHAR" />
+		<result column="tare" property="tare" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap type="com.ey.piit.sdo.custinv.vo.SiShippingNoticeVo"
+		id="siShippingNoticeResultMap">
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="khmc" property="khmc" jdbcType="VARCHAR" />
+		<result column="zgrq" property="zgrq" jdbcType="DATE" />
+		<result column="chdno" property="chdno" jdbcType="VARCHAR" />
+		<result column="guino" property="guino" jdbcType="VARCHAR" />
+		<result column="ftno" property="ftno" jdbcType="VARCHAR" />
+		<result column="gxnam" property="gxnam" jdbcType="VARCHAR" />
+		<result column="dcno" property="dcno" jdbcType="VARCHAR" />
+		<result column="tare" property="tare" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="callSelects" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SI.P_QRY(
+		#{vo.schdh,jdbcType=VARCHAR,mode=IN},
+		#{vo.sfph,jdbcType=VARCHAR,mode=IN},
+		#{vo.so_no,jdbcType=VARCHAR,mode=IN},
+		#{vo.gh,jdbcType=VARCHAR,mode=IN},
+		#{vo.consignee,jdbcType=VARCHAR,mode=IN},
+		#{vo.startCjrq,jdbcType=VARCHAR,mode=IN},
+		#{vo.endCjrq,jdbcType=VARCHAR,mode=IN},
+		#{page.page,jdbcType=INTEGER,mode=IN},
+		#{page.rows,jdbcType=INTEGER,mode=IN},
+		#{page.sidx,jdbcType=VARCHAR,mode=IN},
+		#{page.sord,jdbcType=VARCHAR,mode=IN},
+		#{total,jdbcType=INTEGER,mode=OUT},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siResultMap})
+		}
+	</select>
+	<!-- 查询SI 出货选择信息 -->
+	<select id="callSelectList" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SI.P_QRY_CHXX(
+		#{vo.khmc,jdbcType=VARCHAR,mode=IN},
+		#{vo.chtzs,jdbcType=VARCHAR,mode=IN},
+		#{vo.ddh,jdbcType=VARCHAR,mode=IN},
+		#{vo.beginZgrq,jdbcType=VARCHAR,mode=IN},
+		#{vo.endZgrq,jdbcType=VARCHAR,mode=IN},
+		#{vo.guino,jdbcType=VARCHAR,mode=IN},
+		#{vo.sfsi,jdbcType=INTEGER,mode=IN},
+		#{page.page,jdbcType=INTEGER,mode=IN},
+		#{page.rows,jdbcType=INTEGER,mode=IN},
+		#{page.sidx,jdbcType=VARCHAR,mode=IN},
+		#{page.sord,jdbcType=VARCHAR,mode=IN},
+		#{total,jdbcType=INTEGER,mode=OUT},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siShippingNoticeResultMap})
+		}
+	</select>
+
+	<!-- 根据ID查明细 -->
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SI.P_QRY_BY_ID(
+		#{id,jdbcType=VARCHAR,mode=IN},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siResultMap},
+		#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siItemResultMap}
+		)
+		}
+	</select>
+
+
+	<!-- 查询SI 出货选择信息 -->
+	<select id="callShippingInfo" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SI.P_QRY_SIXX(
+		#{chdNo,jdbcType=VARCHAR,mode=IN},
+		#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siResultMap},
+		#{mxList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.custinv.dao.SiDao.siItemResultMap}
+		)
+		}
+	</select>
+
+
+	<insert id="callSave" parameterType="Map" statementType="CALLABLE">
+		{call
+		PKG_SI.P_SAVE(
+		#{vo.id ,jdbcType=VARCHAR,mode=IN},
+		#{vo.sino ,jdbcType=VARCHAR,mode=INOUT},
+		#{vo.sjc ,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrid ,jdbcType=VARCHAR,mode=IN},
+		#{vo.zdrmc ,jdbcType=VARCHAR,mode=IN},
+		#{vo.chdh ,jdbcType=VARCHAR,mode=IN},
+		#{vo.chrid ,jdbcType=VARCHAR,mode=IN},
+		#{vo.chrmc ,jdbcType=VARCHAR,mode=IN},
+		#{vo.chrdh ,jdbcType=VARCHAR,mode=IN},
+		#{vo.chryx ,jdbcType=VARCHAR,mode=IN},
+		#{vo.fph ,jdbcType=VARCHAR,mode=IN},
+		#{vo.fhrxx ,jdbcType=VARCHAR,mode=IN},
+		#{vo.shrxx ,jdbcType=VARCHAR,mode=IN},
+		#{vo.tzrxx ,jdbcType=VARCHAR,mode=IN},
+		#{vo.qyg ,jdbcType=VARCHAR,mode=IN},
+		#{vo.shd ,jdbcType=VARCHAR,mode=IN},
+		#{vo.mdg ,jdbcType=VARCHAR,mode=IN},
+		#{vo.zzmdd ,jdbcType=VARCHAR,mode=IN},
+		#{vo.cmhc ,jdbcType=VARCHAR,mode=IN},
+		#{vo.ms ,jdbcType=VARCHAR,mode=IN},
+		#{vo.marks ,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)
+		}
+	</insert>
+
+	<insert id="callSaveITEM" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SI.P_SAVE_ITEM(
+		#{vo.id ,jdbcType=VARCHAR,mode=IN},
+		#{vo.sino,jdbcType=VARCHAR,mode=IN},
+		#{vo.guino,jdbcType=VARCHAR,mode=IN},
+		#{vo.ftno,jdbcType=VARCHAR,mode=IN},
+		#{vo.kbzwet,jdbcType=DECIMAL,mode=IN},
+		#{vo.kbzv,jdbcType=DECIMAL,mode=IN},
+		#{vo.vgm,jdbcType=DECIMAL,mode=IN},
+		#{vo.boxsum,jdbcType=DECIMAL,mode=IN},
+		#{vo.kbsum,jdbcType=DECIMAL,mode=IN},
+		#{vo.gxnam,jdbcType=VARCHAR,mode=IN},
+		#{vo.dcno,jdbcType=VARCHAR,mode=IN},
+		#{vo.tare,jdbcType=VARCHAR,mode=IN},
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)
+		}
+	</insert>
+	
+	
+	<update id="callDelete" parameterType="Map" statementType="CALLABLE">
+	{call PKG_SI.P_DELETE(
+		#{id,jdbcType=VARCHAR,mode=IN},   
+		#{sjc,jdbcType=VARCHAR,mode=IN},   	
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},		
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}		
+	)}
+	</update>
+	 
+	<update id="callCancel" parameterType="Map" statementType="CALLABLE">
+	{call PKG_SI.P_CANCEL(
+		#{id,jdbcType=VARCHAR,mode=IN},   
+		#{sjc,jdbcType=VARCHAR,mode=IN},   
+		#{czr,jdbcType=VARCHAR,mode=IN},   
+		#{czrmc,jdbcType=VARCHAR,mode=IN}, 	
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},		
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}		
+	)}
+	</update> 
+	
+	<update id="callSubmit" parameterType="Map" statementType="CALLABLE">
+	{call PKG_SI.P_SUBMIT(
+		#{id,jdbcType=VARCHAR,mode=IN},   
+		#{sjc,jdbcType=VARCHAR,mode=IN},   
+		#{czr,jdbcType=VARCHAR,mode=IN},   
+		#{czrmc,jdbcType=VARCHAR,mode=IN}, 	
+		#{resultCode,jdbcType=VARCHAR,mode=OUT},		
+		#{resultMsg,jdbcType=VARCHAR,mode=OUT}		
+	)}
+	</update>
+	
+	<!--===============================================自动生成分隔线=============================================== -->
+
+</mapper>

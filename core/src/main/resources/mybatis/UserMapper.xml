@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ey.piit.core.repository.UserDao" >
+    <resultMap id="baseResultMap" type="com.ey.piit.core.vo.UserVo" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="LOGIN_ACCT" property="loginAcct" jdbcType="VARCHAR" />
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="EMP_CODE" property="empCode" jdbcType="VARCHAR" />
+        <result column="COMP_CODE" property="compCode" jdbcType="VARCHAR" />
+        <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+        <result column="STATUS" property="status" jdbcType="VARCHAR" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+        <result column="CREATOR" property="creator" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="LAST_UPDATER" property="lastUpdater" jdbcType="VARCHAR" />
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+        <result column="DEFAUT_ROLE" property="defautRole" jdbcType="VARCHAR" />
+        <result column="ROLES" property="roles" jdbcType="VARCHAR" />
+        <result column="DEPT_CODE" property="deptCode" jdbcType="VARCHAR" />
+        <result column="DEPT_NAME" property="deptName" jdbcType="VARCHAR" />
+        <result column="GROUP_CODE" property="groupCode" jdbcType="VARCHAR" />
+        <result column="GROUP_NAME" property="groupName" jdbcType="VARCHAR" />
+        <result column="SFXGMM" property="sfxgmm" jdbcType="DECIMAL" />
+    </resultMap>
+    
+    <resultMap id="empResultMap" type="com.ey.piit.core.vo.EmpVo" >
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="login_acct" property="loginAcct" jdbcType="VARCHAR" />
+		<result column="emp_code" property="empCode" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="company_code" property="companyCode" jdbcType="VARCHAR" />
+		<result column="post" property="post" jdbcType="VARCHAR" />
+		<result column="certificate_type" property="certificateType" jdbcType="VARCHAR" />
+		<result column="certificate_no" property="certificateNo" jdbcType="VARCHAR" />
+		<result column="post_type" property="postType" jdbcType="VARCHAR" />
+		<result column="main_post" property="mainPost" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="creator" property="creator" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="last_updater" property="lastUpdater" jdbcType="VARCHAR" />
+		<result column="last_update_time" property="lastUpdateTime" jdbcType="TIMESTAMP" />
+		<result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+		<result column="group_code" property="groupCode" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="ywmc" property="ywmc" jdbcType="VARCHAR" />
+		<result column="xsy" property="xsy" jdbcType="VARCHAR" />
+		<result column="xsz" property="xsz" jdbcType="VARCHAR" />
+		<result column="xsy_zz" property="xsyZz" jdbcType="VARCHAR" />
+		<result column="xsz_zz" property="xszZz" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<resultMap id="districtResultMap" type="com.ey.piit.core.vo.DistrictLeaderVo" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="ywzid" property="ywzid" jdbcType="VARCHAR" />
+        <result column="ywz" property="ywz" jdbcType="VARCHAR" />
+        <result column="pqid" property="pqid" jdbcType="VARCHAR" />
+        <result column="pq" property="pq" jdbcType="VARCHAR" />
+        <result column="fzrid" property="fzrid" jdbcType="VARCHAR" />
+        <result column="fzr" property="fzr" jdbcType="VARCHAR" />
+    </resultMap>
+
+	<!-- 不显示密码 -->
+    <sql id="baseColumnList" >
+        ID, LOGIN_ACCT, USER_NAME, EMP_CODE, COMP_CODE, EMAIL, STATUS, TYPE, DESCRIPTION, 
+        CREATOR, CREATE_TIME, LAST_UPDATER, LAST_UPDATE_TIME, DEFAUT_ROLE
+    </sql>
+
+    <delete id="deleteById" parameterType="java.lang.String" >
+        delete from T_USER
+        where ID = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <insert id="insert" parameterType="com.ey.piit.core.entity.User" >
+        insert into T_USER (ID, LOGIN_ACCT, USER_NAME, 
+            PASSWORD, EMP_CODE, COMP_CODE, 
+            EMAIL, STATUS, TYPE, 
+            DESCRIPTION, CREATOR, CREATE_TIME, 
+            LAST_UPDATER, LAST_UPDATE_TIME, DEFAUT_ROLE)
+        values (#{id,jdbcType=VARCHAR}, #{loginAcct,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+            #{password,jdbcType=VARCHAR}, #{empCode,jdbcType=VARCHAR}, #{compCode,jdbcType=VARCHAR}, 
+            #{email,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+            #{description,jdbcType=VARCHAR}, #{creator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+            #{lastUpdater,jdbcType=VARCHAR}, #{lastUpdateTime,jdbcType=TIMESTAMP}, #{defautRole,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="updateById" parameterType="com.ey.piit.core.entity.User" >
+        update T_USER
+        <set >
+            <if test="loginAcct != null and loginAcct != ''" >
+                LOGIN_ACCT = #{loginAcct,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null and userName != ''" >
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password != ''" >
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="empCode != null and empCode != ''" >
+                EMP_CODE = #{empCode,jdbcType=VARCHAR},
+            </if>
+            <if test="compCode != null and compCode != ''" >
+                COMP_CODE = #{compCode,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null and email != ''" >
+                EMAIL = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null and status != ''" >
+                STATUS = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null and type != ''" >
+                TYPE = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null and description != ''" >
+                DESCRIPTION = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="creator != null and creator != ''" >
+                CREATOR = #{creator,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            </if>
+            <if test="lastUpdateTime != null" >
+                LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="defautRole != null and defautRole != ''" >
+                DEFAUT_ROLE = #{defautRole,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateAllById" parameterType="com.ey.piit.core.entity.User" >
+        update T_USER
+        set LOGIN_ACCT = #{loginAcct,jdbcType=VARCHAR},
+            USER_NAME = #{userName,jdbcType=VARCHAR},
+            <if test="password != null and password != ''" >
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            EMP_CODE = #{empCode,jdbcType=VARCHAR},
+            COMP_CODE = #{compCode,jdbcType=VARCHAR},
+            EMAIL = #{email,jdbcType=VARCHAR},
+            STATUS = #{status,jdbcType=VARCHAR},
+            TYPE = #{type,jdbcType=VARCHAR},
+            DESCRIPTION = #{description,jdbcType=VARCHAR},
+            CREATOR = #{creator,jdbcType=VARCHAR},
+            CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR},
+            LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP},
+            DEFAUT_ROLE = #{defautRole,jdbcType=VARCHAR}
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectById" resultMap="baseResultMap" parameterType="java.lang.String" >
+        select 
+        <include refid="baseColumnList" />,
+        (select description from T_ORGANIZATION where CODE = t.COMP_CODE) "COMP_NAME",
+        (select wm_concat(b.name) from t_user_role a, t_role b where a.role_id = b.id and a.user_id = t.id ) "ROLES"
+        from T_USER t
+        where ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPage" resultMap="baseResultMap" parameterType="java.util.Map" >
+        select 
+        <include refid="baseColumnList" />,
+        (select description from T_ORGANIZATION where CODE = t.COMP_CODE) "COMP_NAME",
+        (select wm_concat(b.name) from t_user_role a, t_role b where a.role_id = b.id and a.user_id = t.id ) "ROLES"
+        from T_USER t
+        <where >
+            <if test="loginAcct != null and loginAcct != ''" >
+                and LOGIN_ACCT like '%'||#{loginAcct,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="userName != null and userName != ''" >
+                and USER_NAME like '%'||#{userName,jdbcType=VARCHAR}||'%'
+            </if>
+            <if test="password != null and password != ''" >
+                and PASSWORD = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="empCode != null and empCode != ''" >
+                and EMP_CODE = #{empCode,jdbcType=VARCHAR}
+            </if>
+            <if test="compCode != null and compCode != ''" >
+                and COMP_CODE = #{compCode,jdbcType=VARCHAR}
+            </if>
+            <if test="email != null and email != ''" >
+                and EMAIL = #{email,jdbcType=VARCHAR}
+            </if>
+            <if test="status != null and status != ''" >
+                and STATUS = #{status,jdbcType=VARCHAR}
+            </if>
+            <if test="type != null and type != ''" >
+                and TYPE = #{type,jdbcType=VARCHAR}
+            </if>
+            <if test="description != null and description != ''" >
+                and DESCRIPTION = #{description,jdbcType=VARCHAR}
+            </if>
+            <if test="creator != null and creator != ''" >
+                and CREATOR = #{creator,jdbcType=VARCHAR}
+            </if>
+            <if test="createTime != null and createTime != ''" >
+                and CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="lastUpdater != null and lastUpdater != ''" >
+                and LAST_UPDATER = #{lastUpdater,jdbcType=VARCHAR}
+            </if>
+            <if test="lastUpdateTime != null and lastUpdateTime != ''" >
+                and LAST_UPDATE_TIME = #{lastUpdateTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="defautRole != null and defautRole != ''" >
+                and DEFAUT_ROLE = #{defautRole,jdbcType=VARCHAR}
+            </if>
+            <if test="param != null and param != ''" ><!-- autocomplete -->
+                and (EMP_CODE like '%'||#{param,jdbcType=VARCHAR}||'%' or USER_NAME like '%'||#{param,jdbcType=VARCHAR}||'%')
+            </if>
+        </where>
+    </select>
+    
+	<select id="selectByLoginAcct" resultMap="baseResultMap" parameterType="java.lang.String" >
+		select u.*,o.DESCRIPTION "COMP_NAME",u.COMP_CODE "GROUP_CODE",
+        CASE WHEN LENGTH(o.BASE_PARENT_ORG_CODE)=4 THEN o.BASE_PARENT_ORG_CODE WHEN  LENGTH(o.BASE_PARENT_ORG_CODE)=2  THEN o.code END
+         "DEPT_CODE",o.NAME "GROUP_NAME",i.NAME "DEPT_NAME"
+		  from T_USER u
+	      left join T_ORGANIZATION o
+	    	on u.COMP_CODE = o.CODE
+	      left join T_ORGANIZATION i 
+	        on o.BASE_PARENT_ORG_CODE = i.CODE
+		 where u.LOGIN_ACCT = UPPER(#{loginAcct,jdbcType=VARCHAR})
+	</select>
+    
+    <select id="selectByRoleId" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select u.*,o.description "COMP_NAME"
+    	from T_USER u, T_USER_ROLE ur, T_ORGANIZATION o
+    	where u.ID = ur.USER_ID
+    		and o.CODE(+) = u.COMP_CODE
+    		and ur.ROLE_ID = #{id,jdbcType=VARCHAR}
+    		and u.status = 1
+    	order by u.USER_NAME
+    </select>
+    
+    <select id="selectByRoleCode" resultMap="baseResultMap" parameterType="java.lang.String" >
+    	select u.*
+    	from T_USER u, T_ROLE r, T_USER_ROLE ur
+    	where u.ID = ur.USER_ID
+    		and r.ID = ur.ROLE_ID
+    		and r.CODE = #{code,jdbcType=VARCHAR}
+    		and u.status = 1
+    </select>
+    
+    <select id="selectEmployeeByEmpCode" resultMap="empResultMap" parameterType="java.lang.String" >
+    	select *
+    	from T_EMPLOYEE
+    	where EMP_CODE = UPPER(#{empCode,jdbcType=VARCHAR})
+    </select>
+    
+    <update id="updateByEmpCode">
+		UPDATE t_user
+		<set>
+            <if test="loginAcct != null" >
+				login_acct = #{loginAcct},
+			</if>
+			 <if test="status != null" >
+				status = #{status},
+			</if>
+            <if test="userName != null" >
+				user_name = #{userName},
+			</if>
+			<if test="empCode != null " >
+                emp_code = #{empCode},
+            </if>
+            <if test="compCode != null" >
+				comp_code = #{compCode},
+			</if>
+            <if test="email != null" >
+				email = #{email},
+			</if>
+            <if test="description != null" >
+				description = #{description},
+			</if>
+            <if test="lastUpdater != null" >
+				last_updater = #{lastUpdater},
+			</if>
+            <if test="lastUpdateTime != null" >
+				last_update_time = #{lastUpdateTime},
+			</if>
+			 
+        </set>
+		WHERE emp_code = #{oldEmpCode}
+	</update>
+	
+   <update id="deleteByEmpCode">
+		UPDATE   t_user SET STATUS='0'  WHERE emp_code = UPPER(#{oldEmpCode})
+   </update>
+   
+   <update id="updatePswdByEmpcode">
+		UPDATE   t_user  set  password = #{password},SFXGMM = 1  where  LOGIN_ACCT=#{loginAcct}  
+   </update>
+   
+   <select id="selectByYwzCode" resultMap="districtResultMap" parameterType="java.lang.String" >
+    	select u.*
+    	  from t_district_leader u
+    	 where u.ywzid = #{ywzCode,jdbcType=VARCHAR}
+    </select>
+   
+</mapper>

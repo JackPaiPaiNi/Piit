@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.payment.repository.PayValidateDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.payment.vo.PayValidateVo" >
+	
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="jd" property="jd" jdbcType="VARCHAR" />
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="yzhdh" property="yzhdh" jdbcType="VARCHAR" />
+		<result column="zy" property="zy" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<select id="callSelectLog" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_VALIDATE.P_GET_VALIDATE_LOG(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.payment.repository.PayValidateDao.baseResultMap})
+		}
+	</select>
+	
+	<update id="callCheckOrder" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_VALIDATE.P_ORDER(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{ddlx,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callCheckPso" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_VALIDATE.P_PSO(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	
+	<update id="callSaveLog" parameterType="Map" statementType="CALLABLE">
+		{call PKG_PAY_VALIDATE.P_ADD_VALIDATE_LOG(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.jd,jdbcType=VARCHAR,mode=IN},
+			#{vo.ddid,jdbcType=VARCHAR,mode=IN},
+			#{vo.yzhdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zy,jdbcType=VARCHAR,mode=IN}
+		)}
+	</update>
+	
+</mapper>

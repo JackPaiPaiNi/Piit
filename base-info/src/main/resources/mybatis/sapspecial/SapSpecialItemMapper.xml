@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.sapspecial.repository.SapSpecialItemDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.sapspecial.vo.SapSpecialItemVo">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="xmh" property="xmh" jdbcType="DECIMAL" />
+		<result column="xl" property="xl" jdbcType="VARCHAR" />
+		<result column="xh" property="xh" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="xsdj" property="xsdj" jdbcType="DECIMAL" />
+		<result column="xsze" property="xsze" jdbcType="DECIMAL" />
+		<result column="zkje" property="zkje" jdbcType="DECIMAL" />
+		<result column="hb" property="hb" jdbcType="VARCHAR" />
+		<result column="xsmll" property="xsmll" jdbcType="DECIMAL" />
+		<result column="xsdd" property="xsdd" jdbcType="VARCHAR" />
+	</resultMap>
+</mapper>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.interfaces.invoice.dao.IinvoiceDao">
+
+	 <resultMap id="headerResultMap" type="com.ey.piit.interfaces.invoice.dto.InvoiceHeaderDto" >
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="zxbdm" property="zxbdm" jdbcType="VARCHAR" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="je" property="je" jdbcType="VARCHAR" />  
+		<result column="kprq" property="kprq" jdbcType="VARCHAR" /> 
+	    <result column="qyrq" property="qyrq" jdbcType="VARCHAR" /> 
+	    <result column="yjddq" property="yjddq" jdbcType="VARCHAR" /> 
+	    <result column="cylx" property="cylx" jdbcType="VARCHAR" /> 
+	    <result column="fktj" property="fktj" jdbcType="VARCHAR" /> 
+	    <result column="gjmytj" property="gjmytj" jdbcType="VARCHAR" /> 
+	    <result column="gjmytjbz" property="gjmytjbz" jdbcType="VARCHAR" /> 
+	    <result column="bz" property="bz" jdbcType="VARCHAR" />
+	    <result column="tdh" property="tdh" jdbcType="VARCHAR" />
+	    <result column="lcbh" property="lcbh" jdbcType="VARCHAR" />
+	    <result column="hgbm" property="hgbm" jdbcType="VARCHAR" />
+	    <result column="kzhdm" property="kzhdm" jdbcType="VARCHAR" />
+	    <result column="kpfs" property="kpfs" jdbcType="VARCHAR" />
+	    <result column="fplx" property="fplx" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="bodyResultMap" type="com.ey.piit.interfaces.invoice.dto.InvoiceBodyDto" >
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="jhdh" property="jhdh" jdbcType="VARCHAR" />
+		<result column="jhdxmh" property="jhdxmh" jdbcType="VARCHAR" />
+		<result column="wlbm" property="wlbm" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="zsl" property="zsl" jdbcType="DECIMAL" />
+		<result column="dhsl" property="dhsl" jdbcType="DECIMAL" />
+		<result column="mfsl" property="mfsl" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="je" property="je" jdbcType="DECIMAL" />
+		<result column="dhje" property="dhje" jdbcType="DECIMAL" />
+		<result column="mfje" property="mfje" jdbcType="DECIMAL" />
+		<result column="jgdw" property="jgdw" jdbcType="DECIMAL" />
+	</resultMap> 
+	
+	<resultMap id="headernewResultMap" type="com.ey.piit.interfaces.invoice.dto.InvoiceHeaderDto" >
+		<result column="gsbm" property="gsbm" jdbcType="VARCHAR" />
+		<result column="khbm" property="khbm" jdbcType="VARCHAR" />
+		<result column="zxbdm" property="zxbdm" jdbcType="VARCHAR" />
+		<result column="fph" property="fph" jdbcType="VARCHAR" />
+		<result column="zje" property="je" jdbcType="VARCHAR" />  
+		<result column="sjkpzje" property="sjkpzje" jdbcType="VARCHAR" />
+		<result column="kprq" property="kprq" jdbcType="VARCHAR" /> 
+	    <result column="qyrq" property="qyrq" jdbcType="VARCHAR" /> 
+	    <result column="yjddq" property="yjddq" jdbcType="VARCHAR" /> 
+	    <result column="cylx" property="cylx" jdbcType="VARCHAR" /> 
+	    <result column="fktj" property="fktj" jdbcType="VARCHAR" /> 
+	    <result column="gjmytj" property="gjmytj" jdbcType="VARCHAR" /> 
+	    <result column="gjmytjbz" property="gjmytjbz" jdbcType="VARCHAR" /> 
+	    <result column="bz" property="bz" jdbcType="VARCHAR" />
+	    <result column="tdh" property="tdh" jdbcType="VARCHAR" />
+	    <result column="lcbh" property="lcbh" jdbcType="VARCHAR" />
+	    <result column="hgbm" property="hgbm" jdbcType="VARCHAR" />
+	    <result column="kzhdm" property="kzhdm" jdbcType="VARCHAR" />
+	    <result column="kpfs" property="kpfs" jdbcType="VARCHAR" />
+	    <result column="fplx" property="fplx" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="bodynewResultMap" type="com.ey.piit.interfaces.invoice.dto.InvoiceBodyDto" >
+		<result column="ddh" property="ddh" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="jhdh" property="jhdh" jdbcType="VARCHAR" />
+		<result column="serino" property="serino" jdbcType="VARCHAR" />
+		<result column="ddxxmh" property="ddxxmh" jdbcType="VARCHAR" />
+		<result column="fpje" property="fpje" jdbcType="DECIMAL" />
+		<result column="xmlb" property="xmlb" jdbcType="VARCHAR" />
+		<result column="wlbm" property="wlbm" jdbcType="VARCHAR" />
+		<result column="wlms" property="wlms" jdbcType="VARCHAR" />
+		<result column="sl" property="sl" jdbcType="DECIMAL" />
+		<result column="dw" property="dw" jdbcType="VARCHAR" />
+		<result column="dj" property="dj" jdbcType="DECIMAL" />
+		<result column="jgdw" property="jgdw" jdbcType="DECIMAL" />
+	</resultMap>
+    
+ 	 <select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_INVOICE_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{fplx,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.invoice.dao.IinvoiceDao.headerResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.invoice.dao.IinvoiceDao.bodyResultMap})
+		}
+	</select> 
+	
+	<select id="callnewSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_SAP_INTERFACES.P_QRY_BY_INVOICE_ID_NEW(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{fplx,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.invoice.dao.IinvoiceDao.headernewResultMap},
+			#{itemList,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.interfaces.invoice.dao.IinvoiceDao.bodynewResultMap})
+		}
+	</select>
+	
+	
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

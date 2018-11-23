@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.mdm.repository.AmspryDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.mdm.vo.AmspryVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.id AS "id",
+		a.value AS "name"
+	</sql>
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_Para_Config a
+		where key ='AMSPR'
+	</select>
+	
+	<insert id="insert">
+	</insert>
+	
+	<update id="update">
+		UPDATE t_Para_Config
+		<set>
+            <if test="name != null" >
+				value = #{name},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	<!-- 修改员工表的名称 -->
+	<update id="updateEmploeeName">
+		UPDATE t_employee
+		<set>
+            <if test="name != null" >
+				name = #{name},
+			</if>
+        </set>
+		WHERE login_acct = 'SMO999'
+	</update>
+	<!-- 修改用户表的名称 -->
+	<update id="updateUserName">
+		UPDATE t_user
+		<set>
+            <if test="name != null" >
+				user_name = #{name},
+			</if>
+        </set>
+		WHERE login_acct = 'SMO999'
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

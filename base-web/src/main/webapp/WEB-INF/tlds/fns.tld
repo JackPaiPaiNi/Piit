@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+    
+  <description>JSTL 1.1 functions library</description>
+  <display-name>JSTL functions sys</display-name>
+  <tlib-version>1.1</tlib-version>
+  <short-name>fns</short-name>
+  <uri>http://java.sun.com/jsp/jstl/functionss</uri>
+
+  <function>
+    <description>获取字典对象列表</description>
+    <name>loadDictOption</name>
+    <function-class>com.ey.piit.baseinfo.utils.DictUtils</function-class>
+    <function-signature>java.lang.String loadDictOption(java.lang.String)</function-signature>
+    <example>${fns:loadDictOption(type)}</example> 
+  </function>
+  
+  <function>
+    <description>获取字典对象列表</description>
+    <name>loadDictEditOption</name>
+    <function-class>com.ey.piit.baseinfo.utils.DictUtils</function-class>
+    <function-signature>java.lang.String loadDictEditOption(java.lang.String)</function-signature>
+    <example>${fns:loadDictEditOption(type)}</example> 
+  </function>
+  
+  <function>
+    <description>获取字典对象列表Code+Name</description>
+    <name>loadDictCodeNameOption</name>
+    <function-class>com.ey.piit.baseinfo.utils.DictUtils</function-class>
+    <function-signature>java.lang.String loadDictCodeNameOption(java.lang.String)</function-signature>
+    <example>${fns:loadDictCodeNameOption(type)}</example> 
+  </function>
+  
+  <function>
+    <description>获取所属公司</description>
+    <name>loadCompanyOption</name>
+    <function-class>com.ey.piit.sdo.pub.utils.CompanyInfoUtils</function-class>
+    <function-signature>java.lang.String loadCompanyOption(java.lang.String)</function-signature>
+    <example>${fns:loadCompanyOption(isjqGrid)}</example> 
+  </function>
+  
+  <function>
+    <description>国家选择</description>
+    <name>loadCountryOption</name>
+    <function-class>com.ey.piit.sdo.pub.utils.CountryUtils</function-class>
+    <function-signature>java.lang.String loadCountryOption(java.lang.String)</function-signature>
+    <example>${fns:loadCountryOption(isjqGrid)}</example> 
+  </function>
+  
+   <function>
+    <description>银行选择选择</description>
+    <name>loadBankInfoOption</name>
+    <function-class>com.ey.piit.sdo.pub.utils.BankInfoUtils</function-class>
+    <function-signature>java.lang.String loadBankInfoOption(java.lang.String)</function-signature>
+    <example>${fns:loadBankInfoOption(isjqGrid)}</example> 
+  </function> 
+
+   <function>
+    <description>业务组</description>
+    <name>loadYwzOption</name>
+    <function-class>com.ey.piit.sdo.pub.utils.OrganaziationUtils</function-class>
+    <function-signature>java.lang.String loadYwzOption(java.lang.String)</function-signature>
+    <example>${fns:loadYwzOption(isjqGrid)}</example> 
+  </function>
+  
+  <function>
+    <description>机型选择</description>
+    <name>loadModelOption</name>
+    <function-class>com.ey.piit.sdo.pub.utils.ModelUtils</function-class>
+    <function-signature>java.lang.String loadModelOption(java.lang.String,java.lang.String)</function-signature>
+    <example>${fns:loadModelOption(isjqGrid, type)}</example> 
+  </function>
+  
+</taglib>

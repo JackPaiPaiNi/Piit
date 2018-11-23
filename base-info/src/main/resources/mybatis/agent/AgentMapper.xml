@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.agent.repository.AgentDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.agent.vo.AgentVo" >
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="wtdh" property="wtdh" jdbcType="VARCHAR" />
+		<result column="wtr" property="wtr" jdbcType="VARCHAR" />
+		<result column="wtrmc" property="wtrmc" jdbcType="VARCHAR" />
+		<result column="bwtr" property="bwtr" jdbcType="VARCHAR" />
+		<result column="bwtrmc" property="bwtrmc" jdbcType="VARCHAR" />
+	    <result column="zt" property="zt" jdbcType="DECIMAL" />
+	    <result column="ztmc" property="ztmc" jdbcType="VARCHAR" />
+		<result column="kssj" property="kssj" jdbcType="TIMESTAMP" />
+		<result column="jssj" property="jssj" jdbcType="TIMESTAMP" />
+		<result column="wtbz" property="wtbz" jdbcType="VARCHAR" />
+		<result column="zdrid" property="zdrid" jdbcType="VARCHAR" />
+		<result column="zdrmc" property="zdrmc" jdbcType="VARCHAR" />
+		<result column="zdsj" property="zdsj" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="callSelect" parameterType="Map" statementType="CALLABLE">
+		{call PKG_AGENT.P_QRY(
+		    #{vo.wtdh,jdbcType=VARCHAR,mode=IN},
+			#{vo.zt,jdbcType=INTEGER,mode=IN},
+			#{vo.wtr,jdbcType=VARCHAR,mode=IN},
+			#{vo.bwtr,jdbcType=VARCHAR,mode=IN},
+			#{userId,jdbcType=VARCHAR,mode=IN},
+			#{page.page,jdbcType=INTEGER,mode=IN},
+			#{page.rows,jdbcType=INTEGER,mode=IN},
+			#{page.sidx,jdbcType=VARCHAR,mode=IN},
+			#{page.sord,jdbcType=VARCHAR,mode=IN},
+			#{total,jdbcType=INTEGER,mode=OUT},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.agent.repository.AgentDao.baseResultMap})
+		}
+	</select>
+	
+	<select id="callSelectById" parameterType="Map" statementType="CALLABLE">
+		{call PKG_AGENT.P_QRY_BY_ID(
+			#{id,jdbcType=VARCHAR,mode=IN},
+			#{list,jdbcType=CURSOR,mode=OUT,javaType=ResultSet,resultMap=com.ey.piit.sdo.agent.repository.AgentDao.baseResultMap})
+		}
+	</select>
+	
+
+	<insert id="callInsert" parameterType="Map" statementType="CALLABLE">
+		<!-- 当参数类型为IN OUT时，mode=INOUT -->
+		{call PKG_AGENT.P_SAVE(
+			#{vo.id, jdbcType=VARCHAR, mode=INOUT}, 
+		    #{vo.wtdh, jdbcType=VARCHAR, mode=INOUT},
+			#{vo.wtr, jdbcType=VARCHAR, mode=IN}, 
+			#{vo.wtrmc, jdbcType=VARCHAR, mode=IN},
+			#{vo.bwtr, jdbcType=VARCHAR, mode=IN}, 
+			#{vo.bwtrmc, jdbcType=VARCHAR, mode=IN},
+			#{vo.zdrid, jdbcType=VARCHAR, mode=IN}, 
+			#{vo.zdrmc, jdbcType=VARCHAR, mode=IN},
+			#{vo.kssj, jdbcType=DATE, mode=IN}, 
+			#{vo.jssj, jdbcType=DATE, mode=IN}, 
+			#{vo.wtbz, jdbcType=VARCHAR, mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</insert>
+
+	<!-- 取消走货计划单 -->
+	<update id="callCancel" parameterType="Map" statementType="CALLABLE">
+		{call PKG_AGENT.P_CANCEL(
+			#{vo.id,jdbcType=VARCHAR,mode=IN},
+			#{vo.zdrid,jdbcType=VARCHAR,mode=IN},
+			#{resultCode,jdbcType=VARCHAR,mode=OUT},
+			#{resultMsg,jdbcType=VARCHAR,mode=OUT}
+		)}
+	</update>
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>

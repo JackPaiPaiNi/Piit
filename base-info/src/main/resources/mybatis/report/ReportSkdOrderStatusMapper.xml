@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ey.piit.sdo.report.repository.ReportSkdOrderStatusDao">
+
+	<resultMap id="baseResultMap" type="com.ey.piit.sdo.report.vo.ReportSkdOrderStatusVo" >
+	
+		<result column="ddid" property="ddid" jdbcType="VARCHAR" />
+		<result column="chdh" property="chdh" jdbcType="VARCHAR" />
+		<result column="hsztsl" property="hsztsl" jdbcType="DECIMAL" />
+		<result column="wlddblgcsl" property="wlddblgcsl" jdbcType="DECIMAL" />
+		<result column="skddscsl" property="skddscsl" jdbcType="DECIMAL" />
+		<result column="zjdchsl" property="zjdchsl" jdbcType="DECIMAL" />
+		<result column="zjblpsl" property="zjblpsl" jdbcType="DECIMAL" />
+		<result column="wztsl" property="wztsl" jdbcType="DECIMAL" />
+		<result column="chsl" property="chsl" jdbcType="DECIMAL" />
+		<result column="blgcchrq" property="blgcchrq" jdbcType="TIMESTAMP" />
+		<result column="bcchkhmc" property="bcchkhmc" jdbcType="VARCHAR" />
+		<result column="bzxx" property="bzxx" jdbcType="VARCHAR" />
+
+	</resultMap>
+    
+	<sql id="baseColumnList">
+		a.ddid AS "ddid",
+		a.chdh AS "chdh",
+		a.hsztsl AS "hsztsl",
+		a.wlddblgcsl AS "wlddblgcsl",
+		a.skddscsl AS "skddscsl",
+		a.zjdchsl AS "zjdchsl",
+		a.zjblpsl AS "zjblpsl",
+		a.wztsl AS "wztsl",
+		a.chsl AS "chsl",
+		a.blgcchrq AS "blgcchrq",
+		a.bcchkhmc AS "bcchkhmc",
+		a.bzxx AS "bzxx"
+	</sql>
+	
+	<sql id="columnJoins">
+	</sql>
+    
+	<select id="selectById" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_report_skd_order a
+		<include refid="columnJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="select" resultMap="baseResultMap">
+		SELECT 
+			<include refid="baseColumnList"/>
+		FROM t_report_skd_order a
+		<include refid="columnJoins"/>
+		<where>
+		</where>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO t_report_skd_order(
+			ddid,
+			chdh,
+			hsztsl,
+			wlddblgcsl,
+			skddscsl,
+			zjdchsl,
+			zjblpsl,
+			wztsl,
+			chsl,
+			blgcchrq,
+			bcchkhmc,
+			bzxx
+		) VALUES (
+			#{ddid},
+			#{chdh},
+			#{hsztsl},
+			#{wlddblgcsl},
+			#{skddscsl},
+			#{zjdchsl},
+			#{zjblpsl},
+			#{wztsl},
+			#{chsl},
+			#{blgcchrq},
+			#{bcchkhmc},
+			#{bzxx}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE t_report_skd_order
+		<set>
+            <if test="ddid != null" >
+				ddid = #{ddid},
+			</if>
+            <if test="chdh != null" >
+				chdh = #{chdh},
+			</if>
+            <if test="hsztsl != null" >
+				hsztsl = #{hsztsl},
+			</if>
+            <if test="wlddblgcsl != null" >
+				wlddblgcsl = #{wlddblgcsl},
+			</if>
+            <if test="skddscsl != null" >
+				skddscsl = #{skddscsl},
+			</if>
+            <if test="zjdchsl != null" >
+				zjdchsl = #{zjdchsl},
+			</if>
+            <if test="zjblpsl != null" >
+				zjblpsl = #{zjblpsl},
+			</if>
+            <if test="wztsl != null" >
+				wztsl = #{wztsl},
+			</if>
+            <if test="chsl != null" >
+				chsl = #{chsl},
+			</if>
+            <if test="blgcchrq != null" >
+				blgcchrq = #{blgcchrq},
+			</if>
+            <if test="bcchkhmc != null" >
+				bcchkhmc = #{bcchkhmc},
+			</if>
+            <if test="bzxx != null" >
+				bzxx = #{bzxx},
+			</if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM t_report_skd_order
+		WHERE id = #{id}
+	</delete>
+	
+	<!--===============================================自动生成分隔线===============================================-->
+	
+</mapper>
